@@ -27,8 +27,5 @@ class FirebaseAuthRepo extends AuthRepo {
     String userID,
     String email,
     String password,
-  ) {
-    // TODO: implement signUp
-    throw UnimplementedError();
-  }
+  ) async {}
 }

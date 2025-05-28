@@ -1,9 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/material.dart';
-import 'package:wisefox/ui/screens/authorization/sign_in_screen.dart';
+import 'package:wisefox/ui/screens/onboarding/splash_screen.dart';
 
-void main(){
+void main() {
   SystemChrome.setSystemUIOverlayStyle(
     const SystemUiOverlayStyle(statusBarColor: Colors.transparent),
   );
@@ -19,13 +19,10 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       theme: CupertinoThemeData(
         textTheme: CupertinoTextThemeData(
-          textStyle: TextStyle(
-            fontFamily: 'Plus Jakarta Sans',
-          ),
+          textStyle: TextStyle(fontFamily: 'Plus Jakarta Sans'),
         ),
       ),
-      home: SignInScreen(
-      ),
+      home: SplashScreen(),
     );
   }
 }
