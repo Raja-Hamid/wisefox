@@ -2,7 +2,6 @@ plugins {
     id("com.android.application")
     id("kotlin-android")
     id("dev.flutter.flutter-gradle-plugin")
-    id("com.google.gms.google-services")
 }
 
 android {
@@ -45,5 +44,4 @@ flutter {
 
 dependencies {
     implementation("androidx.core:core-splashscreen:1.0.1")
-    implementation(platform("com.google.firebase:firebase-bom:33.14.0"))
 }

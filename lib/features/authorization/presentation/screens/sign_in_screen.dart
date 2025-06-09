@@ -1,12 +1,13 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:wisefox/core/utilities/colors.dart';
-import 'package:wisefox/features/authorization/presentation/screens/sign_up_screen.dart';
-import 'package:wisefox/features/authorization/presentation/widgets/background_gradient.dart';
-import 'package:wisefox/features/authorization/presentation/widgets/rounded_text_field.dart';
 import 'package:wisefox/features/authorization/presentation/widgets/social_row.dart';
 import 'package:wisefox/features/dashboard/presentation/widgets/bottom_nav_bar.dart';
+import 'package:wisefox/features/authorization/presentation/screens/sign_up_screen.dart';
+import 'package:wisefox/features/authorization/presentation/widgets/rounded_text_field.dart';
+import 'package:wisefox/features/authorization/presentation/widgets/background_gradient.dart';
+import 'package:wisefox/features/authorization/presentation/screens/password_reset_screen.dart';
 
 class SignInScreen extends StatefulWidget {
   const SignInScreen({super.key});
@@ -61,7 +62,14 @@ class _SignInScreenState extends State<SignInScreen> {
                           'Forgot password?',
                           style: TextStyle(color: CustomColors.lightGreen),
                         ),
-                        onPressed: () {},
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => PasswordResetScreen(),
+                            ),
+                          );
+                        },
                       ),
                     ),
                     SizedBox(height: 25),

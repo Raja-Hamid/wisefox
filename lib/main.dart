@@ -1,9 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/material.dart';
-import 'package:firebase_core/firebase_core.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
+import 'package:wisefox/core/secrets/app_secrets.dart';
 import 'package:wisefox/features/onboarding/presentation/screens/splash_screen.dart';
-
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -13,7 +13,10 @@ void main() async {
       statusBarIconBrightness: Brightness.light,
     ),
   );
-  await Firebase.initializeApp();
+  await Supabase.initialize(
+    url: AppSecrets.supabaseUrl,
+    anonKey: AppSecrets.supabaseAnonKey,
+  );
   runApp(const MyApp());
 }
 
