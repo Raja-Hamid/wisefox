@@ -3,14 +3,14 @@ import 'package:wisefox/core/utilities/colors.dart';
 import 'package:wisefox/features/authorization/presentation/widgets/background_gradient.dart';
 import 'package:wisefox/features/authorization/presentation/widgets/rounded_text_field.dart';
 
-class PasswordResetScreen extends StatefulWidget {
-  const PasswordResetScreen({super.key});
+class ResetPasswordScreen extends StatefulWidget {
+  const ResetPasswordScreen({super.key});
 
   @override
-  State<PasswordResetScreen> createState() => _PasswordResetScreenState();
+  State<ResetPasswordScreen> createState() => _ResetPasswordScreenState();
 }
 
-class _PasswordResetScreenState extends State<PasswordResetScreen> {
+class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
   @override
   Widget build(BuildContext context) {
     return CupertinoPageScaffold(
