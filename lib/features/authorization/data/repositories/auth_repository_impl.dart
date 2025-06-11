@@ -13,12 +13,12 @@ class AuthRepositoryImpl implements AuthRepository {
   AuthRepositoryImpl({required this.remoteDataSource});
 
   @override
-  Future<Either<Failure, void>> resetPassword({
+  Future<Either<Failure, String>> resetPassword({
     required ResetPasswordEntity entity,
   }) async {
     try {
       await remoteDataSource.resetPassword(email: entity.email);
-      return Right(null);
+      return Right('Password Reset Successful');
     } on ServerException catch (e) {
       return Left(Failure(e.message));
     }

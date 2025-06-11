@@ -7,7 +7,7 @@ import 'package:wisefox/features/authorization/domain/entities/sign_up_entity.da
 abstract interface class AuthRepository {
   Future<Either<Failure, String>> signUp({required SignUpEntity entity});
   Future<Either<Failure, String>> signIn({required SignInEntity entity});
-  Future<Either<Failure, void>> resetPassword({
+  Future<Either<Failure, String>> resetPassword({
     required ResetPasswordEntity entity,
   });
 }

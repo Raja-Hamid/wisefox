@@ -5,11 +5,21 @@ import 'package:wisefox/core/utilities/colors.dart';
 class RoundedTextField extends StatelessWidget {
   final String hintText;
   final String? icon;
-  const RoundedTextField({super.key, required this.hintText, this.icon});
+  final TextEditingController controller;
+  final bool obscureText;
+  const RoundedTextField({
+    super.key,
+    required this.hintText,
+    required this.controller,
+    this.icon,
+    this.obscureText = false,
+  });
 
   @override
   Widget build(BuildContext context) {
     return CupertinoTextField(
+      controller: controller,
+      obscureText: obscureText,
       padding: EdgeInsets.symmetric(vertical: 20),
       decoration: BoxDecoration(
         color: CustomColors.lightGreen.withAlpha((0.15 * 255).round()),

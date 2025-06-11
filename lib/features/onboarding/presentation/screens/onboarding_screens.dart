@@ -92,33 +92,33 @@ class _OnboardingScreensState extends State<OnboardingScreens> {
                           fontWeight: FontWeight.w700,
                         ),
                       ),
-                      SizedBox(height: 50),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: List.generate(
-                          titles.length,
-                          (index) => AnimatedContainer(
-                            padding: EdgeInsets.zero,
-                            duration: const Duration(milliseconds: 200),
-                            margin: EdgeInsets.symmetric(horizontal: 4),
-                            width: currentPage == index ? 12 : 8,
-                            height: currentPage == index ? 12 : 8,
-                            decoration: BoxDecoration(
-                              color:
-                                  currentPage == index
-                                      ? CustomColors.purple
-                                      : CustomColors.lightPurple,
-                              shape: BoxShape.circle,
-                            ),
-                          ),
-                        ),
-                      ),
                     ],
                   );
                 },
               ),
             ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: List.generate(
+                titles.length,
+                    (index) => AnimatedContainer(
+                  padding: EdgeInsets.zero,
+                  duration: const Duration(milliseconds: 200),
+                  margin: EdgeInsets.symmetric(horizontal: 4),
+                  width: currentPage == index ? 12 : 8,
+                  height: currentPage == index ? 12 : 8,
+                  decoration: BoxDecoration(
+                    color:
+                    currentPage == index
+                        ? CustomColors.purple
+                        : CustomColors.lightPurple,
+                    shape: BoxShape.circle,
+                  ),
+                ),
+              ),
+            ),
+            SizedBox(height: 50),
             Row(
               crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisAlignment: MainAxisAlignment.spaceBetween,

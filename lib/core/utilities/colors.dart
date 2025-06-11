@@ -11,6 +11,12 @@ class CustomColors {
     const Color(0xffe3a59d),
     const Color(0xffe39f96),
   ];
+
+  static List<Color> get roundedButtonGradient => [
+    const Color(0xffB87CD2),
+    const Color(0xffD0A6E6),
+  ];
+
   static List<Color> get welcomeButtonGradient => [
     const Color(0xfff96d41),
     const Color(0xfffa521b),
