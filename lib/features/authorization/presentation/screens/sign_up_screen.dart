@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:wisefox/core/utilities/app_colors.dart';
+import 'package:wisefox/core/utilities/validators.dart';
 import 'package:wisefox/features/authorization/domain/entities/sign_up_entity.dart';
 import 'package:wisefox/features/authorization/presentation/bloc/auth_bloc.dart';
 import 'package:wisefox/features/authorization/presentation/bloc/auth_event.dart';
@@ -99,10 +100,11 @@ class _SignUpScreenState extends State<SignUpScreen> {
       child: CupertinoPageScaffold(
         child: BackgroundGradient(
           child: Padding(
-            padding: EdgeInsets.only(top: 60.h, right: 30.w, left: 30.w),
+            padding: EdgeInsets.all(30.r),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
+                SizedBox(height: 15.h),
                 Text(
                   'Create Account',
                   style: TextStyle(
@@ -111,7 +113,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     fontWeight: FontWeight.w700,
                   ),
                 ),
-                SizedBox(height: 20.h),
+                SizedBox(height: 5.h),
                 Text(
                   'Sign up with your email and password\nor continue with a social account',
                   textAlign: TextAlign.center,
@@ -126,24 +128,28 @@ class _SignUpScreenState extends State<SignUpScreen> {
                           hintText: 'First Name',
                           icon: 'assets/icons/Email.svg',
                           controller: _firstNameController,
+                          validator: (value) => Validators.validateName(value),
                         ),
                         SizedBox(height: 20.h),
                         RoundedTextField(
                           hintText: 'Last Name',
                           icon: 'assets/icons/Email.svg',
                           controller: _lastNameController,
+                          validator: (value) => Validators.validateName(value),
                         ),
                         SizedBox(height: 20.h),
                         RoundedTextField(
                           hintText: 'Username',
                           icon: 'assets/icons/Email.svg',
                           controller: _userNameController,
+                          validator: (value) => Validators.validateName(value),
                         ),
                         SizedBox(height: 20.h),
                         RoundedTextField(
                           hintText: 'Email',
                           icon: 'assets/icons/Email.svg',
                           controller: _emailController,
+                          validator: (value) => Validators.validateEmail(value),
                         ),
                         SizedBox(height: 20.h),
                         RoundedTextField(
@@ -151,8 +157,22 @@ class _SignUpScreenState extends State<SignUpScreen> {
                           icon: 'assets/icons/Lock.svg',
                           controller: _passwordController,
                           obscureText: true,
+                          validator:
+                              (value) => Validators.validatePassword(value),
                         ),
-                        SizedBox(height: 25.h),
+                        SizedBox(height: 20.h),
+                        RoundedTextField(
+                          hintText: 'Confirm Password',
+                          icon: 'assets/icons/Lock.svg',
+                          controller: _passwordController,
+                          obscureText: true,
+                          validator:
+                              (value) => Validators.validateConfirmPassword(
+                                value,
+                                _passwordController.text.trim(),
+                              ),
+                        ),
+                        SizedBox(height: 15.h),
                         RoundedGradientButton(
                           title: 'Sign Up',
                           onPressed: () {
@@ -170,7 +190,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                             }
                           },
                         ),
-                        SizedBox(height: 30.h),
+                        SizedBox(height: 15.h),
                         Center(
                           child: Text(
                             'Or SignUp With',
@@ -180,9 +200,9 @@ class _SignUpScreenState extends State<SignUpScreen> {
                             ),
                           ),
                         ),
-                        SizedBox(height: 30.h),
+                        SizedBox(height: 15.h),
                         SocialRow(),
-                        SizedBox(height: 30.h),
+                        SizedBox(height: 15.h),
                         Center(
                           child: RichText(
                             text: TextSpan(

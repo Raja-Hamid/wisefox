@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:wisefox/core/utilities/app_colors.dart';
+import 'package:wisefox/core/utilities/validators.dart';
 import 'package:wisefox/features/authorization/domain/entities/sign_in_entity.dart';
 import 'package:wisefox/features/authorization/presentation/bloc/auth_bloc.dart';
 import 'package:wisefox/features/authorization/presentation/bloc/auth_event.dart';
@@ -109,6 +110,7 @@ class _SignInScreenState extends State<SignInScreen> {
                           hintText: 'Email',
                           icon: 'assets/icons/Email.svg',
                           controller: _emailController,
+                          validator: (value) => Validators.validateEmail(value),
                         ),
                         SizedBox(height: 20.h),
                         RoundedTextField(
@@ -116,6 +118,7 @@ class _SignInScreenState extends State<SignInScreen> {
                           icon: 'assets/icons/Lock.svg',
                           controller: _passwordController,
                           obscureText: true,
+                          validator: (value) => Validators.validatePassword(value),
                         ),
                         SizedBox(height: 10.h),
                         Align(

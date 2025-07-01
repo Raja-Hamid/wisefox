@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:wisefox/core/utilities/app_colors.dart';
+import 'package:wisefox/core/utilities/validators.dart';
 import 'package:wisefox/features/authorization/domain/entities/reset_password_entity.dart';
 import 'package:wisefox/features/authorization/presentation/bloc/auth_bloc.dart';
 import 'package:wisefox/features/authorization/presentation/bloc/auth_event.dart';
@@ -85,7 +86,10 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
                       child: Text("OK"),
                       onPressed:
                           () =>
-                              Navigator.of(dialogContext, rootNavigator: true).pop(),
+                              Navigator.of(
+                                dialogContext,
+                                rootNavigator: true,
+                              ).pop(),
                     ),
                   ],
                 ),
@@ -127,6 +131,7 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
                           hintText: 'Email',
                           icon: 'assets/icons/Email.svg',
                           controller: _emailController,
+                          validator: (value) => Validators.validateEmail(value),
                         ),
                         SizedBox(height: 25.h),
                         RoundedGradientButton(
