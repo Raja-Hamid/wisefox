@@ -1,6 +1,6 @@
 import 'dart:ui';
 
-class CustomColors {
+class AppColors {
   static Color get primaryColor1 => const Color(0xff92A3FD);
   static Color get primaryColor2 => const Color(0xff9DCEFF);
 

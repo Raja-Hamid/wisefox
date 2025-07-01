@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:wisefox/core/secrets/app_secrets.dart';
 import 'package:wisefox/features/authorization/data/datasources/auth_remote_data_source.dart';
@@ -20,6 +21,7 @@ void main() async {
       statusBarIconBrightness: Brightness.light,
     ),
   );
+  await ScreenUtil.ensureScreenSize();
   await Supabase.initialize(
     url: AppSecrets.supabaseUrl,
     anonKey: AppSecrets.supabaseAnonKey,
@@ -43,25 +45,30 @@ class MyApp extends StatelessWidget {
     final resetPasswordUseCase = ResetPasswordUseCase(
       repository: authRepository,
     );
-    return MultiBlocProvider(
-      providers: [
-        BlocProvider<AuthBloc>(
-          create:
-              (_) => AuthBloc(
-                signUpUseCase: signUpUseCase,
-                signInUseCase: signInUseCase,
-                resetPasswordUseCase: resetPasswordUseCase,
-              ),
-        ),
-      ],
-      child: CupertinoApp(
-        debugShowCheckedModeBanner: false,
-        theme: CupertinoThemeData(
-          textTheme: CupertinoTextThemeData(
-            textStyle: TextStyle(fontFamily: 'Plus Jakarta Sans'),
+    return ScreenUtilInit(
+      designSize: const Size(393, 873),
+      minTextAdapt: true,
+      splitScreenMode: true,
+      child: MultiBlocProvider(
+        providers: [
+          BlocProvider<AuthBloc>(
+            create:
+                (_) => AuthBloc(
+                  signUpUseCase: signUpUseCase,
+                  signInUseCase: signInUseCase,
+                  resetPasswordUseCase: resetPasswordUseCase,
+                ),
           ),
+        ],
+        child: CupertinoApp(
+          debugShowCheckedModeBanner: false,
+          theme: CupertinoThemeData(
+            textTheme: CupertinoTextThemeData(
+              textStyle: TextStyle(fontFamily: 'Plus Jakarta Sans'),
+            ),
+          ),
+          home: SplashScreen(),
         ),
-        home: SplashScreen(),
       ),
     );
   }

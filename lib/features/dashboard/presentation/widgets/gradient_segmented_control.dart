@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:wisefox/core/utilities/colors.dart';
+import 'package:wisefox/core/utilities/app_colors.dart';
 
 class GradientSegmentedControl extends StatelessWidget {
   final String selectedSegment;
@@ -38,8 +38,8 @@ class GradientSegmentedControl extends StatelessWidget {
             style: TextStyle(
               color:
                   selectedSegment == 'Income'
-                      ? CustomColors.darkBlue
-                      : CustomColors.white,
+                      ? AppColors.darkBlue
+                      : AppColors.white,
               fontSize: 15,
             ),
           ),
@@ -48,8 +48,8 @@ class GradientSegmentedControl extends StatelessWidget {
             style: TextStyle(
               color:
                   selectedSegment == 'Spendings'
-                      ? CustomColors.darkBlue
-                      : CustomColors.white,
+                      ? AppColors.darkBlue
+                      : AppColors.white,
               fontSize: 15,
             ),
           ),

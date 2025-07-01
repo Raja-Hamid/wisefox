@@ -1,10 +1,13 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:wisefox/core/utilities/colors.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:wisefox/core/utilities/app_colors.dart';
 import 'package:wisefox/features/authorization/domain/entities/reset_password_entity.dart';
 import 'package:wisefox/features/authorization/presentation/bloc/auth_bloc.dart';
 import 'package:wisefox/features/authorization/presentation/bloc/auth_event.dart';
 import 'package:wisefox/features/authorization/presentation/bloc/auth_state.dart';
+import 'package:wisefox/features/authorization/presentation/screens/sign_in_screen.dart';
 import 'package:wisefox/features/authorization/presentation/widgets/background_gradient.dart';
 import 'package:wisefox/features/authorization/presentation/widgets/rounded_gradient_button.dart';
 import 'package:wisefox/features/authorization/presentation/widgets/rounded_text_field.dart';
@@ -49,59 +52,72 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
                   actions: [
                     CupertinoDialogAction(
                       child: Text("OK"),
-                      onPressed:
-                          () =>
-                              Navigator.of(context, rootNavigator: true).pop(),
+                      onPressed: () {
+                        Navigator.of(context, rootNavigator: true).pop();
+                        Navigator.of(
+                          context,
+                          rootNavigator: true,
+                        ).pushAndRemoveUntil(
+                          MaterialPageRoute(
+                            builder: (context) => SignInScreen(),
+                          ),
+                          (Route<dynamic> route) => false,
+                        );
+                      },
                     ),
                   ],
                 ),
           );
-        } else {
+        } else if (state is AuthSuccess) {
           Navigator.of(context, rootNavigator: true).pop();
-          if (state is AuthSuccess) {
-            showCupertinoDialog(
-              context: context,
-              builder:
-                  (_) => CupertinoAlertDialog(
-                    title: Text("Success"),
-                    content: Text(state.message),
-                    actions: [
-                      CupertinoDialogAction(
-                        child: Text("OK"),
-                        onPressed:
-                            () =>
-                                Navigator.of(
-                                  context,
-                                  rootNavigator: true,
-                                ).pop(),
-                      ),
-                    ],
-                  ),
-            );
-          }
+          Navigator.of(context, rootNavigator: true).pushAndRemoveUntil(
+            MaterialPageRoute(builder: (context) => SignInScreen()),
+            (Route<dynamic> route) => false,
+          );
+          showCupertinoDialog(
+            context: context,
+            builder:
+                (dialogContext) => CupertinoAlertDialog(
+                  title: Text("Success"),
+                  content: Text(state.message),
+                  actions: [
+                    CupertinoDialogAction(
+                      child: Text("OK"),
+                      onPressed:
+                          () =>
+                              Navigator.of(dialogContext, rootNavigator: true).pop(),
+                    ),
+                  ],
+                ),
+          );
         }
       },
       child: CupertinoPageScaffold(
         child: BackgroundGradient(
           child: Padding(
-            padding: EdgeInsets.only(top: 100, right: 30, left: 30, bottom: 30),
+            padding: EdgeInsets.only(
+              top: 100.h,
+              right: 30.w,
+              left: 30.w,
+              bottom: 30.h,
+            ),
             child: Column(
               children: [
                 Text(
                   'Reset Password',
                   style: TextStyle(
-                    color: CustomColors.offWhite,
+                    color: AppColors.offWhite,
                     fontSize: 30,
                     fontWeight: FontWeight.w700,
                   ),
                 ),
-                const SizedBox(height: 20),
+                SizedBox(height: 20.h),
                 Text(
                   'Enter your email address and we’ll send\nyou a link to reset your password.',
                   textAlign: TextAlign.center,
-                  style: TextStyle(color: CustomColors.offWhite, fontSize: 16),
+                  style: TextStyle(color: AppColors.offWhite, fontSize: 16.sp),
                 ),
-                const SizedBox(height: 25),
+                SizedBox(height: 25.h),
                 Expanded(
                   child: Form(
                     key: _formKey,
@@ -112,8 +128,9 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
                           icon: 'assets/icons/Email.svg',
                           controller: _emailController,
                         ),
-                        SizedBox(height: 25),
+                        SizedBox(height: 25.h),
                         RoundedGradientButton(
+                          title: 'Send Code',
                           onPressed: () {
                             if (_formKey.currentState!.validate()) {
                               final resetPasswordEntity = ResetPasswordEntity(

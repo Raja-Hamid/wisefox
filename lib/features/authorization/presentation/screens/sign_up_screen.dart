@@ -2,7 +2,8 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:wisefox/core/utilities/colors.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:wisefox/core/utilities/app_colors.dart';
 import 'package:wisefox/features/authorization/domain/entities/sign_up_entity.dart';
 import 'package:wisefox/features/authorization/presentation/bloc/auth_bloc.dart';
 import 'package:wisefox/features/authorization/presentation/bloc/auth_event.dart';
@@ -61,64 +62,60 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   actions: [
                     CupertinoDialogAction(
                       child: Text("OK"),
-                      onPressed: () {
-                        Navigator.of(context, rootNavigator: true).pop();
-                      },
+                      onPressed:
+                          () =>
+                              Navigator.of(context, rootNavigator: true).pop(),
                     ),
                   ],
                 ),
           );
-        } else {
+        } else if (state is AuthSuccess) {
           Navigator.of(context, rootNavigator: true).pop();
-          if (state is AuthSuccess) {
-            showCupertinoDialog(
-              context: context,
-              builder:
-                  (_) => CupertinoAlertDialog(
-                    title: Text("Success"),
-                    content: Text(state.message),
-                    actions: [
-                      CupertinoDialogAction(
-                        child: Text("OK"),
-                        onPressed: () {
-                          Navigator.of(context, rootNavigator: true).pop();
-                          Navigator.of(
-                            context,
-                            rootNavigator: true,
-                          ).pushAndRemoveUntil(
-                            MaterialPageRoute(
-                              builder: (context) => SignInScreen(),
-                            ),
-                            (Route<dynamic> route) => false,
-                          );
-                        },
-                      ),
-                    ],
-                  ),
-            );
-          }
+          Navigator.of(context, rootNavigator: true).pushAndRemoveUntil(
+            MaterialPageRoute(builder: (context) => SignInScreen()),
+            (Route<dynamic> route) => false,
+          );
+          showCupertinoDialog(
+            context: context,
+            builder:
+                (dialogContext) => CupertinoAlertDialog(
+                  title: Text("Success"),
+                  content: Text(state.message),
+                  actions: [
+                    CupertinoDialogAction(
+                      child: Text("OK"),
+                      onPressed:
+                          () =>
+                              Navigator.of(
+                                dialogContext,
+                                rootNavigator: true,
+                              ).pop(),
+                    ),
+                  ],
+                ),
+          );
         }
       },
       child: CupertinoPageScaffold(
         child: BackgroundGradient(
           child: Padding(
-            padding: EdgeInsets.only(top: 60, right: 30, left: 30),
+            padding: EdgeInsets.only(top: 60.h, right: 30.w, left: 30.w),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Text(
                   'Create Account',
                   style: TextStyle(
-                    color: CustomColors.offWhite,
-                    fontSize: 30,
+                    color: AppColors.offWhite,
+                    fontSize: 30.sp,
                     fontWeight: FontWeight.w700,
                   ),
                 ),
-                SizedBox(height: 20),
+                SizedBox(height: 20.h),
                 Text(
                   'Sign up with your email and password\nor continue with a social account',
                   textAlign: TextAlign.center,
-                  style: TextStyle(color: CustomColors.offWhite, fontSize: 16),
+                  style: TextStyle(color: AppColors.offWhite, fontSize: 16.sp),
                 ),
                 Expanded(
                   child: Form(
@@ -130,33 +127,34 @@ class _SignUpScreenState extends State<SignUpScreen> {
                           icon: 'assets/icons/Email.svg',
                           controller: _firstNameController,
                         ),
-                        SizedBox(height: 20),
+                        SizedBox(height: 20.h),
                         RoundedTextField(
                           hintText: 'Last Name',
                           icon: 'assets/icons/Email.svg',
                           controller: _lastNameController,
                         ),
-                        SizedBox(height: 20),
+                        SizedBox(height: 20.h),
                         RoundedTextField(
                           hintText: 'Username',
                           icon: 'assets/icons/Email.svg',
                           controller: _userNameController,
                         ),
-                        SizedBox(height: 20),
+                        SizedBox(height: 20.h),
                         RoundedTextField(
                           hintText: 'Email',
                           icon: 'assets/icons/Email.svg',
                           controller: _emailController,
                         ),
-                        SizedBox(height: 20),
+                        SizedBox(height: 20.h),
                         RoundedTextField(
                           hintText: 'Password',
                           icon: 'assets/icons/Lock.svg',
                           controller: _passwordController,
                           obscureText: true,
                         ),
-                        SizedBox(height: 25),
+                        SizedBox(height: 25.h),
                         RoundedGradientButton(
+                          title: 'Sign Up',
                           onPressed: () {
                             if (_formKey.currentState!.validate()) {
                               final signUpEntity = SignUpEntity(
@@ -172,19 +170,19 @@ class _SignUpScreenState extends State<SignUpScreen> {
                             }
                           },
                         ),
-                        SizedBox(height: 30),
+                        SizedBox(height: 30.h),
                         Center(
                           child: Text(
                             'Or SignUp With',
                             style: TextStyle(
-                              color: CustomColors.offWhite,
-                              fontSize: 14,
+                              color: AppColors.offWhite,
+                              fontSize: 14.sp,
                             ),
                           ),
                         ),
-                        SizedBox(height: 30),
+                        SizedBox(height: 30.h),
                         SocialRow(),
-                        SizedBox(height: 30),
+                        SizedBox(height: 30.h),
                         Center(
                           child: RichText(
                             text: TextSpan(
@@ -192,21 +190,21 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                 context,
                               ).style.copyWith(
                                 color: CupertinoColors.black,
-                                fontSize: 16,
+                                fontSize: 16.sp,
                               ),
                               children: [
                                 TextSpan(
                                   text: "Already have an account? ",
                                   style: TextStyle(
-                                    color: CustomColors.offWhite,
-                                    fontSize: 14,
+                                    color: AppColors.offWhite,
+                                    fontSize: 14.sp,
                                   ),
                                 ),
                                 TextSpan(
                                   text: 'Sign In',
                                   style: TextStyle(
-                                    color: CustomColors.lightGreen,
-                                    fontSize: 14,
+                                    color: AppColors.lightGreen,
+                                    fontSize: 14.sp,
                                   ),
                                   recognizer:
                                       TapGestureRecognizer()

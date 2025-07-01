@@ -1,9 +1,11 @@
 import 'package:flutter/cupertino.dart';
-import 'package:wisefox/core/utilities/colors.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:wisefox/core/utilities/app_colors.dart';
 
 class RoundedGradientButton extends StatelessWidget {
+  final String title;
   final void Function()? onPressed;
-  const RoundedGradientButton({super.key, this.onPressed});
+  const RoundedGradientButton({super.key, required this.title, this.onPressed});
 
   @override
   Widget build(BuildContext context) {
@@ -13,14 +15,14 @@ class RoundedGradientButton extends StatelessWidget {
       child: Container(
         width: double.infinity,
         decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(35),
-          gradient: LinearGradient(colors: CustomColors.roundedButtonGradient),
+          borderRadius: BorderRadius.circular(35.r),
+          gradient: LinearGradient(colors: AppColors.roundedButtonGradient),
         ),
-        padding: EdgeInsets.symmetric(vertical: 20),
+        padding: EdgeInsets.symmetric(vertical: 20.h),
         child: Center(
           child: Text(
-            'Log In',
-            style: TextStyle(color: CustomColors.white, fontSize: 16),
+            title,
+            style: TextStyle(color: AppColors.white, fontSize: 16.sp),
           ),
         ),
       ),

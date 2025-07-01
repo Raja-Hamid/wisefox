@@ -1,7 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:wisefox/core/utilities/colors.dart';
+import 'package:wisefox/core/utilities/app_colors.dart';
 import 'package:wisefox/features/dashboard/presentation/widgets/gradient_card.dart';
 
 class SavingsScreen extends StatefulWidget {
@@ -15,73 +16,74 @@ class _SavingsScreenState extends State<SavingsScreen> {
   @override
   Widget build(BuildContext context) {
     return CupertinoPageScaffold(
-      backgroundColor: CustomColors.eggWhite,
+      backgroundColor: AppColors.eggWhite,
       child: SingleChildScrollView(
         child: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 20),
+          padding: EdgeInsets.symmetric(horizontal: 20.w),
           child: Column(
             children: [
               GradientCard(
-                height: 330,
-                padding: EdgeInsets.fromLTRB(20, kToolbarHeight * 1.25, 20, 20),
+                height: 330.h,
+                padding: EdgeInsets.fromLTRB(
+                  20.w,
+                  (kToolbarHeight * 1.25).h,
+                  20.w,
+                  20.h,
+                ),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     Text(
                       'Savings',
                       style: TextStyle(
-                        color: CustomColors.offWhite,
-                        fontSize: 28,
+                        color: AppColors.offWhite,
+                        fontSize: 28.sp,
                         fontWeight: FontWeight.w700,
                       ),
                     ),
-                    SizedBox(height: 30),
+                    SizedBox(height: 30.h),
                     Container(
-                      height: 60,
-                      width: 60,
+                      height: 60.h,
+                      width: 60.w,
                       decoration: BoxDecoration(
-                        color: CustomColors.lightGreen.withAlpha(
-                          (0.19 * 255).round(),
-                        ),
+                        color: AppColors.lightGreen.withValues(alpha: 0.19),
                         border: Border.all(
-                          color: CustomColors.lightGreen.withAlpha(
-                            (0.25 * 255).round(),
-                          ),
+                          color: AppColors.lightGreen.withValues(alpha: 0.25),
                         ),
                         shape: BoxShape.circle,
                       ),
                       child: Padding(
-                        padding: EdgeInsets.all(8),
+                        padding: EdgeInsets.all(8.r),
                         child: SvgPicture.asset(
                           'assets/icons/Savings.svg',
                           colorFilter: ColorFilter.mode(
-                            CustomColors.lightGreen,
+                            AppColors.lightGreen,
                             BlendMode.srcIn,
                           ),
                         ),
                       ),
                     ),
-                    SizedBox(height: 30),
+                    SizedBox(height: 30.h),
                     Text(
                       'Rs.2,000,000',
                       style: TextStyle(
-                        color: CustomColors.lightGreyish,
-                        fontSize: 38,
+                        color: AppColors.lightGreyish,
+                        fontSize: 38.sp,
                         fontWeight: FontWeight.w700,
                       ),
                     ),
                   ],
                 ),
               ),
-              SizedBox(height: 20),
+              SizedBox(height: 20.h),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
                     'My Active Savings',
                     style: TextStyle(
-                      color: CustomColors.black,
-                      fontSize: 15,
+                      color: AppColors.black,
+                      fontSize: 15.sp,
                       fontWeight: FontWeight.w700,
                     ),
                   ),
@@ -90,8 +92,8 @@ class _SavingsScreenState extends State<SavingsScreen> {
                     child: Text(
                       '+ Add New',
                       style: TextStyle(
-                        color: CustomColors.purple,
-                        fontSize: 12,
+                        color: AppColors.purple,
+                        fontSize: 12.sp,
                       ),
                     ),
                     onPressed: () {},

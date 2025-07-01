@@ -1,13 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:wisefox/core/utilities/colors.dart';
+import 'package:wisefox/core/utilities/app_colors.dart';
 import 'package:wisefox/features/dashboard/presentation/screens/home_screen.dart';
 import 'package:wisefox/features/dashboard/presentation/screens/main_transactions_screen.dart';
 import 'package:wisefox/features/dashboard/presentation/screens/savings_screen.dart';
 import 'package:wisefox/features/dashboard/presentation/screens/statistics_screen.dart';
-
-
 
 class BottomNavBar extends StatefulWidget {
   const BottomNavBar({super.key});
@@ -22,20 +21,20 @@ class _BottomNavBarState extends State<BottomNavBar> {
   Widget _buildIcon(String assetPath, int index) {
     final bool isActive = _currentIndex == index;
     return Container(
-      padding: const EdgeInsets.all(10),
+      padding: EdgeInsets.all(10.r),
       decoration:
           isActive
               ? BoxDecoration(
-                color: CustomColors.darkBlue,
+                color: AppColors.darkBlue,
                 shape: BoxShape.circle,
               )
               : null,
       child: SvgPicture.asset(
         assetPath,
-        width: 25,
-        height: 25,
+        width: 25.w,
+        height: 25.h,
         colorFilter: ColorFilter.mode(
-          isActive ? CustomColors.white : CustomColors.darkBlue,
+          isActive ? AppColors.white : AppColors.darkBlue,
           BlendMode.srcIn,
         ),
       ),
@@ -54,17 +53,17 @@ class _BottomNavBarState extends State<BottomNavBar> {
           });
         },
         border: Border.all(color: Colors.transparent),
-        backgroundColor: CustomColors.white,
+        backgroundColor: AppColors.white,
         items: [
-          BottomNavigationBarItem(icon: _buildIcon('assets/icons/home.svg', 0)),
+          BottomNavigationBarItem(icon: _buildIcon('assets/icons/Home.svg', 0)),
           BottomNavigationBarItem(
-            icon: _buildIcon('assets/icons/empty-wallet.svg', 1),
+            icon: _buildIcon('assets/icons/Empty-Wallet.svg', 1),
           ),
           BottomNavigationBarItem(
-            icon: _buildIcon('assets/icons/chart-square.svg', 2),
+            icon: _buildIcon('assets/icons/Chart-Square.svg', 2),
           ),
           BottomNavigationBarItem(
-            icon: _buildIcon('assets/icons/dollar-circle.svg', 3),
+            icon: _buildIcon('assets/icons/Dollar-Circle.svg', 3),
           ),
         ],
       ),

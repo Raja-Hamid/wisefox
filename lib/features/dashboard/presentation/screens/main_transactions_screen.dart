@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
-import 'package:wisefox/core/utilities/colors.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:wisefox/core/utilities/app_colors.dart';
 import 'package:wisefox/features/dashboard/presentation/widgets/filter_button.dart';
 import 'package:wisefox/features/dashboard/presentation/widgets/gradient_segmented_control.dart';
 
@@ -17,18 +18,18 @@ class _MainTransactionsScreenState extends State<MainTransactionsScreen> {
   @override
   Widget build(BuildContext context) {
     return CupertinoPageScaffold(
-      backgroundColor: CustomColors.eggWhite,
+      backgroundColor: AppColors.eggWhite,
       navigationBar: CupertinoNavigationBar(
-        backgroundColor: CupertinoColors.systemGrey.withOpacity(0.5),
+        backgroundColor: CupertinoColors.systemGrey.withValues(alpha: 0.5),
         automaticallyImplyLeading: false,
         bottom: null,
         middle: Padding(
-          padding: EdgeInsets.only(top: 20),
+          padding: EdgeInsets.only(top: 20.h),
           child: Text(
             'Main Transactions',
             style: TextStyle(
-              color: CustomColors.lightBlack,
-              fontSize: 25,
+              color: AppColors.lightBlack,
+              fontSize: 25.sp,
               fontWeight: FontWeight.w700,
             ),
           ),
@@ -36,7 +37,7 @@ class _MainTransactionsScreenState extends State<MainTransactionsScreen> {
       ),
       child: SafeArea(
         child: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 20, vertical: 30),
+          padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 30.h),
           child: Column(
             children: [
               GradientSegmentedControl(
@@ -49,7 +50,7 @@ class _MainTransactionsScreenState extends State<MainTransactionsScreen> {
                   }
                 },
               ),
-              SizedBox(height: 20),
+              SizedBox(height: 20.h),
               Row(
                 children: [
                   FilterButton(
@@ -61,7 +62,7 @@ class _MainTransactionsScreenState extends State<MainTransactionsScreen> {
                       });
                     },
                   ),
-                  SizedBox(width: 10),
+                  SizedBox(width: 10.w),
                   FilterButton(
                     label: 'Recents',
                     isSelected: _selectedFilter == 'Recents',
@@ -73,7 +74,7 @@ class _MainTransactionsScreenState extends State<MainTransactionsScreen> {
                   ),
                 ],
               ),
-              const SizedBox(height: 20),
+              SizedBox(height: 20.h),
             ],
           ),
         ),

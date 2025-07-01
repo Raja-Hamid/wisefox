@@ -1,7 +1,7 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:wisefox/core/utilities/colors.dart';
+import 'package:wisefox/core/utilities/app_colors.dart';
 
 class IncomeCard extends StatelessWidget {
   final String title;
@@ -44,8 +44,8 @@ class IncomeCard extends StatelessWidget {
             decoration: BoxDecoration(
               gradient: LinearGradient(
                 colors: [
-                  CustomColors.lightGreen.withAlpha((0.50 * 255).round()),
-                  CustomColors.offWhite,
+                  AppColors.lightGreen.withAlpha((0.50 * 255).round()),
+                  AppColors.offWhite,
                 ],
                 begin: Alignment.topLeft,
                 end: Alignment.bottomRight,
@@ -64,7 +64,7 @@ class IncomeCard extends StatelessWidget {
                       margin: EdgeInsets.only(left: 0, right: 5),
                       padding: EdgeInsets.all(5),
                       decoration: BoxDecoration(
-                        color: CustomColors.lightGreen.withAlpha(
+                        color: AppColors.lightGreen.withAlpha(
                           (0.50 * 255).round(),
                         ),
                         border: Border.all(
@@ -80,7 +80,7 @@ class IncomeCard extends StatelessWidget {
                     Text(
                       title,
                       style: TextStyle(
-                        color: CustomColors.black,
+                        color: AppColors.black,
                         fontSize: 15,
                         fontWeight: FontWeight.w700,
                       ),
@@ -91,12 +91,12 @@ class IncomeCard extends StatelessWidget {
                 Text(
                   'Rs. $amount',
                   style: TextStyle(
-                    color: CustomColors.lightBlack,
+                    color: AppColors.lightBlack,
                     fontSize: 18,
                     fontWeight: FontWeight.w700,
                   ),
                 ),
-                Text(time, style: TextStyle(color: CustomColors.darkGrey)),
+                Text(time, style: TextStyle(color: AppColors.darkGrey)),
               ],
             ),
           ),

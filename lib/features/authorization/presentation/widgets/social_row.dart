@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:wisefox/core/utilities/colors.dart';
+import 'package:wisefox/core/utilities/app_colors.dart';
 
 class SocialRow extends StatelessWidget {
   const SocialRow({super.key});
@@ -15,59 +16,53 @@ class SocialRow extends StatelessWidget {
           width: 65,
           padding: EdgeInsets.all(15),
           decoration: BoxDecoration(
-            color: CustomColors.lightGreen.withAlpha(
-              (0.25 * 255).round(),
-            ),
+            color: AppColors.lightGreen.withValues(alpha: 0.25),
             shape: BoxShape.circle,
           ),
           child: SvgPicture.asset(
             'assets/icons/Google.svg',
             colorFilter: ColorFilter.mode(
-              CustomColors.white,
+              AppColors.white,
               BlendMode.srcIn,
             ),
-            height: 25,
-            width: 25,
+            height: 25.h,
+            width: 25.w,
           ),
         ),
         Container(
-          height: 65,
-          width: 65,
-          padding: EdgeInsets.all(15),
+          height: 65.h,
+          width: 65.w,
+          padding: EdgeInsets.all(15.r),
           decoration: BoxDecoration(
-            color: CustomColors.lightGreen.withAlpha(
-              (0.25 * 255).round(),
-            ),
+            color: AppColors.lightGreen.withValues(alpha: 0.25),
             shape: BoxShape.circle,
           ),
           child: SvgPicture.asset(
             'assets/icons/Microsoft.svg',
             colorFilter: ColorFilter.mode(
-              CustomColors.white,
+              AppColors.white,
               BlendMode.srcIn,
             ),
-            height: 25,
-            width: 25,
+            height: 25.h,
+            width: 25.w,
           ),
         ),
         Container(
-          height: 65,
-          width: 65,
+          height: 65.h,
+          width: 65.w,
           padding: EdgeInsets.all(15),
           decoration: BoxDecoration(
-            color: CustomColors.lightGreen.withAlpha(
-              (0.25 * 255).round(),
-            ),
+            color: AppColors.lightGreen.withValues(alpha: 0.25),
             shape: BoxShape.circle,
           ),
           child: SvgPicture.asset(
             'assets/icons/Apple.svg',
             colorFilter: ColorFilter.mode(
-              CustomColors.white,
+              AppColors.white,
               BlendMode.srcIn,
             ),
-            height: 25,
-            width: 25,
+            height: 25.h,
+            width: 25.w,
           ),
         ),
       ],

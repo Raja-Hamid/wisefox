@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:wisefox/core/utilities/colors.dart';
+import 'package:wisefox/core/utilities/app_colors.dart';
 import 'package:wisefox/features/authorization/presentation/screens/sign_in_screen.dart';
 
 class OnboardingScreens extends StatefulWidget {
@@ -57,7 +57,7 @@ class _OnboardingScreensState extends State<OnboardingScreens> {
   @override
   Widget build(BuildContext context) {
     return CupertinoPageScaffold(
-      backgroundColor: CustomColors.white,
+      backgroundColor: AppColors.white,
       child: Padding(
         padding: EdgeInsets.only(top: 100, right: 30, left: 30, bottom: 60),
         child: Column(
@@ -87,7 +87,7 @@ class _OnboardingScreensState extends State<OnboardingScreens> {
                       Text(
                         titles[index],
                         style: TextStyle(
-                          color: CustomColors.black,
+                          color: AppColors.black,
                           fontSize: 22,
                           fontWeight: FontWeight.w700,
                         ),
@@ -111,8 +111,8 @@ class _OnboardingScreensState extends State<OnboardingScreens> {
                   decoration: BoxDecoration(
                     color:
                     currentPage == index
-                        ? CustomColors.purple
-                        : CustomColors.lightPurple,
+                        ? AppColors.purple
+                        : AppColors.lightPurple,
                     shape: BoxShape.circle,
                   ),
                 ),
@@ -131,17 +131,17 @@ class _OnboardingScreensState extends State<OnboardingScreens> {
                   },
                   child: Text(
                     'Skip',
-                    style: TextStyle(color: CustomColors.purple, fontSize: 16),
+                    style: TextStyle(color: AppColors.purple, fontSize: 16),
                   ),
                 ),
                 GestureDetector(
                   child: CircleAvatar(
                     radius: 30,
-                    backgroundColor: CustomColors.blue,
+                    backgroundColor: AppColors.blue,
                     child: SvgPicture.asset(
                       'assets/icons/Arrow-Right.svg',
                       colorFilter: ColorFilter.mode(
-                        CustomColors.offWhite,
+                        AppColors.offWhite,
                         BlendMode.srcIn,
                       ),
                     ),

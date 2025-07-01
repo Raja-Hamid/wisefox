@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:wisefox/core/utilities/colors.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:wisefox/core/utilities/app_colors.dart';
 
 class FilterButton extends StatelessWidget {
   final String label;
@@ -18,39 +19,38 @@ class FilterButton extends StatelessWidget {
   Widget build(BuildContext context) {
     bool isShowAll = label == 'Show all';
     final Color selectedBgColor =
-        isShowAll ? CustomColors.purple : CustomColors.lightGreen;
+        isShowAll ? AppColors.purple : AppColors.lightGreen;
     final Color selectedBorderColor =
         isShowAll
-            ? CustomColors.purple.withAlpha((0.10 * 255).round())
-            : CustomColors.green.withAlpha((0.10 * 255).round());
+            ? AppColors.purple.withValues(alpha: 0.10)
+            : AppColors.green.withValues(alpha: 0.10);
     final Color unselectedBorderColor =
-        isShowAll ? CustomColors.purple : CustomColors.green;
+        isShowAll ? AppColors.purple : AppColors.green;
     final Color unselectedTextColor =
-        isShowAll ? CustomColors.purple : CustomColors.green;
+        isShowAll ? AppColors.purple : AppColors.green;
 
     return Container(
-      height: 30,
+      height: 30.h,
       decoration: BoxDecoration(
         color: isSelected ? selectedBgColor : Colors.transparent,
         border: Border.all(
           color:
               isSelected
                   ? selectedBorderColor
-                  : unselectedBorderColor.withAlpha((0.8 * 255).round()),
+                  : unselectedBorderColor.withValues(alpha: 0.8),
           width: 0.5,
         ),
-        borderRadius: BorderRadius.circular(35),
+        borderRadius: BorderRadius.circular(35.r),
       ),
       child: CupertinoButton(
-        padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 5),
+        padding: EdgeInsets.symmetric(horizontal: 15.w, vertical: 5.h),
         color: Colors.transparent,
-        minSize: 0,
         onPressed: onPressed,
         child: Text(
           label,
           style: TextStyle(
-            fontSize: 12,
-            color: isSelected ? CustomColors.lightBlack : unselectedTextColor,
+            fontSize: 12.sp,
+            color: isSelected ? AppColors.lightBlack : unselectedTextColor,
             fontWeight: FontWeight.w500,
           ),
         ),
