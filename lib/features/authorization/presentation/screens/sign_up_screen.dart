@@ -5,7 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:wisefox/core/utilities/app_colors.dart';
 import 'package:wisefox/core/utilities/validators.dart';
-import 'package:wisefox/features/authorization/domain/entities/sign_up_entity.dart';
+import 'package:wisefox/features/authorization/domain/entities/auth_entity.dart';
 import 'package:wisefox/features/authorization/presentation/bloc/auth_bloc.dart';
 import 'package:wisefox/features/authorization/presentation/bloc/auth_event.dart';
 import 'package:wisefox/features/authorization/presentation/bloc/auth_state.dart';
@@ -177,7 +177,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                           title: 'Sign Up',
                           onPressed: () {
                             if (_formKey.currentState!.validate()) {
-                              final signUpEntity = SignUpEntity(
+                              final signUpEntity = AuthEntity(
                                 firstName: _firstNameController.text.trim(),
                                 lastName: _lastNameController.text.trim(),
                                 userName: _userNameController.text.trim(),

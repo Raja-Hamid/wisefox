@@ -4,7 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:wisefox/core/utilities/app_colors.dart';
 import 'package:wisefox/core/utilities/validators.dart';
-import 'package:wisefox/features/authorization/domain/entities/reset_password_entity.dart';
+import 'package:wisefox/features/authorization/domain/entities/auth_entity.dart';
 import 'package:wisefox/features/authorization/presentation/bloc/auth_bloc.dart';
 import 'package:wisefox/features/authorization/presentation/bloc/auth_event.dart';
 import 'package:wisefox/features/authorization/presentation/bloc/auth_state.dart';
@@ -138,7 +138,7 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
                           title: 'Send Code',
                           onPressed: () {
                             if (_formKey.currentState!.validate()) {
-                              final resetPasswordEntity = ResetPasswordEntity(
+                              final resetPasswordEntity = AuthEntity(
                                 email: _emailController.text.trim(),
                               );
                               context.read<AuthBloc>().add(

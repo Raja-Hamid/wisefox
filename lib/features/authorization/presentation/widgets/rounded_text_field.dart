@@ -29,6 +29,7 @@ class RoundedTextField extends StatelessWidget {
             CupertinoTextField(
               controller: controller,
               obscureText: obscureText,
+              onChanged: (value) => state.didChange(value),
               padding: EdgeInsets.symmetric(vertical: 20.h),
               decoration: BoxDecoration(
                 color: AppColors.lightGreen.withValues(alpha: 0.15),
