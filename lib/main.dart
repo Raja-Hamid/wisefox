@@ -3,8 +3,6 @@ import 'package:flutter/services.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:supabase_flutter/supabase_flutter.dart';
-import 'package:wisefox/core/secrets/app_secrets.dart';
 import 'package:wisefox/dependency_injection.dart';
 import 'package:wisefox/features/authorization/presentation/bloc/auth_bloc.dart';
 import 'package:wisefox/features/onboarding/presentation/screens/splash_screen.dart';
@@ -19,10 +17,6 @@ void main() async {
   );
   await ScreenUtil.ensureScreenSize();
   await init();
-  await Supabase.initialize(
-    url: AppSecrets.supabaseUrl,
-    anonKey: AppSecrets.supabaseAnonKey,
-  );
   runApp(const MyApp());
 }
 

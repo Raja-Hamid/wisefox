@@ -1,18 +1,13 @@
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:wisefox/core/errors/failures.dart';
+import 'package:wisefox/features/authorization/data/models/auth_model.dart';
 
 abstract interface class AuthRemoteDataSource {
-  Future<String> signUp({
-    required String firstName,
-    required String lastName,
-    required String userName,
-    required String email,
-    required String password,
-  });
+  Future<String> signUp({required AuthModel model});
 
-  Future<String> signIn({required String email, required String password});
+  Future<String> signIn({required AuthModel model});
 
-  Future<void> resetPassword({required String email});
+  Future<void> resetPassword({required AuthModel model});
 }
 
 class AuthRemoteDataSourceImpl extends AuthRemoteDataSource {
@@ -21,14 +16,11 @@ class AuthRemoteDataSourceImpl extends AuthRemoteDataSource {
   AuthRemoteDataSourceImpl({required this.supabaseClient});
 
   @override
-  Future<String> signIn({
-    required String email,
-    required String password,
-  }) async {
+  Future<String> signIn({required AuthModel model}) async {
     try {
       final response = await supabaseClient.auth.signInWithPassword(
-        email: email,
-        password: password,
+        email: model.email,
+        password: model.password!,
       );
       if (response.user == null) {
         throw ServerException(message: 'User is null');
@@ -40,21 +32,15 @@ class AuthRemoteDataSourceImpl extends AuthRemoteDataSource {
   }
 
   @override
-  Future<String> signUp({
-    required String firstName,
-    required String lastName,
-    required String userName,
-    required String email,
-    required String password,
-  }) async {
+  Future<String> signUp({required AuthModel model}) async {
     try {
       final response = await supabaseClient.auth.signUp(
-        email: email,
-        password: password,
+        email: model.email,
+        password: model.password!,
         data: {
-          'firstName': firstName,
-          'lastName': lastName,
-          'userName': userName,
+          'firstName': model.firstName,
+          'lastName': model.lastName,
+          'userName': model.userName,
         },
       );
       if (response.user == null) {
@@ -67,9 +53,9 @@ class AuthRemoteDataSourceImpl extends AuthRemoteDataSource {
   }
 
   @override
-  Future<void> resetPassword({required String email}) async {
+  Future<void> resetPassword({required AuthModel model}) async {
     try {
-      await supabaseClient.auth.resetPasswordForEmail(email);
+      await supabaseClient.auth.resetPasswordForEmail(model.email!);
     } catch (e) {
       throw ServerException(message: 'Failed to reset password: $e');
     }

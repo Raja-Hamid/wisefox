@@ -15,31 +15,44 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     required this.signInUseCase,
     required this.resetPasswordUseCase,
   }) : super(AuthInitial()) {
-    on<SignUpRequested>((event, emit) async {
-      emit(AuthLoading());
-      final result = await signUpUseCase(event.entity);
-      result.fold(
-        (failure) => emit(AuthFailure(failure.message)),
-        (userId) => emit(AuthSuccess("Signed up: $userId")),
-      );
-    });
+    on<SignUpRequested>(_onSignUpRequested);
+    on<SignInRequested>(_onSignInRequested);
+    on<ResetPasswordRequested>(_onResetPasswordRequested);
+  }
 
-    on<SignInRequested>((event, emit) async {
-      emit(AuthLoading());
-      final result = await signInUseCase(event.entity);
-      result.fold(
-        (failure) => emit(AuthFailure(failure.message)),
-        (userId) => emit(AuthSuccess("Signed in: $userId")),
-      );
-    });
+  Future<void> _onSignUpRequested(
+    SignUpRequested event,
+    Emitter<AuthState> emit,
+  ) async {
+    emit(AuthLoading());
+    final result = await signUpUseCase(event.entity);
+    result.fold(
+      (failure) => emit(AuthFailure(failure.message)),
+      (userId) => emit(AuthSuccess("Signed up: $userId")),
+    );
+  }
 
-    on<ResetPasswordRequested>((event, emit) async {
-      emit(AuthLoading());
-      final result = await resetPasswordUseCase(event.entity);
-      result.fold(
-        (failure) => emit(AuthFailure(failure.message)),
-        (_) => emit(AuthSuccess("Reset link sent")),
-      );
-    });
+  Future<void> _onSignInRequested(
+    SignInRequested event,
+    Emitter<AuthState> emit,
+  ) async {
+    emit(AuthLoading());
+    final result = await signInUseCase(event.entity);
+    result.fold(
+      (failure) => emit(AuthFailure(failure.message)),
+      (userId) => emit(AuthSuccess("Signed in: $userId")),
+    );
+  }
+
+  Future<void> _onResetPasswordRequested(
+    ResetPasswordRequested event,
+    Emitter<AuthState> emit,
+  ) async {
+    emit(AuthLoading());
+    final result = await resetPasswordUseCase(event.entity);
+    result.fold(
+      (failure) => emit(AuthFailure(failure.message)),
+      (_) => emit(AuthSuccess("Reset link sent")),
+    );
   }
 }
