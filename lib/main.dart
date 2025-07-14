@@ -5,6 +5,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:wisefox/dependency_injection.dart';
 import 'package:wisefox/features/authorization/presentation/bloc/auth_bloc.dart';
+import 'package:wisefox/features/dashboard/presentation/screens/home_screen.dart';
+import 'package:wisefox/features/dashboard/presentation/widgets/bottom_nav_bar.dart';
 import 'package:wisefox/features/onboarding/presentation/screens/splash_screen.dart';
 
 void main() async {
@@ -42,7 +44,7 @@ class MyApp extends StatelessWidget {
               textStyle: TextStyle(fontFamily: 'Plus Jakarta Sans'),
             ),
           ),
-          home: SplashScreen(),
+          home: BottomNavBar(),
         ),
       ),
     );

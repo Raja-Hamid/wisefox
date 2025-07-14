@@ -20,18 +20,14 @@ class _MainTransactionsScreenState extends State<MainTransactionsScreen> {
     return CupertinoPageScaffold(
       backgroundColor: AppColors.eggWhite,
       navigationBar: CupertinoNavigationBar(
-        backgroundColor: CupertinoColors.systemGrey.withValues(alpha: 0.5),
         automaticallyImplyLeading: false,
         bottom: null,
-        middle: Padding(
-          padding: EdgeInsets.only(top: 20.h),
-          child: Text(
-            'Main Transactions',
-            style: TextStyle(
-              color: AppColors.lightBlack,
-              fontSize: 25.sp,
-              fontWeight: FontWeight.w700,
-            ),
+        middle: Text(
+          'Main Transactions',
+          style: TextStyle(
+            color: AppColors.lightBlack,
+            fontSize: 25.sp,
+            fontWeight: FontWeight.w700,
           ),
         ),
       ),

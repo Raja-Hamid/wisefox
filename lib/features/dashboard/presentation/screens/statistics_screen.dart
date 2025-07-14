@@ -15,18 +15,14 @@ class _StatisticsScreenState extends State<StatisticsScreen> {
     return CupertinoPageScaffold(
       backgroundColor: AppColors.eggWhite,
       navigationBar: CupertinoNavigationBar(
-        backgroundColor: CupertinoColors.systemGrey.withValues(alpha: 0.5),
         automaticallyImplyLeading: false,
         bottom: null,
-        middle: Padding(
-          padding: EdgeInsets.only(top: 20.h),
-          child: Text(
-            'Statistics',
-            style: TextStyle(
-              color: AppColors.lightBlack,
-              fontSize: 25.sp,
-              fontWeight: FontWeight.w700,
-            ),
+        middle: Text(
+          'Statistics',
+          style: TextStyle(
+            color: AppColors.lightBlack,
+            fontSize: 25.sp,
+            fontWeight: FontWeight.w700,
           ),
         ),
       ),

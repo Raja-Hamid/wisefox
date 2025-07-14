@@ -5,6 +5,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:wisefox/core/utilities/app_colors.dart';
 import 'package:wisefox/features/dashboard/presentation/widgets/gradient_card.dart';
 import 'package:wisefox/features/dashboard/presentation/widgets/income_card.dart';
+import 'package:wisefox/features/profile/presentation/screens/profile_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -38,41 +39,57 @@ class _HomeScreenState extends State<HomeScreen> {
                     Row(
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
-                        Container(
-                          padding: EdgeInsets.all(12.r),
-                          decoration: BoxDecoration(
-                            color: AppColors.purple,
-                            shape: BoxShape.circle,
-                          ),
-                          child: Text(
-                            'R',
-                            style: TextStyle(
-                              color: AppColors.white,
-                              fontSize: 20.sp,
-                              fontWeight: FontWeight.w700,
+                        GestureDetector(
+                          child: Container(
+                            color: Colors.transparent,
+                            child: Row(
+                              children: [
+                                Container(
+                                  padding: EdgeInsets.all(12.r),
+                                  decoration: BoxDecoration(
+                                    color: AppColors.purple,
+                                    shape: BoxShape.circle,
+                                  ),
+                                  child: Text(
+                                    'R',
+                                    style: TextStyle(
+                                      color: AppColors.white,
+                                      fontSize: 20.sp,
+                                      fontWeight: FontWeight.w700,
+                                    ),
+                                  ),
+                                ),
+                                SizedBox(width: 10.w),
+                                Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      'Raja Hamid',
+                                      style: TextStyle(
+                                        color: AppColors.lightGreyish,
+                                        fontSize: 15.sp,
+                                        fontWeight: FontWeight.w700,
+                                      ),
+                                    ),
+                                    Text(
+                                      'Welcome Back!',
+                                      style: TextStyle(
+                                        color: AppColors.lightGreyish,
+                                        fontSize: 12.sp,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ],
                             ),
                           ),
-                        ),
-                        SizedBox(width: 10.w),
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              'Raja Hamid',
-                              style: TextStyle(
-                                color: AppColors.lightGreyish,
-                                fontSize: 15.sp,
-                                fontWeight: FontWeight.w700,
+                          onTap:
+                              () => Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => ProfileScreen(),
+                                ),
                               ),
-                            ),
-                            Text(
-                              'Welcome Back!',
-                              style: TextStyle(
-                                color: AppColors.lightGreyish,
-                                fontSize: 12.sp,
-                              ),
-                            ),
-                          ],
                         ),
                         Spacer(),
                         Container(
@@ -205,8 +222,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 child: ListView.separated(
                   scrollDirection: Axis.horizontal,
                   itemCount: 3,
-                  separatorBuilder:
-                      (context, index) => SizedBox(width: 15.w),
+                  separatorBuilder: (context, index) => SizedBox(width: 15.w),
                   itemBuilder: (context, index) {
                     final data = [
                       {
