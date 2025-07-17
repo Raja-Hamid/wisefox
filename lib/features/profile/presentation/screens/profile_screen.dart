@@ -2,7 +2,10 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:wisefox/core/utilities/app_colors.dart';
-import 'package:wisefox/features/authorization/presentation/widgets/background_gradient.dart';
+import 'package:wisefox/core/common/widgets/background_gradient.dart';
+import 'package:wisefox/features/profile/presentation/screens/change_password_screen.dart';
+import 'package:wisefox/features/profile/presentation/screens/delete_account_screen.dart';
+import 'package:wisefox/features/profile/presentation/screens/edit_profile_screen.dart';
 import 'package:wisefox/features/profile/presentation/widgets/profile_tile.dart';
 
 class ProfileScreen extends StatefulWidget {
@@ -28,24 +31,38 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    CupertinoButton(
-                      padding: EdgeInsets.zero,
-                      onPressed: () => Navigator.of(context).pop(),
-                      child: Icon(
-                        CupertinoIcons.back,
-                        size: 28.sp,
-                        color: AppColors.white,
+                    GestureDetector(
+                      child: CupertinoButton(
+                        padding: EdgeInsets.zero,
+                        onPressed: () => Navigator.of(context).pop(),
+                        child: Icon(
+                          CupertinoIcons.back,
+                          size: 28.sp,
+                          color: AppColors.white,
+                        ),
                       ),
+                      onTap: () {},
                     ),
-                    Spacer(flex: 1,),
-                    CupertinoButton(
-                      padding: EdgeInsets.zero,
-                      onPressed: () {},
-                      child: Icon(
-                        CupertinoIcons.signature,
-                        size: 28.sp,
+                    Text(
+                      'Profile',
+                      style: TextStyle(
                         color: AppColors.white,
+                        fontWeight: FontWeight.w700,
+                        fontSize: 22.sp,
                       ),
+                      textAlign: TextAlign.center,
+                    ),
+                    GestureDetector(
+                      child: CupertinoButton(
+                        padding: EdgeInsets.zero,
+                        onPressed: () {},
+                        child: Icon(
+                          CupertinoIcons.square_arrow_right,
+                          size: 28.sp,
+                          color: AppColors.white,
+                        ),
+                      ),
+                      onTap: () {},
                     ),
                   ],
                 ),
@@ -92,7 +109,13 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         vertical: 5.h,
                       ),
                       child: Text('Edit Profile'),
-                      onPressed: () {},
+                      onPressed:
+                          () => Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => EditProfileScreen(),
+                            ),
+                          ),
                     ),
                   ),
                   SizedBox(height: 45.h),
@@ -113,20 +136,35 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         children: [
                           ProfileTile(
                             title: 'Settings',
-                            leadingIcon: Icons.settings,
-                            trailingIcon: Icons.arrow_forward_ios,
+                            leadingIcon: CupertinoIcons.settings,
+                            trailingIcon: CupertinoIcons.arrow_right,
                           ),
                           SizedBox(height: 10.h),
                           ProfileTile(
                             title: 'Change Password',
-                            leadingIcon: Icons.password,
-                            trailingIcon: Icons.arrow_forward_ios,
+                            leadingIcon: CupertinoIcons.lock,
+                            trailingIcon: CupertinoIcons.arrow_right,
+                            onTap:
+                                () => Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder:
+                                        (context) => ChangePasswordScreen(),
+                                  ),
+                                ),
                           ),
                           SizedBox(height: 10.h),
                           ProfileTile(
                             title: 'Delete Account',
-                            leadingIcon: Icons.delete,
-                            trailingIcon: Icons.arrow_forward_ios,
+                            leadingIcon: CupertinoIcons.delete,
+                            trailingIcon: CupertinoIcons.arrow_right,
+                            onTap:
+                                () => Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => DeleteAccountScreen(),
+                                  ),
+                                ),
                           ),
                         ],
                       ),

@@ -37,16 +37,26 @@ class AuthRemoteDataSourceImpl extends AuthRemoteDataSource {
       final response = await supabaseClient.auth.signUp(
         email: model.email,
         password: model.password!,
-        data: {
-          'firstName': model.firstName,
-          'lastName': model.lastName,
-          'userName': model.userName,
-        },
+        data: {'firstName': model.firstName, 'lastName': model.lastName},
       );
-      if (response.user == null) {
+
+      final user = response.user;
+      if (user == null) {
         throw ServerException(message: 'User is null');
       }
-      return response.user!.id;
+      final insertResponse =
+          await supabaseClient.from('users').insert({
+            'id': user.id,
+            'email': model.email,
+            'first_name': model.firstName,
+            'last_name': model.lastName,
+          }).select();
+
+      if (insertResponse.isEmpty) {
+        throw ServerException(message: 'Failed to insert user data');
+      }
+
+      return user.id;
     } catch (e) {
       throw ServerException(message: 'Failed to Sign Up: $e');
     }

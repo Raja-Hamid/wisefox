@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:wisefox/core/utilities/app_colors.dart';
-import 'package:wisefox/features/authorization/presentation/widgets/background_gradient.dart';
+import 'package:wisefox/core/common/widgets/background_gradient.dart';
 import 'package:wisefox/features/onboarding/presentation/screens/onboarding_screens.dart';
 
 

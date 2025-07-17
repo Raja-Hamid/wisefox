@@ -10,7 +10,7 @@ import 'package:wisefox/features/authorization/presentation/bloc/auth_bloc.dart'
 import 'package:wisefox/features/authorization/presentation/bloc/auth_event.dart';
 import 'package:wisefox/features/authorization/presentation/bloc/auth_state.dart';
 import 'package:wisefox/features/authorization/presentation/screens/sign_in_screen.dart';
-import 'package:wisefox/features/authorization/presentation/widgets/background_gradient.dart';
+import 'package:wisefox/core/common/widgets/background_gradient.dart';
 import 'package:wisefox/features/authorization/presentation/widgets/rounded_gradient_button.dart';
 import 'package:wisefox/features/authorization/presentation/widgets/rounded_text_field.dart';
 import 'package:wisefox/features/authorization/presentation/widgets/social_row.dart';
@@ -26,15 +26,14 @@ class _SignUpScreenState extends State<SignUpScreen> {
   final _formKey = GlobalKey<FormState>();
   final TextEditingController _firstNameController = TextEditingController();
   final TextEditingController _lastNameController = TextEditingController();
-  final TextEditingController _userNameController = TextEditingController();
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
+  final TextEditingController _confirmPasswordController = TextEditingController();
 
   @override
   void dispose() {
     _firstNameController.dispose();
     _lastNameController.dispose();
-    _userNameController.dispose();
     _emailController.dispose();
     _passwordController.dispose();
     super.dispose();
@@ -139,13 +138,6 @@ class _SignUpScreenState extends State<SignUpScreen> {
                         ),
                         SizedBox(height: 20.h),
                         RoundedTextField(
-                          hintText: 'Username',
-                          icon: 'assets/icons/Email.svg',
-                          controller: _userNameController,
-                          validator: (value) => Validators.validateName(value),
-                        ),
-                        SizedBox(height: 20.h),
-                        RoundedTextField(
                           hintText: 'Email',
                           icon: 'assets/icons/Email.svg',
                           controller: _emailController,
@@ -164,7 +156,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                         RoundedTextField(
                           hintText: 'Confirm Password',
                           icon: 'assets/icons/Lock.svg',
-                          controller: _passwordController,
+                          controller: _confirmPasswordController,
                           obscureText: true,
                           validator:
                               (value) => Validators.validateConfirmPassword(
@@ -180,7 +172,6 @@ class _SignUpScreenState extends State<SignUpScreen> {
                               final signUpEntity = User(
                                 firstName: _firstNameController.text.trim(),
                                 lastName: _lastNameController.text.trim(),
-                                userName: _userNameController.text.trim(),
                                 email: _emailController.text.trim(),
                                 password: _passwordController.text.trim(),
                               );

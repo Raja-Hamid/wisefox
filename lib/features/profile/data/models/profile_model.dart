@@ -4,7 +4,6 @@ class ProfileModel extends User {
   const ProfileModel({
     required super.firstName,
     required super.lastName,
-    required super.userName,
     required super.email,
     required super.password,
   });
@@ -13,7 +12,6 @@ class ProfileModel extends User {
     return ProfileModel(
       firstName: json['firstName'] ?? '',
       lastName: json['lastName'] ?? '',
-      userName: json['userName'] ?? '',
       email: json['email'] ?? '',
       password: json['password'] ?? '',
     );
@@ -23,7 +21,6 @@ class ProfileModel extends User {
     return {
       'firstName': firstName,
       'lastName': lastName,
-      'userName': userName,
       'email': email,
       'password': password,
     };
@@ -33,7 +30,6 @@ class ProfileModel extends User {
     return ProfileModel(
       firstName: entity.firstName,
       lastName: entity.lastName,
-      userName: entity.userName,
       email: entity.email,
       password: entity.password,
     );
@@ -43,7 +39,6 @@ class ProfileModel extends User {
     return User(
       firstName: firstName,
       lastName: lastName,
-      userName: userName,
       email: email,
       password: password,
     );

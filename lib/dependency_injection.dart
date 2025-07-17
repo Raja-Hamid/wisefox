@@ -8,6 +8,11 @@ import 'package:wisefox/features/authorization/domain/usecases/reset_password_us
 import 'package:wisefox/features/authorization/domain/usecases/sign_in_use_case.dart';
 import 'package:wisefox/features/authorization/domain/usecases/sign_up_use_case.dart';
 import 'package:wisefox/features/authorization/presentation/bloc/auth_bloc.dart';
+import 'package:wisefox/features/dashboard/data/datasources/dashboard_remote_data_source.dart';
+import 'package:wisefox/features/dashboard/data/repositories/dashboard_repository_impl.dart';
+import 'package:wisefox/features/dashboard/domain/repositories/dashboard_repository.dart';
+import 'package:wisefox/features/dashboard/domain/usecases/get_dashboard_data.dart';
+import 'package:wisefox/features/dashboard/presentation/bloc/dashboard_bloc.dart';
 
 final di = GetIt.instance;
 
@@ -16,23 +21,34 @@ Future<void> init() async {
     url: AppSecrets.supabaseUrl,
     anonKey: AppSecrets.supabaseAnonKey,
   );
+
+  // AUTH INJECTIONS
   di.registerLazySingleton(() => Supabase.instance.client);
-
   di.registerLazySingleton<AuthRemoteDataSource>(
-        () => AuthRemoteDataSourceImpl(supabaseClient: di()),
+    () => AuthRemoteDataSourceImpl(supabaseClient: di()),
   );
-
   di.registerLazySingleton<AuthRepository>(
-        () => AuthRepositoryImpl(remoteDataSource: di()),
+    () => AuthRepositoryImpl(remoteDataSource: di()),
   );
-
   di.registerLazySingleton(() => SignUpUseCase(repository: di()));
   di.registerLazySingleton(() => SignInUseCase(repository: di()));
   di.registerLazySingleton(() => ResetPasswordUseCase(repository: di()));
+  di.registerFactory(
+    () => AuthBloc(
+      signUpUseCase: di(),
+      signInUseCase: di(),
+      resetPasswordUseCase: di(),
+    ),
+  );
 
-  di.registerFactory(() => AuthBloc(
-    signUpUseCase: di(),
-    signInUseCase: di(),
-    resetPasswordUseCase: di(),
-  ));
+
+  // DASHBOARD INJECTIONS
+  di.registerLazySingleton<DashboardRemoteDataSource>(
+    () => DashboardRemoteDataSourceImpl(supabaseClient: di()),
+  );
+  di.registerLazySingleton<DashboardRepository>(
+    () => DashboardRepositoryImpl(remoteDataSource: di()),
+  );
+  di.registerLazySingleton(() => GetDashboardDataUseCase(repository: di()));
+  di.registerFactory(() => DashboardBloc(getDashboardDataUseCase: di()));
 }

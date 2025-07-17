@@ -1,20 +1,20 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:wisefox/core/common/widgets/background_gradient.dart';
 import 'package:wisefox/core/utilities/app_colors.dart';
 import 'package:wisefox/features/authorization/presentation/widgets/rounded_gradient_button.dart';
 import 'package:wisefox/features/profile/presentation/widgets/custom_text_field.dart';
 
-class EditProfileScreen extends StatefulWidget {
-  const EditProfileScreen({super.key});
+class DeleteAccountScreen extends StatefulWidget {
+  const DeleteAccountScreen({super.key});
 
   @override
-  State<EditProfileScreen> createState() => _EditProfileScreenState();
+  State<DeleteAccountScreen> createState() => _DeleteAccountScreenState();
 }
 
-class _EditProfileScreenState extends State<EditProfileScreen> {
-  final TextEditingController _firstNameController = TextEditingController();
-  final TextEditingController _lastNameController = TextEditingController();
+class _DeleteAccountScreenState extends State<DeleteAccountScreen> {
+  final TextEditingController _passwordController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -44,7 +44,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                       onTap: () {},
                     ),
                     Text(
-                      'Edit Profile',
+                      'Delete Account',
                       style: TextStyle(
                         color: AppColors.white,
                         fontWeight: FontWeight.w700,
@@ -62,52 +62,12 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  Stack(
-                    children: [
-                      Container(
-                        padding: EdgeInsets.all(45.r),
-                        decoration: BoxDecoration(
-                          color: AppColors.purple,
-                          shape: BoxShape.circle,
-                        ),
-                        child: Text(
-                          'R',
-                          style: TextStyle(
-                            color: AppColors.white,
-                            fontSize: 50.sp,
-                            fontWeight: FontWeight.w700,
-                          ),
-                        ),
-                      ),
-                      Positioned(
-                        right: 0,
-                        bottom: 15.h,
-                        child: GestureDetector(
-                          child: Container(
-                            decoration: BoxDecoration(
-                              shape: BoxShape.circle,
-                              color: AppColors.white,
-                            ),
-                            child: Padding(
-                              padding: EdgeInsets.all(5.r),
-                              child: Icon(
-                                CupertinoIcons.camera_fill,
-                                color: AppColors.black,
-                                size: 20.sp,
-                              ),
-                            ),
-                          ),
-                          onTap: () {},
-                        ),
-                      ),
-                    ],
-                  ),
-
+                  SvgPicture.asset('assets/icons/Warning-Icon.svg'),
                   SizedBox(height: 25.h),
                   Padding(
                     padding: EdgeInsets.symmetric(horizontal: 30.w),
                     child: Text(
-                      'Update your profile information. Changes\nwill reflect immediately.',
+                      'This action is permanent and all personal data\nand information will be permanently deleted.',
                       style: TextStyle(
                         color: AppColors.lightGreyish,
                         fontSize: 14.sp,
@@ -133,18 +93,12 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           CustomTextField(
-                            title: 'First Name',
-                            hintText: 'Enter your first name',
-                            controller: _firstNameController,
+                            title: 'Password',
+                            hintText: 'Enter your password',
+                            controller: _passwordController,
                             obscureText: false,
                           ),
                           SizedBox(height: 15.h),
-                          CustomTextField(
-                            title: 'Last Name',
-                            hintText: 'Enter your last name',
-                            controller: _lastNameController,
-                            obscureText: false,
-                          ),
                           Spacer(),
                           RoundedGradientButton(
                             title: 'Continue',

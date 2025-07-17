@@ -5,7 +5,5 @@ import 'package:wisefox/core/errors/exceptions.dart';
 abstract interface class AuthRepository {
   Future<Either<Failure, String>> signUp({required User entity});
   Future<Either<Failure, String>> signIn({required User entity});
-  Future<Either<Failure, String>> resetPassword({
-    required User entity,
-  });
+  Future<Either<Failure, String>> resetPassword({required User entity});
 }

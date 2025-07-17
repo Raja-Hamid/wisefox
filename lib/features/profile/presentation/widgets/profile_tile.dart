@@ -7,16 +7,20 @@ class ProfileTile extends StatelessWidget {
   final String title;
   final IconData leadingIcon;
   final IconData trailingIcon;
+  final void Function()? onTap;
+
   const ProfileTile({
     super.key,
     required this.title,
     required this.leadingIcon,
     required this.trailingIcon,
+    this.onTap,
   });
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
+      onTap: onTap,
       child: Container(
         color: CupertinoColors.transparent,
         child: Column(
@@ -57,7 +61,6 @@ class ProfileTile extends StatelessWidget {
           ],
         ),
       ),
-      onTap: () {},
     );
   }
 }

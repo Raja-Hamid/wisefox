@@ -14,7 +14,7 @@ import 'package:wisefox/features/authorization/presentation/screens/sign_up_scre
 import 'package:wisefox/features/authorization/presentation/widgets/rounded_gradient_button.dart';
 import 'package:wisefox/features/authorization/presentation/widgets/social_row.dart';
 import 'package:wisefox/features/authorization/presentation/widgets/rounded_text_field.dart';
-import 'package:wisefox/features/authorization/presentation/widgets/background_gradient.dart';
+import 'package:wisefox/core/common/widgets/background_gradient.dart';
 import 'package:wisefox/features/dashboard/presentation/widgets/bottom_nav_bar.dart';
 
 class SignInScreen extends StatefulWidget {
