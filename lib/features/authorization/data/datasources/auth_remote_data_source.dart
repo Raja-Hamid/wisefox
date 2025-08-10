@@ -4,9 +4,7 @@ import 'package:wisefox/features/authorization/data/models/auth_model.dart';
 
 abstract interface class AuthRemoteDataSource {
   Future<String> signUp({required AuthModel model});
-
   Future<String> signIn({required AuthModel model});
-
   Future<void> resetPassword({required AuthModel model});
 }
 
@@ -37,7 +35,7 @@ class AuthRemoteDataSourceImpl extends AuthRemoteDataSource {
       final response = await supabaseClient.auth.signUp(
         email: model.email,
         password: model.password!,
-        data: {'firstName': model.firstName, 'lastName': model.lastName},
+        data: {'firstName': model.firstName, 'lastName': model.lastName,},
       );
 
       final user = response.user;

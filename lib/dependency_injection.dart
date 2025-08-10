@@ -41,7 +41,6 @@ Future<void> init() async {
     ),
   );
 
-
   // DASHBOARD INJECTIONS
   di.registerLazySingleton<DashboardRemoteDataSource>(
     () => DashboardRemoteDataSourceImpl(supabaseClient: di()),

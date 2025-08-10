@@ -25,7 +25,9 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     Emitter<AuthState> emit,
   ) async {
     emit(AuthLoading());
-    final result = await signUpUseCase(event.entity);
+    final result = await signUpUseCase(
+      SignUpParams(user: event.entity, password: event.password),
+    );
     result.fold(
       (failure) => emit(AuthFailure(failure.message)),
       (userId) => emit(AuthSuccess("Signed up: $userId")),
@@ -37,7 +39,9 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     Emitter<AuthState> emit,
   ) async {
     emit(AuthLoading());
-    final result = await signInUseCase(event.entity);
+    final result = await signInUseCase(
+      SignInParams(user: event.entity, password: event.password),
+    );
     result.fold(
       (failure) => emit(AuthFailure(failure.message)),
       (userId) => emit(AuthSuccess("Signed in: $userId")),

@@ -1,15 +1,19 @@
 import 'package:wisefox/core/common/entities/user.dart';
 
 class AuthModel extends User {
+  final String? password;
+
   const AuthModel({
+    required super.id,
     required super.firstName,
     required super.lastName,
     required super.email,
-    required super.password,
+    this.password,
   });
 
   factory AuthModel.fromJson(Map<String, dynamic> json) {
     return AuthModel(
+      id: json['id'] ?? '',
       firstName: json['firstName'] ?? '',
       lastName: json['lastName'] ?? '',
       email: json['email'] ?? '',
@@ -19,6 +23,7 @@ class AuthModel extends User {
 
   Map<String, dynamic> toJson() {
     return {
+      'id': id,
       'firstName': firstName,
       'lastName': lastName,
       'email': email,
@@ -26,21 +31,17 @@ class AuthModel extends User {
     };
   }
 
-  factory AuthModel.fromEntity(User entity) {
+  factory AuthModel.fromEntity(User entity, String? password) {
     return AuthModel(
+      id: entity.id,
       firstName: entity.firstName,
       lastName: entity.lastName,
       email: entity.email,
-      password: entity.password,
+      password: password,
     );
   }
 
   User toEntity() {
-    return User(
-      firstName: firstName,
-      lastName: lastName,
-      email: email,
-      password: password,
-    );
+    return User(id: id, firstName: firstName, lastName: lastName, email: email);
   }
 }

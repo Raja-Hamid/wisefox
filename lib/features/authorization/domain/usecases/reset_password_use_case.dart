@@ -4,7 +4,7 @@ import 'package:wisefox/core/errors/exceptions.dart';
 import 'package:wisefox/core/usecases/use_case.dart';
 import 'package:wisefox/features/authorization/domain/repositories/auth_repository.dart';
 
-class ResetPasswordUseCase implements UseCase<String, User>{
+class ResetPasswordUseCase implements UseCase<String, User> {
   final AuthRepository repository;
 
   ResetPasswordUseCase({required this.repository});

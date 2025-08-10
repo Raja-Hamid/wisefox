@@ -118,7 +118,8 @@ class _SignInScreenState extends State<SignInScreen> {
                           icon: 'assets/icons/Lock.svg',
                           controller: _passwordController,
                           obscureText: true,
-                          validator: (value) => Validators.validatePassword(value),
+                          validator:
+                              (value) => Validators.validatePassword(value),
                         ),
                         SizedBox(height: 10.h),
                         Align(
@@ -146,10 +147,12 @@ class _SignInScreenState extends State<SignInScreen> {
                             if (_formKey.currentState!.validate()) {
                               final signInEntity = User(
                                 email: _emailController.text.trim(),
-                                password: _passwordController.text.trim(),
                               );
                               context.read<AuthBloc>().add(
-                                SignInRequested(entity: signInEntity),
+                                SignInRequested(
+                                  entity: signInEntity,
+                                  password: _passwordController.text.trim(),
+                                ),
                               );
                             }
                           },

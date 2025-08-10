@@ -28,7 +28,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
   final TextEditingController _lastNameController = TextEditingController();
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
-  final TextEditingController _confirmPasswordController = TextEditingController();
+  final TextEditingController _confirmPasswordController =
+      TextEditingController();
 
   @override
   void dispose() {
@@ -173,10 +174,12 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                 firstName: _firstNameController.text.trim(),
                                 lastName: _lastNameController.text.trim(),
                                 email: _emailController.text.trim(),
-                                password: _passwordController.text.trim(),
                               );
                               context.read<AuthBloc>().add(
-                                SignUpRequested(entity: signUpEntity),
+                                SignUpRequested(
+                                  entity: signUpEntity,
+                                  password: _passwordController.text.trim(),
+                                ),
                               );
                             }
                           },

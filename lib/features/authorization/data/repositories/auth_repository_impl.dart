@@ -12,9 +12,12 @@ class AuthRepositoryImpl implements AuthRepository {
   AuthRepositoryImpl({required this.remoteDataSource});
 
   @override
-  Future<Either<Failure, String>> signUp({required User entity}) async {
+  Future<Either<Failure, String>> signUp({
+    required User entity,
+    required String password,
+  }) async {
     try {
-      final model = AuthModel.fromEntity(entity);
+      final model = AuthModel.fromEntity(entity, password);
       final userID = await remoteDataSource.signUp(model: model);
       return Right(userID);
     } on ServerException catch (e) {
@@ -23,11 +26,14 @@ class AuthRepositoryImpl implements AuthRepository {
   }
 
   @override
-  Future<Either<Failure, String>> signIn({required User entity}) async {
+  Future<Either<Failure, String>> signIn({
+    required User entity,
+    required String password,
+  }) async {
     try {
-      final model = AuthModel.fromEntity(entity);
-      await remoteDataSource.signIn(model: model);
-      return Right('Sign Up Successful');
+      final model = AuthModel.fromEntity(entity, password);
+      final userID = await remoteDataSource.signIn(model: model);
+      return Right(userID);
     } on ServerException catch (e) {
       return Left(Failure(e.message));
     }
@@ -36,7 +42,7 @@ class AuthRepositoryImpl implements AuthRepository {
   @override
   Future<Either<Failure, String>> resetPassword({required User entity}) async {
     try {
-      final model = AuthModel.fromEntity(entity);
+      final model = AuthModel.fromEntity(entity, null);
       await remoteDataSource.resetPassword(model: model);
       return Right('Password Reset Successful');
     } on ServerException catch (e) {
