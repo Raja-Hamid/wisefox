@@ -92,12 +92,25 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           CustomTextField(
-                            title: 'Password',
+                            title: 'Current Password',
                             hintText: 'Enter your password',
                             controller: _passwordController,
                             obscureText: false,
                           ),
                           SizedBox(height: 15.h),
+                          CustomTextField(
+                            title: 'New Password',
+                            hintText: 'Enter your password',
+                            controller: _passwordController,
+                            obscureText: false,
+                          ),
+                          SizedBox(height: 15.h),
+                          CustomTextField(
+                            title: 'Confirm New Password',
+                            hintText: 'Enter your password',
+                            controller: _passwordController,
+                            obscureText: false,
+                          ),
                           Spacer(),
                           RoundedGradientButton(
                             title: 'Update',

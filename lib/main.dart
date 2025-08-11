@@ -7,6 +7,7 @@ import 'package:wisefox/dependency_injection.dart';
 import 'package:wisefox/features/authorization/presentation/bloc/auth_bloc.dart';
 import 'package:wisefox/features/dashboard/presentation/bloc/dashboard_bloc.dart';
 import 'package:wisefox/features/onboarding/presentation/screens/splash_screen.dart';
+import 'package:wisefox/features/profile/presentation/bloc/profile_bloc.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -34,6 +35,7 @@ class MyApp extends StatelessWidget {
         providers: [
           BlocProvider<AuthBloc>(create: (_) => di<AuthBloc>()),
           BlocProvider<DashboardBloc>(create: (_) => di<DashboardBloc>()),
+          BlocProvider<ProfileBloc>(create: (_) => di<ProfileBloc>()),
         ],
         child: CupertinoApp(
           debugShowCheckedModeBanner: false,

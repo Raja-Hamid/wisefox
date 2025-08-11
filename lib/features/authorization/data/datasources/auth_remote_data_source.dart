@@ -35,7 +35,7 @@ class AuthRemoteDataSourceImpl extends AuthRemoteDataSource {
       final response = await supabaseClient.auth.signUp(
         email: model.email,
         password: model.password!,
-        data: {'firstName': model.firstName, 'lastName': model.lastName,},
+        data: {'firstName': model.firstName, 'lastName': model.lastName},
       );
 
       final user = response.user;

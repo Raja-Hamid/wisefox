@@ -61,104 +61,97 @@ class _HomeScreenState extends State<HomeScreen> {
         }
       },
       child: CupertinoPageScaffold(
-        backgroundColor: AppColors.eggWhite,
         child: BlocBuilder<DashboardBloc, DashboardState>(
           builder: (context, state) {
             if (state is DashboardSuccess) {
               return SingleChildScrollView(
                 child: Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 20.w),
+                  padding: EdgeInsets.symmetric(
+                    horizontal: 20.w,
+                    vertical: kToolbarHeight.h * 0.75,
+                  ),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
+                      Row(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          GestureDetector(
+                            child: Container(
+                              color: Colors.transparent,
+                              child: Row(
+                                children: [
+                                  Container(
+                                    padding: EdgeInsets.all(12.r),
+                                    decoration: BoxDecoration(
+                                      color: AppColors.purple,
+                                      shape: BoxShape.circle,
+                                    ),
+                                    child: Text(
+                                      'R',
+                                      style: TextStyle(
+                                        color: AppColors.white,
+                                        fontSize: 20.sp,
+                                        fontWeight: FontWeight.w700,
+                                      ),
+                                    ),
+                                  ),
+                                  SizedBox(width: 10.w),
+                                  Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        state.entity.userName,
+                                        style: TextStyle(
+                                          color: AppColors.black,
+                                          fontSize: 15.sp,
+                                          fontWeight: FontWeight.w700,
+                                        ),
+                                      ),
+                                      Text(
+                                        'Welcome Back!',
+                                        style: TextStyle(
+                                          color: AppColors.grey,
+                                          fontSize: 12.sp,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ],
+                              ),
+                            ),
+                            onTap:
+                                () => Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => ProfileScreen(),
+                                  ),
+                                ),
+                          ),
+                          Spacer(),
+                          Container(
+                            decoration: BoxDecoration(
+                              color: AppColors.lightGreyish.withValues(
+                                alpha: 0.5,
+                              ),
+                              border: Border.all(color: AppColors.offWhite),
+                              shape: BoxShape.circle,
+                            ),
+                            child: Padding(
+                              padding: EdgeInsets.all(8.r),
+                              child: SvgPicture.asset('assets/icons/Sun.svg'),
+                            ),
+                          ),
+                        ],
+                      ),
+                      SizedBox(height: 20.h),
                       GradientCard(
-                        height: 400,
-                        padding: EdgeInsets.fromLTRB(
-                          20.w,
-                          kToolbarHeight.h,
-                          20.w,
-                          20.h,
-                        ),
+                        height: 250.h,
+                        padding: EdgeInsets.all(20.r),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Row(
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: [
-                                GestureDetector(
-                                  child: Container(
-                                    color: Colors.transparent,
-                                    child: Row(
-                                      children: [
-                                        Container(
-                                          padding: EdgeInsets.all(12.r),
-                                          decoration: BoxDecoration(
-                                            color: AppColors.purple,
-                                            shape: BoxShape.circle,
-                                          ),
-                                          child: Text(
-                                            'R',
-                                            style: TextStyle(
-                                              color: AppColors.white,
-                                              fontSize: 20.sp,
-                                              fontWeight: FontWeight.w700,
-                                            ),
-                                          ),
-                                        ),
-                                        SizedBox(width: 10.w),
-                                        Column(
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
-                                          children: [
-                                            Text(
-                                              state.entity.userName,
-                                              style: TextStyle(
-                                                color: AppColors.lightGreyish,
-                                                fontSize: 15.sp,
-                                                fontWeight: FontWeight.w700,
-                                              ),
-                                            ),
-                                            Text(
-                                              'Welcome Back!',
-                                              style: TextStyle(
-                                                color: AppColors.lightGreyish,
-                                                fontSize: 12.sp,
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                  onTap:
-                                      () => Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                          builder: (context) => ProfileScreen(),
-                                        ),
-                                      ),
-                                ),
-                                Spacer(),
-                                Container(
-                                  decoration: BoxDecoration(
-                                    color: AppColors.lightGreyish.withValues(
-                                      alpha: 0.5,
-                                    ),
-                                    border: Border.all(
-                                      color: AppColors.offWhite,
-                                    ),
-                                    shape: BoxShape.circle,
-                                  ),
-                                  child: Padding(
-                                    padding: EdgeInsets.all(8.r),
-                                    child: SvgPicture.asset(
-                                      'assets/icons/Sun.svg',
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            ),
-                            Spacer(),
                             Text(
                               'Total Balance',
                               style: TextStyle(

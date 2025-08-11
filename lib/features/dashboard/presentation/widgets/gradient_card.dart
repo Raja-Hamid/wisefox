@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:wisefox/core/common/widgets/background_gradient.dart';
 
 class GradientCard extends StatelessWidget {
@@ -15,18 +16,12 @@ class GradientCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ClipRRect(
-      borderRadius: BorderRadius.only(
-        bottomLeft: Radius.circular(30),
-        bottomRight: Radius.circular(30),
-      ),
+      borderRadius: BorderRadius.all(Radius.circular(20.r)),
       child: SizedBox(
         width: double.infinity,
         height: height,
         child: BackgroundGradient(
-          child: Padding(
-            padding: padding,
-            child: child,
-          ),
+          child: Padding(padding: padding, child: child),
         ),
       ),
     );
