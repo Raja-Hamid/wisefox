@@ -1,47 +1,42 @@
-import 'package:wisefox/core/common/entities/user.dart';
+import 'package:wisefox/features/profile/domain/entities/profile_entity.dart';
 
-class ProfileModel extends User {
-  final String password;
-
+class ProfileModel extends ProfileEntity {
   const ProfileModel({
     required super.id,
+    required super.email,
+    required super.userName,
     required super.firstName,
     required super.lastName,
-    required super.email,
-    required this.password,
+    super.password,
   });
 
-  factory ProfileModel.fromJson(Map<String, dynamic> json) {
+  factory ProfileModel.fromSupabase({required Map<String, dynamic> userData}) {
     return ProfileModel(
-      id: json['id'] ?? '',
-      firstName: json['firstName'] ?? '',
-      lastName: json['lastName'] ?? '',
-      email: json['email'] ?? '',
-      password: json['password'] ?? '',
+      id: userData['id'] ?? '',
+      userName: '${userData['first_name']} ${userData['last_name']}',
+      firstName: userData['first_name'] ?? '',
+      lastName: userData['last_name'] ?? '',
+      email: userData['email'] ?? '',
     );
   }
 
-  Map<String, dynamic> toJson() {
-    return {
-      'id': id,
-      'firstName': firstName,
-      'lastName': lastName,
-      'email': email,
-      'password': password,
-    };
-  }
-
-  factory ProfileModel.fromEntity(User entity, String password) {
+  factory ProfileModel.fromEntity(ProfileEntity entity) {
     return ProfileModel(
       id: entity.id,
+      userName: entity.userName,
       firstName: entity.firstName,
       lastName: entity.lastName,
       email: entity.email,
-      password: password,
     );
   }
 
-  User toEntity() {
-    return User(id: id, firstName: firstName, lastName: lastName, email: email);
+  ProfileEntity toEntity() {
+    return ProfileEntity(
+      id: id,
+      userName: userName,
+      firstName: firstName,
+      lastName: lastName,
+      email: email,
+    );
   }
 }

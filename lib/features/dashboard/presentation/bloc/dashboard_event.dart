@@ -1,3 +1,5 @@
 abstract class DashboardEvent {}
 
-class GetDashboardDataRequested extends DashboardEvent {}
+class GetDashboardDataRequested extends DashboardEvent {
+  GetDashboardDataRequested();
+}

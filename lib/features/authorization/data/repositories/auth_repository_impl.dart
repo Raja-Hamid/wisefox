@@ -4,6 +4,7 @@ import 'package:wisefox/core/errors/exceptions.dart';
 import 'package:wisefox/core/errors/failures.dart';
 import 'package:wisefox/features/authorization/data/datasources/auth_remote_data_source.dart';
 import 'package:wisefox/features/authorization/data/models/auth_model.dart';
+import 'package:wisefox/features/authorization/domain/entities/auth_entity.dart';
 import 'package:wisefox/features/authorization/domain/repositories/auth_repository.dart';
 
 class AuthRepositoryImpl implements AuthRepository {
@@ -13,7 +14,7 @@ class AuthRepositoryImpl implements AuthRepository {
 
   @override
   Future<Either<Failure, String>> signUp({
-    required User entity,
+    required AuthEntity entity,
     required String password,
   }) async {
     try {
@@ -27,7 +28,7 @@ class AuthRepositoryImpl implements AuthRepository {
 
   @override
   Future<Either<Failure, String>> signIn({
-    required User entity,
+    required AuthEntity entity,
     required String password,
   }) async {
     try {
@@ -40,7 +41,7 @@ class AuthRepositoryImpl implements AuthRepository {
   }
 
   @override
-  Future<Either<Failure, String>> resetPassword({required User entity}) async {
+  Future<Either<Failure, String>> resetPassword({required AuthEntity entity}) async {
     try {
       final model = AuthModel.fromEntity(entity, null);
       await remoteDataSource.resetPassword(model: model);

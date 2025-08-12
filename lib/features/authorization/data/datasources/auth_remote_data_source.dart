@@ -35,7 +35,7 @@ class AuthRemoteDataSourceImpl extends AuthRemoteDataSource {
       final response = await supabaseClient.auth.signUp(
         email: model.email,
         password: model.password!,
-        data: {'firstName': model.firstName, 'lastName': model.lastName},
+        data: {'first_name': model.firstName, 'last_name': model.lastName},
       );
 
       final user = response.user;
@@ -53,7 +53,6 @@ class AuthRemoteDataSourceImpl extends AuthRemoteDataSource {
       if (insertResponse.isEmpty) {
         throw ServerException(message: 'Failed to insert user data');
       }
-
       return user.id;
     } catch (e) {
       throw ServerException(message: 'Failed to Sign Up: $e');

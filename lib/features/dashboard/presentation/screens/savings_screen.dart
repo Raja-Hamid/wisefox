@@ -19,19 +19,18 @@ class _SavingsScreenState extends State<SavingsScreen> {
       backgroundColor: AppColors.eggWhite,
       child: SingleChildScrollView(
         child: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 20.w),
+          padding: EdgeInsets.symmetric(
+            horizontal: 20.w,
+            vertical: (kToolbarHeight * 0.75).h,
+          ),
           child: Column(
             children: [
               GradientCard(
-                height: 330.h,
-                padding: EdgeInsets.fromLTRB(
-                  20.w,
-                  (kToolbarHeight * 1.25).h,
-                  20.w,
-                  20.h,
-                ),
+                height: 300.h,
+                padding: EdgeInsets.all(20.r),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text(
                       'Savings',

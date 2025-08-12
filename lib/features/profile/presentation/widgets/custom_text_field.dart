@@ -43,17 +43,21 @@ class CustomTextField extends StatelessWidget {
             border: Border.all(color: AppColors.grey),
             borderRadius: BorderRadius.circular(10.r),
           ),
-          suffix: Padding(
-            padding: EdgeInsets.only(right: 12.w),
-            child: GestureDetector(
-              onTap: () {},
-              child: Icon(
-                CupertinoIcons.eye_slash,
-                size: 20,
-                color: CupertinoColors.systemGrey,
-              ),
-            ),
-          ),
+          suffix:
+              obscureText == true
+                  ? Padding(
+                    padding: EdgeInsets.only(right: 12.w),
+                    child: GestureDetector(
+                      onTap: () {},
+                      child: Icon(
+                        CupertinoIcons.eye_slash,
+                        size: 20,
+                        color: CupertinoColors.systemGrey,
+                      ),
+                    ),
+                  )
+                  : null,
+          style: TextStyle(color: AppColors.black),
         ),
       ],
     );

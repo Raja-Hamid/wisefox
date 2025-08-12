@@ -1,37 +1,33 @@
-import 'package:wisefox/core/common/entities/user.dart';
+import 'package:wisefox/features/authorization/domain/entities/auth_entity.dart';
 
-class AuthModel extends User {
-  final String? password;
-
+class AuthModel extends AuthEntity {
   const AuthModel({
     required super.id,
     required super.firstName,
     required super.lastName,
     required super.email,
-    this.password,
+    super.password,
   });
 
-  factory AuthModel.fromJson(Map<String, dynamic> json) {
+  factory AuthModel.fromSupabase(Map<String, dynamic> json) {
     return AuthModel(
       id: json['id'] ?? '',
-      firstName: json['firstName'] ?? '',
-      lastName: json['lastName'] ?? '',
+      firstName: json['first_name'] ?? '',
+      lastName: json['last_name'] ?? '',
       email: json['email'] ?? '',
-      password: json['password'] ?? '',
     );
   }
 
-  Map<String, dynamic> toJson() {
+  Map<String, dynamic> toSupabase() {
     return {
       'id': id,
-      'firstName': firstName,
-      'lastName': lastName,
+      'first_name': firstName,
+      'last_name': lastName,
       'email': email,
-      'password': password,
     };
   }
 
-  factory AuthModel.fromEntity(User entity, String? password) {
+  factory AuthModel.fromEntity(AuthEntity entity, String? password) {
     return AuthModel(
       id: entity.id,
       firstName: entity.firstName,
@@ -41,7 +37,12 @@ class AuthModel extends User {
     );
   }
 
-  User toEntity() {
-    return User(id: id, firstName: firstName, lastName: lastName, email: email);
+  AuthEntity toEntity() {
+    return AuthEntity(
+      id: id,
+      firstName: firstName,
+      lastName: lastName,
+      email: email,
+    );
   }
 }

@@ -16,6 +16,7 @@ import 'package:wisefox/features/dashboard/presentation/bloc/dashboard_bloc.dart
 import 'package:wisefox/features/profile/data/datasources/profile_remote_data_source.dart';
 import 'package:wisefox/features/profile/data/repositories/profile_repository_impl.dart';
 import 'package:wisefox/features/profile/domain/repositories/profile_repository.dart';
+import 'package:wisefox/features/profile/domain/usecases/fetch_profile_data_use_case.dart';
 import 'package:wisefox/features/profile/domain/usecases/sign_out_use_case.dart';
 import 'package:wisefox/features/profile/presentation/bloc/profile_bloc.dart';
 
@@ -56,14 +57,16 @@ Future<void> init() async {
   di.registerLazySingleton(() => GetDashboardDataUseCase(repository: di()));
   di.registerFactory(() => DashboardBloc(getDashboardDataUseCase: di()));
 
-
   // PROFILE INJECTIONS
   di.registerLazySingleton<ProfileRemoteDataSource>(
-      () => ProfileRemoteDataSourceImpl(supabaseClient: di()),
+    () => ProfileRemoteDataSourceImpl(supabaseClient: di()),
   );
   di.registerLazySingleton<ProfileRepository>(
-      () => ProfileRepositoryImpl(remoteDataSource: di()),
+    () => ProfileRepositoryImpl(remoteDataSource: di()),
   );
   di.registerLazySingleton(() => SignOutUseCase(repository: di()));
-  di.registerFactory(() => ProfileBloc(signOutUseCase: di()));
+  di.registerLazySingleton(() => FetchProfileDataUseCase(repository: di()));
+  di.registerFactory(
+    () => ProfileBloc(signOutUseCase: di(), fetchProfileDataUseCase: di()),
+  );
 }

@@ -3,6 +3,7 @@ import 'package:wisefox/core/errors/failures.dart';
 import 'package:wisefox/features/profile/data/models/profile_model.dart';
 
 abstract interface class ProfileRemoteDataSource {
+  Future<ProfileModel> fetchProfileData();
   Future<void> updateProfile({required ProfileModel model});
   Future<void> updatePassword({required ProfileModel model});
   Future<void> signOut();
@@ -15,14 +16,19 @@ class ProfileRemoteDataSourceImpl extends ProfileRemoteDataSource {
 
   @override
   Future<void> updateProfile({required ProfileModel model}) async {
-    try {} catch (e) {
-      throw ServerException(message: 'Failed to update info: $e');
+    try {
+      await supabaseClient.from('users').update({
+        'first_name': model.firstName,
+        'last_name': model.lastName,
+      });
+    } catch (e) {
+      throw ServerException(message: 'Failed to update profile: $e');
     }
   }
 
   @override
   Future<void> updatePassword({required ProfileModel model}) async {
-    if (model.password.isEmpty) {
+    if (model.password == null || model.password!.isEmpty) {
       throw ServerException(message: 'Password cannot be null or empty');
     }
     try {
@@ -40,6 +46,18 @@ class ProfileRemoteDataSourceImpl extends ProfileRemoteDataSource {
       await supabaseClient.auth.signOut();
     } catch (e) {
       throw ServerException(message: 'Failed to sign out: $e');
+    }
+  }
+
+  @override
+  Future<ProfileModel> fetchProfileData() async {
+    try {
+      final userId = supabaseClient.auth.currentUser!.id;
+      final userResponse =
+          await supabaseClient.from('users').select().eq('id', userId).single();
+      return ProfileModel.fromSupabase(userData: userResponse);
+    } catch (e) {
+      throw ServerException(message: 'Failed to fetch profile data $e');
     }
   }
 }

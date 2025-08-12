@@ -61,6 +61,7 @@ class _HomeScreenState extends State<HomeScreen> {
         }
       },
       child: CupertinoPageScaffold(
+        backgroundColor: Colors.white,
         child: BlocBuilder<DashboardBloc, DashboardState>(
           builder: (context, state) {
             if (state is DashboardSuccess) {
@@ -68,7 +69,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 child: Padding(
                   padding: EdgeInsets.symmetric(
                     horizontal: 20.w,
-                    vertical: kToolbarHeight.h * 0.75,
+                    vertical: (kToolbarHeight * 0.75).h,
                   ),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.center,
@@ -88,7 +89,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                       shape: BoxShape.circle,
                                     ),
                                     child: Text(
-                                      'R',
+                                      state.entity.userName[0],
                                       style: TextStyle(
                                         color: AppColors.white,
                                         fontSize: 20.sp,
@@ -147,10 +148,11 @@ class _HomeScreenState extends State<HomeScreen> {
                       ),
                       SizedBox(height: 20.h),
                       GradientCard(
-                        height: 250.h,
+                        height: 240.h,
                         padding: EdgeInsets.all(20.r),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             Text(
                               'Total Balance',

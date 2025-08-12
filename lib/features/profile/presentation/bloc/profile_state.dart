@@ -1,3 +1,5 @@
+import 'package:wisefox/features/profile/domain/entities/profile_entity.dart';
+
 abstract class ProfileState {}
 
 class ProfileInitial extends ProfileState {}
@@ -5,10 +7,12 @@ class ProfileInitial extends ProfileState {}
 class ProfileLoading extends ProfileState {}
 
 class ProfileSuccess extends ProfileState {
-  final String message;
+  final ProfileEntity entity;
 
-  ProfileSuccess(this.message);
+  ProfileSuccess(this.entity);
 }
+
+class ProfileSignedOut extends ProfileState {}
 
 class ProfileFailure extends ProfileState {
   final String error;
