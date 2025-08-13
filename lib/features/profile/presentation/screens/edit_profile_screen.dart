@@ -5,6 +5,7 @@ import 'package:wisefox/core/common/widgets/background_gradient.dart';
 import 'package:wisefox/core/utilities/app_colors.dart';
 import 'package:wisefox/features/authorization/presentation/widgets/rounded_gradient_button.dart';
 import 'package:wisefox/features/profile/presentation/bloc/profile_bloc.dart';
+import 'package:wisefox/features/profile/presentation/bloc/profile_event.dart';
 import 'package:wisefox/features/profile/presentation/bloc/profile_state.dart';
 import 'package:wisefox/features/profile/presentation/widgets/custom_text_field.dart';
 
@@ -46,6 +47,12 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
         child: BlocBuilder<ProfileBloc, ProfileState>(
           builder: (context, state) {
             if (state is ProfileSuccess) {
+              if (_firstNameController.text.isEmpty) {
+                _firstNameController.text = state.entity.firstName!;
+              }
+              if (_lastNameController.text.isEmpty) {
+                _lastNameController.text = state.entity.lastName!;
+              }
               return BackgroundGradient(
                 child: Stack(
                   children: [
@@ -98,7 +105,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                                   shape: BoxShape.circle,
                                 ),
                                 child: Text(
-                                  'R',
+                                  state.entity.firstName![0],
                                   style: TextStyle(
                                     color: AppColors.white,
                                     fontSize: 50.sp,
@@ -160,21 +167,77 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                                 children: [
                                   CustomTextField(
                                     title: 'First Name',
-                                    hintText: state.entity.firstName,
+                                    hintText: 'Enter your first name',
                                     controller: _firstNameController,
                                     obscureText: false,
                                   ),
                                   SizedBox(height: 15.h),
                                   CustomTextField(
                                     title: 'Last Name',
-                                    hintText: state.entity.lastName,
+                                    hintText: 'Enter your last name',
                                     controller: _lastNameController,
                                     obscureText: false,
                                   ),
                                   Spacer(),
                                   RoundedGradientButton(
                                     title: 'Update',
-                                    onPressed: () {},
+                                    onPressed: () {
+                                      final updatedFirstName =
+                                          _firstNameController.text.trim();
+                                      final updatedLastName =
+                                          _lastNameController.text.trim();
+
+                                      bool hasChanges = false;
+
+                                      final updatedEntity = state.entity
+                                          .copyWith(
+                                            firstName:
+                                                updatedFirstName !=
+                                                        state.entity.firstName
+                                                    ? updatedFirstName
+                                                    : state.entity.firstName,
+                                            lastName:
+                                                updatedLastName !=
+                                                        state.entity.lastName
+                                                    ? updatedLastName
+                                                    : state.entity.lastName,
+                                          );
+
+                                      if (updatedFirstName !=
+                                              state.entity.firstName ||
+                                          updatedLastName !=
+                                              state.entity.lastName) {
+                                        hasChanges = true;
+                                      }
+
+                                      if (hasChanges) {
+                                        context.read<ProfileBloc>().add(
+                                          UpdateProfileRequested(
+                                            entity: updatedEntity,
+                                          ),
+                                        );
+                                      } else {
+                                        showCupertinoDialog(
+                                          context: context,
+                                          builder:
+                                              (_) => const CupertinoAlertDialog(
+                                                title: Text("No Changes"),
+                                                content: Text(
+                                                  "You have not made any changes to update.",
+                                                ),
+                                                actions: [
+                                                  CupertinoDialogAction(
+                                                    onPressed: null,
+                                                    child: Text("OK"),
+                                                  ),
+                                                ],
+                                              ),
+                                        );
+                                        if (mounted) {
+                                          Navigator.pop(context);
+                                        }
+                                      }
+                                    },
                                   ),
                                 ],
                               ),

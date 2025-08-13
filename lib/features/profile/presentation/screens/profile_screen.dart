@@ -9,7 +9,6 @@ import 'package:wisefox/features/profile/presentation/bloc/profile_bloc.dart';
 import 'package:wisefox/features/profile/presentation/bloc/profile_event.dart';
 import 'package:wisefox/features/profile/presentation/bloc/profile_state.dart';
 import 'package:wisefox/features/profile/presentation/screens/change_password_screen.dart';
-import 'package:wisefox/features/profile/presentation/screens/delete_account_screen.dart';
 import 'package:wisefox/features/profile/presentation/screens/edit_profile_screen.dart';
 import 'package:wisefox/features/profile/presentation/widgets/profile_tile.dart';
 
@@ -127,7 +126,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           ),
                           SizedBox(height: 10.h),
                           Text(
-                            state.entity.userName,
+                            state.entity.userName!,
                             style: TextStyle(
                               color: AppColors.lightGreyish,
                               fontSize: 20.sp,
@@ -137,7 +136,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           SizedBox(height: 15.h),
                           Container(
                             decoration: BoxDecoration(
-                              border: Border.all(color: AppColors.black),
                               borderRadius: BorderRadius.circular(10.r),
                             ),
                             child: CupertinoButton(
@@ -188,21 +186,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                             builder:
                                                 (context) =>
                                                     ChangePasswordScreen(),
-                                          ),
-                                        ),
-                                  ),
-                                  SizedBox(height: 10.h),
-                                  ProfileTile(
-                                    title: 'Delete Account',
-                                    leadingIcon: CupertinoIcons.delete,
-                                    trailingIcon: CupertinoIcons.arrow_right,
-                                    onTap:
-                                        () => Navigator.push(
-                                          context,
-                                          MaterialPageRoute(
-                                            builder:
-                                                (context) =>
-                                                    DeleteAccountScreen(),
                                           ),
                                         ),
                                   ),

@@ -18,6 +18,8 @@ import 'package:wisefox/features/profile/data/repositories/profile_repository_im
 import 'package:wisefox/features/profile/domain/repositories/profile_repository.dart';
 import 'package:wisefox/features/profile/domain/usecases/fetch_profile_data_use_case.dart';
 import 'package:wisefox/features/profile/domain/usecases/sign_out_use_case.dart';
+import 'package:wisefox/features/profile/domain/usecases/update_password_use_case.dart';
+import 'package:wisefox/features/profile/domain/usecases/update_profile_use_case.dart';
 import 'package:wisefox/features/profile/presentation/bloc/profile_bloc.dart';
 
 final di = GetIt.instance;
@@ -66,7 +68,14 @@ Future<void> init() async {
   );
   di.registerLazySingleton(() => SignOutUseCase(repository: di()));
   di.registerLazySingleton(() => FetchProfileDataUseCase(repository: di()));
+  di.registerLazySingleton(() => UpdateProfileUseCase(repository: di()));
+  di.registerLazySingleton(() => UpdatePasswordUseCase(repository: di()));
   di.registerFactory(
-    () => ProfileBloc(signOutUseCase: di(), fetchProfileDataUseCase: di()),
+    () => ProfileBloc(
+      signOutUseCase: di(),
+      fetchProfileDataUseCase: di(),
+      updateProfileUseCase: di(),
+      updatePasswordUseCase: di(),
+    ),
   );
 }

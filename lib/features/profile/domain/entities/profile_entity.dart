@@ -1,15 +1,33 @@
 import 'package:wisefox/core/common/entities/user.dart';
 
 class ProfileEntity extends User {
-  final String userName;
+  final String? userName;
   final String? password;
 
   const ProfileEntity({
-    required super.id,
-    required super.email,
-    required this.userName,
-    required super.firstName,
-    required super.lastName,
+    super.id,
+    super.email,
+    this.userName,
+    super.firstName,
+    super.lastName,
     this.password,
   });
+
+  ProfileEntity copyWith({
+    String? id,
+    String? email,
+    String? userName,
+    String? firstName,
+    String? lastName,
+    String? password,
+  }) {
+    return ProfileEntity(
+      id: id ?? this.id,
+      email: email ?? this.email,
+      userName: userName ?? this.userName,
+      firstName: firstName ?? this.firstName,
+      lastName: lastName ?? this.lastName,
+      password: password ?? this.password,
+    );
+  }
 }

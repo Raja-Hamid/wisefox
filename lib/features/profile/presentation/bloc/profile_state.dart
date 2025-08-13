@@ -8,8 +8,9 @@ class ProfileLoading extends ProfileState {}
 
 class ProfileSuccess extends ProfileState {
   final ProfileEntity entity;
+  final String? message;
 
-  ProfileSuccess(this.entity);
+  ProfileSuccess({required this.entity, this.message});
 }
 
 class ProfileSignedOut extends ProfileState {}
