@@ -69,7 +69,7 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
                   ],
                 ),
           );
-        } else if (state is AuthSuccess) {
+        } else if (state is AuthPasswordReset) {
           Navigator.of(context, rootNavigator: true).pop();
           Navigator.of(context, rootNavigator: true).pushAndRemoveUntil(
             MaterialPageRoute(builder: (context) => SignInScreen()),
@@ -80,7 +80,7 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
             builder:
                 (dialogContext) => CupertinoAlertDialog(
                   title: Text("Success"),
-                  content: Text(state.message),
+                  content: Text(state.email),
                   actions: [
                     CupertinoDialogAction(
                       child: Text("OK"),

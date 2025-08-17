@@ -17,7 +17,7 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
     required this.signOutUseCase,
     required this.fetchProfileDataUseCase,
     required this.updateProfileUseCase,
-    required this.updatePasswordUseCase
+    required this.updatePasswordUseCase,
   }) : super(ProfileInitial()) {
     on<SignOutRequested>(_onSignOutRequested);
     on<FetchProfileDataRequested>(_onFetchProfileDataRequested);
@@ -37,12 +37,16 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
     );
   }
 
-  Future<void> _onUpdatePasswordRequested(UpdatePasswordRequested event, Emitter<ProfileState> emit) async {
-    emit(ProfileLoading());
+  Future<void> _onUpdatePasswordRequested(
+    UpdatePasswordRequested event,
+    Emitter<ProfileState> emit,
+  ) async {
+    emit(ProfileLoading(action: 'updating_password'));
     final result = await updatePasswordUseCase(event.entity);
     result.fold(
-          (failure) => emit(ProfileFailure(failure.message)),
-          (success) => emit(ProfileSignedOut()),
+      (failure) => emit(ProfileFailure(failure.message)),
+      (success) =>
+          emit(PasswordUpdated(message: 'Profile updated successfully')),
     );
   }
 
@@ -50,19 +54,18 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
     UpdateProfileRequested event,
     Emitter<ProfileState> emit,
   ) async {
-    emit(ProfileLoading());
+    emit(ProfileLoading(action: 'updating_profile'));
     final result = await updateProfileUseCase(event.entity);
 
     await result.fold(
       (failure) async => emit(ProfileFailure(failure.message)),
       (_) async {
         final refreshed = await fetchProfileDataUseCase(NoParams());
-
         refreshed.fold(
           (failure) => emit(ProfileFailure(failure.message)),
-          (profile) => emit(
-            ProfileSuccess(
-              entity: profile,
+          (success) => emit(
+            ProfileUpdated(
+              entity: success,
               message: 'Profile updated successfully',
             ),
           ),
@@ -75,12 +78,11 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
     FetchProfileDataRequested event,
     Emitter<ProfileState> emit,
   ) async {
-    emit(ProfileLoading());
+    emit(ProfileLoading(action: 'fetching'));
     final result = await fetchProfileDataUseCase(NoParams());
     result.fold(
       (failure) => emit(ProfileFailure(failure.message)),
-      (profileData) => emit(ProfileSuccess(entity: profileData, message: null)),
+      (success) => emit(ProfileLoaded(entity: success)),
     );
   }
-
 }

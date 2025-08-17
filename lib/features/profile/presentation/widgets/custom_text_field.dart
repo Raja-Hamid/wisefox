@@ -22,44 +22,61 @@ class CustomTextField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(
-          title,
-          style: TextStyle(
-            fontSize: 14.sp,
-            fontWeight: FontWeight.w600,
-            color: AppColors.black,
-          ),
-        ),
-        SizedBox(height: 10.h),
-        CupertinoTextField(
-          controller: controller,
-          placeholder: hintText,
-          placeholderStyle: TextStyle(color: AppColors.black),
-          padding: EdgeInsets.all(12.r),
-          decoration: BoxDecoration(
-            border: Border.all(color: AppColors.grey),
-            borderRadius: BorderRadius.circular(10.r),
-          ),
-          suffix:
-              obscureText == true
-                  ? Padding(
-                    padding: EdgeInsets.only(right: 12.w),
-                    child: GestureDetector(
-                      onTap: () {},
-                      child: Icon(
-                        CupertinoIcons.eye_slash,
-                        size: 20,
-                        color: CupertinoColors.systemGrey,
-                      ),
-                    ),
-                  )
-                  : null,
-          style: TextStyle(color: AppColors.black),
-        ),
-      ],
+    return FormField<String>(
+      validator: validator,
+      builder: (FormFieldState<String> state) {
+        return Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              title,
+              style: TextStyle(
+                fontSize: 14.sp,
+                fontWeight: FontWeight.w600,
+                color: AppColors.black,
+              ),
+            ),
+            SizedBox(height: 10.h),
+            CupertinoTextField(
+              controller: controller,
+              placeholder: hintText,
+              onChanged: (value) => state.didChange(value),
+              placeholderStyle: TextStyle(color: AppColors.black),
+              padding: EdgeInsets.all(12.r),
+              decoration: BoxDecoration(
+                border: Border.all(color: AppColors.grey),
+                borderRadius: BorderRadius.circular(10.r),
+              ),
+              suffix:
+                  obscureText == true
+                      ? Padding(
+                        padding: EdgeInsets.only(right: 12.w),
+                        child: GestureDetector(
+                          onTap: () {},
+                          child: Icon(
+                            CupertinoIcons.eye_slash,
+                            size: 20,
+                            color: CupertinoColors.systemGrey,
+                          ),
+                        ),
+                      )
+                      : null,
+              style: TextStyle(color: AppColors.black),
+            ),
+            if (state.hasError)
+              Padding(
+                padding: EdgeInsets.only(top: 6.h, left: 12.w),
+                child: Text(
+                  state.errorText!,
+                  style: TextStyle(
+                    color: CupertinoColors.systemRed,
+                    fontSize: 12.sp,
+                  ),
+                ),
+              ),
+          ],
+        );
+      },
     );
   }
 }

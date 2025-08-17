@@ -21,6 +21,16 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
   final TextEditingController _lastNameController = TextEditingController();
 
   @override
+  void initState() {
+    super.initState();
+    final state = context.read<ProfileBloc>().state;
+    if (state is ProfileUpdated) {
+      _firstNameController.text = state.entity.firstName ?? '';
+      _lastNameController.text = state.entity.lastName ?? '';
+    }
+  }
+
+  @override
   Widget build(BuildContext context) {
     return BlocListener<ProfileBloc, ProfileState>(
       listener: (context, state) {
@@ -46,13 +56,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
       child: CupertinoPageScaffold(
         child: BlocBuilder<ProfileBloc, ProfileState>(
           builder: (context, state) {
-            if (state is ProfileSuccess) {
-              if (_firstNameController.text.isEmpty) {
-                _firstNameController.text = state.entity.firstName!;
-              }
-              if (_lastNameController.text.isEmpty) {
-                _lastNameController.text = state.entity.lastName!;
-              }
+            if (state is ProfileUpdated) {
               return BackgroundGradient(
                 child: Stack(
                   children: [

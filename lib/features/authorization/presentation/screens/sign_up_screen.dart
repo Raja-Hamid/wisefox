@@ -29,7 +29,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   final TextEditingController _confirmPasswordController =
-      TextEditingController();
+  TextEditingController();
 
   @override
   void dispose() {
@@ -37,6 +37,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
     _lastNameController.dispose();
     _emailController.dispose();
     _passwordController.dispose();
+    _confirmPasswordController.dispose();
     super.dispose();
   }
 
@@ -49,8 +50,9 @@ class _SignUpScreenState extends State<SignUpScreen> {
             context: context,
             barrierDismissible: false,
             builder:
-                (_) =>
-                    CupertinoAlertDialog(content: CupertinoActivityIndicator()),
+                (_) => const CupertinoAlertDialog(
+              content: CupertinoActivityIndicator(),
+            ),
           );
         } else if (state is AuthFailure) {
           Navigator.of(context, rootNavigator: true).pop();
@@ -58,42 +60,42 @@ class _SignUpScreenState extends State<SignUpScreen> {
             context: context,
             builder:
                 (_) => CupertinoAlertDialog(
-                  title: Text("Error"),
-                  content: Text(state.error),
-                  actions: [
-                    CupertinoDialogAction(
-                      child: Text("OK"),
-                      onPressed:
-                          () =>
-                              Navigator.of(context, rootNavigator: true).pop(),
-                    ),
-                  ],
+              title: Text("Error"),
+              content: Text(state.error),
+              actions: [
+                CupertinoDialogAction(
+                  child: Text("OK"),
+                  onPressed:
+                      () =>
+                      Navigator.of(context, rootNavigator: true).pop(),
                 ),
+              ],
+            ),
           );
-        } else if (state is AuthSuccess) {
+        } else if (state is Authenticated) {
           Navigator.of(context, rootNavigator: true).pop();
           Navigator.of(context, rootNavigator: true).pushAndRemoveUntil(
             MaterialPageRoute(builder: (context) => SignInScreen()),
-            (Route<dynamic> route) => false,
+                (Route<dynamic> route) => false,
           );
           showCupertinoDialog(
             context: context,
             builder:
                 (dialogContext) => CupertinoAlertDialog(
-                  title: Text("Success"),
-                  content: Text(state.message),
-                  actions: [
-                    CupertinoDialogAction(
-                      child: Text("OK"),
-                      onPressed:
-                          () =>
-                              Navigator.of(
-                                dialogContext,
-                                rootNavigator: true,
-                              ).pop(),
-                    ),
-                  ],
+              title: Text("Success"),
+              content: Text(state.user),
+              actions: [
+                CupertinoDialogAction(
+                  child: Text("OK"),
+                  onPressed:
+                      () =>
+                      Navigator.of(
+                        dialogContext,
+                        rootNavigator: true,
+                      ).pop(),
                 ),
+              ],
+            ),
           );
         }
       },
@@ -161,9 +163,9 @@ class _SignUpScreenState extends State<SignUpScreen> {
                           obscureText: true,
                           validator:
                               (value) => Validators.validateConfirmPassword(
-                                value,
-                                _passwordController.text.trim(),
-                              ),
+                            value,
+                            _passwordController.text.trim(),
+                          ),
                         ),
                         SizedBox(height: 15.h),
                         RoundedGradientButton(
@@ -221,15 +223,15 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                     fontSize: 14.sp,
                                   ),
                                   recognizer:
-                                      TapGestureRecognizer()
-                                        ..onTap = () {
-                                          Navigator.of(context).push(
-                                            MaterialPageRoute(
-                                              builder:
-                                                  (context) => SignInScreen(),
-                                            ),
-                                          );
-                                        },
+                                  TapGestureRecognizer()
+                                    ..onTap = () {
+                                      Navigator.of(context).push(
+                                        MaterialPageRoute(
+                                          builder:
+                                              (context) => SignInScreen(),
+                                        ),
+                                      );
+                                    },
                                 ),
                               ],
                             ),

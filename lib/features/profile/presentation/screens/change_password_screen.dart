@@ -38,8 +38,9 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
             context: context,
             barrierDismissible: false,
             builder:
-                (_) =>
-                    CupertinoAlertDialog(content: CupertinoActivityIndicator()),
+                (_) => const CupertinoAlertDialog(
+                  content: CupertinoActivityIndicator(),
+                ),
           );
         } else if (state is ProfileFailure) {
           Navigator.of(context, rootNavigator: true).pop();
@@ -59,14 +60,14 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                   ],
                 ),
           );
-        } else if (state is ProfileSuccess) {
+        } else if (state is PasswordUpdated) {
           Navigator.of(context, rootNavigator: true).pop();
           showCupertinoDialog(
             context: context,
             builder:
                 (_) => CupertinoAlertDialog(
                   title: const Text('Success'),
-                  content: const Text('Password updated successfully.'),
+                  content: Text(state.message),
                   actions: [
                     CupertinoDialogAction(
                       child: const Text("OK"),

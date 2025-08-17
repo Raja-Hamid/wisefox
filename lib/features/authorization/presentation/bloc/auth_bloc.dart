@@ -29,8 +29,8 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       SignUpParams(entity: event.entity, password: event.password),
     );
     result.fold(
-      (failure) => emit(AuthFailure(failure.message)),
-      (userId) => emit(AuthSuccess("Signed up: $userId")),
+      (failure) => emit(AuthFailure(error: failure.message)),
+      (user) => emit(Authenticated(user: 'Signed up: $user')),
     );
   }
 
@@ -43,8 +43,8 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       SignInParams(entity: event.entity, password: event.password),
     );
     result.fold(
-      (failure) => emit(AuthFailure(failure.message)),
-      (userId) => emit(AuthSuccess("Signed in: $userId")),
+      (failure) => emit(AuthFailure(error: failure.message)),
+      (user) => emit(Authenticated(user: "Signed in: $user")),
     );
   }
 
@@ -55,8 +55,8 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     emit(AuthLoading());
     final result = await resetPasswordUseCase(event.entity);
     result.fold(
-      (failure) => emit(AuthFailure(failure.message)),
-      (_) => emit(AuthSuccess("Reset link sent")),
+      (failure) => emit(AuthFailure(error: failure.message)),
+      (email) => emit(AuthPasswordReset(email: 'Reset link sent to : $email')),
     );
   }
 }

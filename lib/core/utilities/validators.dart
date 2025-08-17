@@ -39,9 +39,17 @@ class Validators {
   }
 
   // CONFIRM PASSWORD VALIDATION
-  static String? validateConfirmPassword(String? password, String? confirm) {
-    final p = password?.trim() ?? '';
-    if (p != confirm) {
+  static String? validateConfirmPassword(
+    String? confirmPassword,
+    String? originalPassword,
+  ) {
+    final confirm = confirmPassword?.trim() ?? '';
+    final original = originalPassword?.trim() ?? '';
+
+    if (confirm.isEmpty) {
+      return 'Please enter your password again';
+    }
+    if (confirm != original) {
       return 'Passwords do not match';
     }
     return null;

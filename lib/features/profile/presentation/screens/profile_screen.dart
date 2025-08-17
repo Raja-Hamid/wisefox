@@ -57,7 +57,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
       child: CupertinoPageScaffold(
         child: BlocBuilder<ProfileBloc, ProfileState>(
           builder: (context, state) {
-            if (state is ProfileSuccess) {
+            if (state is ProfileLoaded) {
               return BackgroundGradient(
                 child: Stack(
                   children: [

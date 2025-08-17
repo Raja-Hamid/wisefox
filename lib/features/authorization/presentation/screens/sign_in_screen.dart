@@ -66,7 +66,7 @@ class _SignInScreenState extends State<SignInScreen> {
                   ],
                 ),
           );
-        } else if (state is AuthSuccess) {
+        } else if (state is Authenticated) {
           Navigator.of(context, rootNavigator: true).pop();
           Navigator.of(context, rootNavigator: true).pushAndRemoveUntil(
             MaterialPageRoute(builder: (context) => BottomNavBar()),
