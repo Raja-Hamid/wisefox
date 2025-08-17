@@ -1,5 +1,4 @@
 import 'package:fpdart/fpdart.dart';
-import 'package:wisefox/core/common/entities/user.dart';
 import 'package:wisefox/core/errors/exceptions.dart';
 import 'package:wisefox/core/errors/failures.dart';
 import 'package:wisefox/features/authorization/data/datasources/auth_remote_data_source.dart';

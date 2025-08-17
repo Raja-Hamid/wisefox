@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:wisefox/core/utilities/app_colors.dart';
+import 'package:wisefox/core/utilities/dialog_helpers.dart';
 import 'package:wisefox/core/utilities/validators.dart';
 import 'package:wisefox/features/authorization/domain/entities/auth_entity.dart';
 import 'package:wisefox/features/authorization/presentation/bloc/auth_bloc.dart';
@@ -29,7 +30,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   final TextEditingController _confirmPasswordController =
-  TextEditingController();
+      TextEditingController();
 
   @override
   void dispose() {
@@ -46,57 +47,15 @@ class _SignUpScreenState extends State<SignUpScreen> {
     return BlocListener<AuthBloc, AuthState>(
       listener: (context, state) {
         if (state is AuthLoading) {
-          showCupertinoDialog(
-            context: context,
-            barrierDismissible: false,
-            builder:
-                (_) => const CupertinoAlertDialog(
-              content: CupertinoActivityIndicator(),
-            ),
-          );
+          DialogHelpers.showLoading(context);
         } else if (state is AuthFailure) {
-          Navigator.of(context, rootNavigator: true).pop();
-          showCupertinoDialog(
-            context: context,
-            builder:
-                (_) => CupertinoAlertDialog(
-              title: Text("Error"),
-              content: Text(state.error),
-              actions: [
-                CupertinoDialogAction(
-                  child: Text("OK"),
-                  onPressed:
-                      () =>
-                      Navigator.of(context, rootNavigator: true).pop(),
-                ),
-              ],
-            ),
-          );
+          DialogHelpers.showError(context, state.error);
         } else if (state is Authenticated) {
-          Navigator.of(context, rootNavigator: true).pop();
           Navigator.of(context, rootNavigator: true).pushAndRemoveUntil(
             MaterialPageRoute(builder: (context) => SignInScreen()),
-                (Route<dynamic> route) => false,
+            (Route<dynamic> route) => false,
           );
-          showCupertinoDialog(
-            context: context,
-            builder:
-                (dialogContext) => CupertinoAlertDialog(
-              title: Text("Success"),
-              content: Text(state.user),
-              actions: [
-                CupertinoDialogAction(
-                  child: Text("OK"),
-                  onPressed:
-                      () =>
-                      Navigator.of(
-                        dialogContext,
-                        rootNavigator: true,
-                      ).pop(),
-                ),
-              ],
-            ),
-          );
+          DialogHelpers.showSuccess(context, state.user);
         }
       },
       child: CupertinoPageScaffold(
@@ -106,7 +65,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                SizedBox(height: 15.h),
+                SizedBox(height: 30.h),
                 Text(
                   'Create Account',
                   style: TextStyle(
@@ -163,11 +122,11 @@ class _SignUpScreenState extends State<SignUpScreen> {
                           obscureText: true,
                           validator:
                               (value) => Validators.validateConfirmPassword(
-                            value,
-                            _passwordController.text.trim(),
-                          ),
+                                value,
+                                _passwordController.text.trim(),
+                              ),
                         ),
-                        SizedBox(height: 15.h),
+                        SizedBox(height: 25.h),
                         RoundedGradientButton(
                           title: 'Sign Up',
                           onPressed: () {
@@ -186,7 +145,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                             }
                           },
                         ),
-                        SizedBox(height: 15.h),
+                        SizedBox(height: 25.h),
                         Center(
                           child: Text(
                             'Or SignUp With',
@@ -196,9 +155,9 @@ class _SignUpScreenState extends State<SignUpScreen> {
                             ),
                           ),
                         ),
-                        SizedBox(height: 15.h),
+                        SizedBox(height: 25.h),
                         SocialRow(),
-                        SizedBox(height: 15.h),
+                        SizedBox(height: 25.h),
                         Center(
                           child: RichText(
                             text: TextSpan(
@@ -223,15 +182,15 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                     fontSize: 14.sp,
                                   ),
                                   recognizer:
-                                  TapGestureRecognizer()
-                                    ..onTap = () {
-                                      Navigator.of(context).push(
-                                        MaterialPageRoute(
-                                          builder:
-                                              (context) => SignInScreen(),
-                                        ),
-                                      );
-                                    },
+                                      TapGestureRecognizer()
+                                        ..onTap = () {
+                                          Navigator.of(context).push(
+                                            MaterialPageRoute(
+                                              builder:
+                                                  (context) => SignInScreen(),
+                                            ),
+                                          );
+                                        },
                                 ),
                               ],
                             ),
