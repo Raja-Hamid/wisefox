@@ -24,7 +24,7 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   void initState() {
     super.initState();
-    context.read<DashboardBloc>().add(GetDashboardDataRequested());
+    context.read<DashboardBloc>().add(FetchDashboardDataRequested());
     context.read<ProfileBloc>().add(FetchProfileDataRequested());
   }
 

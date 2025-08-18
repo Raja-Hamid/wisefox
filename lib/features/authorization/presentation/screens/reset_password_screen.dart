@@ -33,15 +33,25 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
   @override
   Widget build(BuildContext context) {
     return BlocListener<AuthBloc, AuthState>(
-      listener: (context, state)  {
+      listenWhen: (previous, current) {
+        if (current is AuthLoading) {
+          return current.screenType == AuthScreenType.resetPassword;
+        }
+        if (current is AuthFailure) {
+          return current.screenType == AuthScreenType.resetPassword;
+        }
+        if (current is Authenticated) {
+          return current.screenType == AuthScreenType.resetPassword;
+        }
+        return false;
+      },
+      listener: (context, state) {
         if (state is AuthLoading) {
-           DialogHelpers.showLoading(context, 'Sending Code');
+          DialogHelpers.showLoading(context, 'Sending Code');
         } else if (state is AuthFailure) {
-           DialogHelpers.closeDialog(context);
-           DialogHelpers.showError(context, state.error);
+          DialogHelpers.showError(context, state.error);
         } else if (state is AuthPasswordReset) {
-           DialogHelpers.closeDialog(context);
-           DialogHelpers.showSuccess(
+          DialogHelpers.showSuccess(
             context,
             state.email,
             onPressed:

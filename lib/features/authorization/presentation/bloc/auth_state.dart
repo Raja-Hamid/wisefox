@@ -1,5 +1,7 @@
 import 'package:equatable/equatable.dart';
 
+enum AuthScreenType { signIn, signUp, resetPassword }
+
 abstract class AuthState extends Equatable {
   const AuthState();
 
@@ -9,15 +11,23 @@ abstract class AuthState extends Equatable {
 
 class AuthInitial extends AuthState {}
 
-class AuthLoading extends AuthState {}
+class AuthLoading extends AuthState {
+  final AuthScreenType screenType;
+
+  const AuthLoading({required this.screenType});
+
+  @override
+  List<Object?> get props => [screenType];
+}
 
 class Authenticated extends AuthState {
   final String user;
+  final AuthScreenType screenType;
 
-  const Authenticated({required this.user});
+  const Authenticated({required this.user, required this.screenType});
 
   @override
-  List<Object?> get props => [user];
+  List<Object?> get props => [user, screenType];
 }
 
 class Unauthenticated extends AuthState {}
@@ -33,9 +43,10 @@ class AuthPasswordReset extends AuthState {
 
 class AuthFailure extends AuthState {
   final String error;
+  final AuthScreenType screenType;
 
-  const AuthFailure({required this.error});
+  const AuthFailure({required this.error, required this.screenType});
 
   @override
-  List<Object?> get props => [error];
+  List<Object?> get props => [error, screenType];
 }

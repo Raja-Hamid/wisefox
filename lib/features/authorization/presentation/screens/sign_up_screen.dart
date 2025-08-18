@@ -9,13 +9,14 @@ import 'package:wisefox/features/authorization/domain/entities/auth_entity.dart'
 import 'package:wisefox/features/authorization/presentation/bloc/auth_bloc.dart';
 import 'package:wisefox/features/authorization/presentation/bloc/auth_event.dart';
 import 'package:wisefox/features/authorization/presentation/bloc/auth_state.dart';
-import 'package:wisefox/features/authorization/presentation/screens/sign_in_screen.dart';
 import 'package:wisefox/core/common/widgets/background_gradient.dart';
 import 'package:wisefox/features/authorization/presentation/widgets/rounded_gradient_button.dart';
 import 'package:wisefox/features/authorization/presentation/widgets/rounded_text_field.dart';
 import 'package:wisefox/features/authorization/presentation/widgets/social_row.dart';
 
 class SignUpScreen extends StatefulWidget {
+  static CupertinoPageRoute route() =>
+      CupertinoPageRoute(builder: (context) => const SignUpScreen());
   const SignUpScreen({super.key});
 
   @override
@@ -44,25 +45,28 @@ class _SignUpScreenState extends State<SignUpScreen> {
   @override
   Widget build(BuildContext context) {
     return BlocListener<AuthBloc, AuthState>(
+      listenWhen: (previous, current) {
+        if (current is AuthLoading) {
+          return current.screenType == AuthScreenType.signUp;
+        }
+        if (current is AuthFailure) {
+          return current.screenType == AuthScreenType.signUp;
+        }
+        if (current is Authenticated) {
+          return current.screenType == AuthScreenType.signUp;
+        }
+        return false;
+      },
       listener: (context, state) async {
         if (state is AuthLoading) {
           DialogHelpers.showLoading(context, 'Signing Up');
         } else if (state is AuthFailure) {
-          DialogHelpers.closeDialog(context);
           DialogHelpers.showError(context, state.error);
         } else if (state is Authenticated) {
-          DialogHelpers.closeDialog(context);
           DialogHelpers.showSuccess(
             context,
             state.user,
-            onPressed:
-                () => Navigator.of(
-                  context,
-                  rootNavigator: true,
-                ).pushAndRemoveUntil(
-                  CupertinoPageRoute(builder: (context) => SignInScreen()),
-                  (Route<dynamic> route) => false,
-                ),
+            onPressed: () => Navigator.of(context).pop(),
           );
         }
       },
@@ -191,14 +195,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                   ),
                                   recognizer:
                                       TapGestureRecognizer()
-                                        ..onTap = () {
-                                          Navigator.of(context).push(
-                                            CupertinoPageRoute(
-                                              builder:
-                                                  (context) => SignInScreen(),
-                                            ),
-                                          );
-                                        },
+                                        ..onTap =
+                                            () => Navigator.of(context).pop(),
                                 ),
                               ],
                             ),

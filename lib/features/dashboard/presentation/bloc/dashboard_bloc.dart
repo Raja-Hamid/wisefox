@@ -9,10 +9,10 @@ class DashboardBloc extends Bloc<DashboardEvent, DashboardState> {
 
   DashboardBloc({required this.getDashboardDataUseCase})
     : super(DashboardInitial()) {
-    on<GetDashboardDataRequested>(_onGetDashboardDataRequested);
+    on<FetchDashboardDataRequested>(_onGetDashboardDataRequested);
   }
   Future<void> _onGetDashboardDataRequested(
-    GetDashboardDataRequested event,
+    FetchDashboardDataRequested event,
     Emitter<DashboardState> emit,
   ) async {
     emit(DashboardLoading());

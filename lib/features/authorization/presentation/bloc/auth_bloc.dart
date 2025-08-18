@@ -20,17 +20,28 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     on<ResetPasswordRequested>(_onResetPasswordRequested);
   }
 
+  void resetState() {
+    emit(AuthInitial());
+  }
+
   Future<void> _onSignUpRequested(
     SignUpRequested event,
     Emitter<AuthState> emit,
   ) async {
-    emit(AuthLoading());
+    emit(AuthLoading(screenType: AuthScreenType.signUp));
     final result = await signUpUseCase(
       SignUpParams(entity: event.entity, password: event.password),
     );
     result.fold(
-      (failure) => emit(AuthFailure(error: failure.message)),
-      (user) => emit(Authenticated(user: 'Signed up: $user')),
+      (failure) => emit(
+        AuthFailure(error: failure.message, screenType: AuthScreenType.signUp),
+      ),
+      (user) => emit(
+        Authenticated(
+          user: 'Signed up: $user',
+          screenType: AuthScreenType.signUp,
+        ),
+      ),
     );
   }
 
@@ -38,13 +49,20 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     SignInRequested event,
     Emitter<AuthState> emit,
   ) async {
-    emit(AuthLoading());
+    emit(AuthLoading(screenType: AuthScreenType.signIn));
     final result = await signInUseCase(
       SignInParams(entity: event.entity, password: event.password),
     );
     result.fold(
-      (failure) => emit(AuthFailure(error: failure.message)),
-      (user) => emit(Authenticated(user: "Signed in: $user")),
+      (failure) => emit(
+        AuthFailure(error: failure.message, screenType: AuthScreenType.signIn),
+      ),
+      (user) => emit(
+        Authenticated(
+          user: "Signed in: $user",
+          screenType: AuthScreenType.signIn,
+        ),
+      ),
     );
   }
 
@@ -52,10 +70,15 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     ResetPasswordRequested event,
     Emitter<AuthState> emit,
   ) async {
-    emit(AuthLoading());
+    emit(AuthLoading(screenType: AuthScreenType.resetPassword));
     final result = await resetPasswordUseCase(event.entity);
     result.fold(
-      (failure) => emit(AuthFailure(error: failure.message)),
+      (failure) => emit(
+        AuthFailure(
+          error: failure.message,
+          screenType: AuthScreenType.resetPassword,
+        ),
+      ),
       (email) => emit(AuthPasswordReset(email: 'Reset link sent to : $email')),
     );
   }

@@ -1,8 +1,8 @@
 import 'package:flutter/cupertino.dart';
 
 class DialogHelpers {
-  static Future<void> showLoading(BuildContext context, String title) async {
-    await showCupertinoDialog(
+  static void showLoading(BuildContext context, String title) {
+    showCupertinoDialog(
       context: context,
       barrierDismissible: false,
       builder:
@@ -13,18 +13,19 @@ class DialogHelpers {
     );
   }
 
-  static Future<void> closeDialog(BuildContext context) async {
-    if (Navigator.of(context, rootNavigator: false).canPop()) {
-      Navigator.of(context, rootNavigator: false).pop();
+  static void closeDialog(BuildContext context) {
+    if (Navigator.of(context, rootNavigator: true).canPop()) {
+      Navigator.of(context, rootNavigator: true).pop();
     }
   }
 
-  static Future<void> showSuccess(
+  static void showSuccess(
     BuildContext context,
     String message, {
     void Function()? onPressed,
-  }) async {
-    await showCupertinoDialog(
+  }) {
+    DialogHelpers.closeDialog(context);
+    showCupertinoDialog(
       context: context,
       builder:
           (_) => CupertinoAlertDialog(
@@ -34,6 +35,7 @@ class DialogHelpers {
               CupertinoDialogAction(
                 child: const Text("OK"),
                 onPressed: () {
+                  Navigator.of(context, rootNavigator: true).pop();
                   if (onPressed != null) onPressed();
                 },
               ),
@@ -42,8 +44,9 @@ class DialogHelpers {
     );
   }
 
-  static Future<void> showError(BuildContext context, String error) async {
-    await showCupertinoDialog(
+  static void showError(BuildContext context, String error) {
+    DialogHelpers.closeDialog(context);
+    showCupertinoDialog(
       context: context,
       builder:
           (_) => CupertinoAlertDialog(
@@ -52,8 +55,8 @@ class DialogHelpers {
             actions: [
               CupertinoDialogAction(
                 child: const Text("OK"),
-                onPressed: () async {
-                  closeDialog(context);
+                onPressed: () {
+                  Navigator.of(context, rootNavigator: true).pop();
                 },
               ),
             ],

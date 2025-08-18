@@ -39,14 +39,24 @@ class _SignInScreenState extends State<SignInScreen> {
   @override
   Widget build(BuildContext context) {
     return BlocListener<AuthBloc, AuthState>(
+      listenWhen: (previous, current) {
+        if (current is AuthLoading) {
+          return current.screenType == AuthScreenType.signIn;
+        }
+        if (current is AuthFailure) {
+          return current.screenType == AuthScreenType.signIn;
+        }
+        if (current is Authenticated) {
+          return current.screenType == AuthScreenType.signIn;
+        }
+        return false;
+      },
       listener: (context, state) {
         if (state is AuthLoading) {
           DialogHelpers.showLoading(context, 'Signing In');
         } else if (state is AuthFailure) {
-          DialogHelpers.closeDialog(context);
           DialogHelpers.showError(context, state.error);
         } else if (state is Authenticated) {
-          DialogHelpers.closeDialog(context);
           Navigator.of(context, rootNavigator: true).pushAndRemoveUntil(
             CupertinoPageRoute(builder: (context) => BottomNavBar()),
             (Route<dynamic> route) => false,
@@ -174,15 +184,14 @@ class _SignInScreenState extends State<SignInScreen> {
                                   ),
                                   recognizer:
                                       TapGestureRecognizer()
-                                        ..onTap = () {
-                                          Navigator.push(
-                                            context,
-                                            CupertinoPageRoute(
-                                              builder:
-                                                  (context) => SignUpScreen(),
+                                        ..onTap =
+                                            () => Navigator.push(
+                                              context,
+                                              CupertinoPageRoute(
+                                                builder:
+                                                    (context) => SignUpScreen(),
+                                              ),
                                             ),
-                                          );
-                                        },
                                 ),
                               ],
                             ),
