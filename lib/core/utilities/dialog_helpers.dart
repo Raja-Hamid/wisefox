@@ -1,26 +1,30 @@
 import 'package:flutter/cupertino.dart';
 
 class DialogHelpers {
-  static void showLoading(BuildContext context) {
-    if (Navigator.of(context, rootNavigator: true).canPop()) return;
-    showCupertinoDialog(
+  static Future<void> showLoading(BuildContext context, String title) async {
+    await showCupertinoDialog(
       context: context,
       barrierDismissible: false,
       builder:
-          (_) =>
-              const CupertinoAlertDialog(content: CupertinoActivityIndicator()),
+          (_) => CupertinoAlertDialog(
+            title: Text(title),
+            content: CupertinoActivityIndicator(),
+          ),
     );
   }
 
-  static void closeDialog(BuildContext context) {
-    if (Navigator.of(context, rootNavigator: true).canPop()) {
-      Navigator.of(context, rootNavigator: true).pop();
+  static Future<void> closeDialog(BuildContext context) async {
+    if (Navigator.of(context, rootNavigator: false).canPop()) {
+      Navigator.of(context, rootNavigator: false).pop();
     }
   }
 
-  static void showSuccess(BuildContext context, String message) {
-    closeDialog(context);
-    showCupertinoDialog(
+  static Future<void> showSuccess(
+    BuildContext context,
+    String message, {
+    void Function()? onPressed,
+  }) async {
+    await showCupertinoDialog(
       context: context,
       builder:
           (_) => CupertinoAlertDialog(
@@ -29,16 +33,17 @@ class DialogHelpers {
             actions: [
               CupertinoDialogAction(
                 child: const Text("OK"),
-                onPressed: () => closeDialog(context),
+                onPressed: () {
+                  if (onPressed != null) onPressed();
+                },
               ),
             ],
           ),
     );
   }
 
-  static void showError(BuildContext context, String error) {
-    closeDialog(context);
-    showCupertinoDialog(
+  static Future<void> showError(BuildContext context, String error) async {
+    await showCupertinoDialog(
       context: context,
       builder:
           (_) => CupertinoAlertDialog(
@@ -47,7 +52,9 @@ class DialogHelpers {
             actions: [
               CupertinoDialogAction(
                 child: const Text("OK"),
-                onPressed: () => closeDialog(context),
+                onPressed: () async {
+                  closeDialog(context);
+                },
               ),
             ],
           ),

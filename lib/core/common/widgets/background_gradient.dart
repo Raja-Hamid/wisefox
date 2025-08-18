@@ -1,8 +1,8 @@
 import 'package:flutter/cupertino.dart';
 
 class BackgroundGradient extends StatelessWidget {
-  final Widget child;
-  const BackgroundGradient({super.key, required this.child});
+  final Widget? child;
+  const BackgroundGradient({super.key, this.child});
 
   @override
   Widget build(BuildContext context) {

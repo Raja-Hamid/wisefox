@@ -52,7 +52,7 @@ class _BottomNavBarState extends State<BottomNavBar> {
             _currentIndex = index;
           });
         },
-        border: Border.all(color: Colors.transparent),
+        border: Border.all(color: CupertinoColors.transparent),
         backgroundColor: AppColors.white,
         items: [
           BottomNavigationBarItem(icon: _buildIcon('assets/icons/Home.svg', 0)),

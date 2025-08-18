@@ -1,9 +1,9 @@
 import 'package:flutter/gestures.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:wisefox/core/utilities/app_colors.dart';
+import 'package:wisefox/core/utilities/dialog_helpers.dart';
 import 'package:wisefox/core/utilities/validators.dart';
 import 'package:wisefox/features/authorization/domain/entities/auth_entity.dart';
 import 'package:wisefox/features/authorization/presentation/bloc/auth_bloc.dart';
@@ -41,35 +41,14 @@ class _SignInScreenState extends State<SignInScreen> {
     return BlocListener<AuthBloc, AuthState>(
       listener: (context, state) {
         if (state is AuthLoading) {
-          showCupertinoDialog(
-            context: context,
-            barrierDismissible: false,
-            builder:
-                (_) =>
-                    CupertinoAlertDialog(content: CupertinoActivityIndicator()),
-          );
+          DialogHelpers.showLoading(context, 'Signing In');
         } else if (state is AuthFailure) {
-          Navigator.of(context, rootNavigator: true).pop();
-          showCupertinoDialog(
-            context: context,
-            builder:
-                (_) => CupertinoAlertDialog(
-                  title: Text("Error"),
-                  content: Text(state.error),
-                  actions: [
-                    CupertinoDialogAction(
-                      child: Text("OK"),
-                      onPressed:
-                          () =>
-                              Navigator.of(context, rootNavigator: true).pop(),
-                    ),
-                  ],
-                ),
-          );
+          DialogHelpers.closeDialog(context);
+          DialogHelpers.showError(context, state.error);
         } else if (state is Authenticated) {
-          Navigator.of(context, rootNavigator: true).pop();
+          DialogHelpers.closeDialog(context);
           Navigator.of(context, rootNavigator: true).pushAndRemoveUntil(
-            MaterialPageRoute(builder: (context) => BottomNavBar()),
+            CupertinoPageRoute(builder: (context) => BottomNavBar()),
             (Route<dynamic> route) => false,
           );
         }
@@ -133,7 +112,7 @@ class _SignInScreenState extends State<SignInScreen> {
                             onPressed: () {
                               Navigator.push(
                                 context,
-                                MaterialPageRoute(
+                                CupertinoPageRoute(
                                   builder: (context) => ResetPasswordScreen(),
                                 ),
                               );
@@ -198,7 +177,7 @@ class _SignInScreenState extends State<SignInScreen> {
                                         ..onTap = () {
                                           Navigator.push(
                                             context,
-                                            MaterialPageRoute(
+                                            CupertinoPageRoute(
                                               builder:
                                                   (context) => SignUpScreen(),
                                             ),

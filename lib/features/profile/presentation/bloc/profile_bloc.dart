@@ -46,7 +46,7 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
     result.fold(
       (failure) => emit(ProfileFailure(failure.message)),
       (success) =>
-          emit(PasswordUpdated(message: 'Profile updated successfully')),
+          emit(PasswordUpdated(message: 'Password updated successfully')),
     );
   }
 

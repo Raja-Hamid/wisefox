@@ -1,6 +1,5 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:wisefox/core/utilities/app_colors.dart';
@@ -45,17 +44,26 @@ class _SignUpScreenState extends State<SignUpScreen> {
   @override
   Widget build(BuildContext context) {
     return BlocListener<AuthBloc, AuthState>(
-      listener: (context, state) {
+      listener: (context, state) async {
         if (state is AuthLoading) {
-          DialogHelpers.showLoading(context);
+          DialogHelpers.showLoading(context, 'Signing Up');
         } else if (state is AuthFailure) {
+          DialogHelpers.closeDialog(context);
           DialogHelpers.showError(context, state.error);
         } else if (state is Authenticated) {
-          Navigator.of(context, rootNavigator: true).pushAndRemoveUntil(
-            MaterialPageRoute(builder: (context) => SignInScreen()),
-            (Route<dynamic> route) => false,
+          DialogHelpers.closeDialog(context);
+          DialogHelpers.showSuccess(
+            context,
+            state.user,
+            onPressed:
+                () => Navigator.of(
+                  context,
+                  rootNavigator: true,
+                ).pushAndRemoveUntil(
+                  CupertinoPageRoute(builder: (context) => SignInScreen()),
+                  (Route<dynamic> route) => false,
+                ),
           );
-          DialogHelpers.showSuccess(context, state.user);
         }
       },
       child: CupertinoPageScaffold(
@@ -185,7 +193,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                       TapGestureRecognizer()
                                         ..onTap = () {
                                           Navigator.of(context).push(
-                                            MaterialPageRoute(
+                                            CupertinoPageRoute(
                                               builder:
                                                   (context) => SignInScreen(),
                                             ),

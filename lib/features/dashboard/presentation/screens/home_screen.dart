@@ -9,6 +9,8 @@ import 'package:wisefox/features/dashboard/presentation/bloc/dashboard_event.dar
 import 'package:wisefox/features/dashboard/presentation/bloc/dashboard_state.dart';
 import 'package:wisefox/features/dashboard/presentation/widgets/gradient_card.dart';
 import 'package:wisefox/features/dashboard/presentation/widgets/income_card.dart';
+import 'package:wisefox/features/profile/presentation/bloc/profile_bloc.dart';
+import 'package:wisefox/features/profile/presentation/bloc/profile_event.dart';
 import 'package:wisefox/features/profile/presentation/screens/profile_screen.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -23,6 +25,7 @@ class _HomeScreenState extends State<HomeScreen> {
   void initState() {
     super.initState();
     context.read<DashboardBloc>().add(GetDashboardDataRequested());
+    context.read<ProfileBloc>().add(FetchProfileDataRequested());
   }
 
   @override
@@ -61,7 +64,7 @@ class _HomeScreenState extends State<HomeScreen> {
         }
       },
       child: CupertinoPageScaffold(
-        backgroundColor: Colors.white,
+        backgroundColor: AppColors.white,
         child: BlocBuilder<DashboardBloc, DashboardState>(
           builder: (context, state) {
             if (state is DashboardSuccess) {
@@ -79,7 +82,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         children: [
                           GestureDetector(
                             child: Container(
-                              color: Colors.transparent,
+                              color: CupertinoColors.transparent,
                               child: Row(
                                 children: [
                                   Container(
@@ -125,7 +128,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             onTap:
                                 () => Navigator.push(
                                   context,
-                                  MaterialPageRoute(
+                                  CupertinoPageRoute(
                                     builder: (context) => ProfileScreen(),
                                   ),
                                 ),
