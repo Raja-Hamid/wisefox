@@ -4,7 +4,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:wisefox/core/common/widgets/background_gradient.dart';
 import 'package:wisefox/core/utilities/app_colors.dart';
 import 'package:wisefox/core/utilities/dialog_helpers.dart';
-import 'package:wisefox/features/authorization/presentation/screens/sign_in_screen.dart';
 import 'package:wisefox/features/profile/presentation/bloc/profile_bloc.dart';
 import 'package:wisefox/features/profile/presentation/bloc/profile_event.dart';
 import 'package:wisefox/features/profile/presentation/bloc/profile_state.dart';
@@ -21,21 +20,30 @@ class ProfileScreen extends StatefulWidget {
 
 class _ProfileScreenState extends State<ProfileScreen> {
   @override
-  void initState() {
-    super.initState();
-  }
-
-  @override
   Widget build(BuildContext context) {
     return BlocConsumer<ProfileBloc, ProfileState>(
+      listenWhen: (previous, current) {
+        if (current is ProfileLoading) {
+          return current.screenType == ProfileScreenType.profile;
+        }
+        if (current is ProfileFailure) {
+          return current.screenType == ProfileScreenType.profile;
+        }
+        if (current is ProfileLoaded) {
+          return current.screenType == ProfileScreenType.profile;
+        }
+        if (current is ProfileSignedOut) {
+          return current.screenType == ProfileScreenType.profile;
+        }
+        return false;
+      },
       listener: (context, state) {
-        if (state is ProfileSignedOut) {
-          Navigator.of(context, rootNavigator: true).pushAndRemoveUntil(
-            CupertinoPageRoute(builder: (context) => SignInScreen()),
-            (route) => false,
-          );
-        } else if (state is ProfileLoading) {
+        if (state is ProfileLoading) {
           DialogHelpers.showLoading(context, 'Signing Out');
+        } else if (state is ProfileSignedOut) {
+          DialogHelpers.showSuccess(context, state.message);
+        } else if (state is ProfileFailure) {
+          DialogHelpers.showError(context, state.error);
         }
       },
       builder: (context, state) {

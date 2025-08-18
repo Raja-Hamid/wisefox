@@ -29,11 +29,21 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
     SignOutRequested event,
     Emitter<ProfileState> emit,
   ) async {
-    emit(ProfileLoading());
+    emit(ProfileLoading(screenType: ProfileScreenType.profile));
     final result = await signOutUseCase(NoParams());
     result.fold(
-      (failure) => emit(ProfileFailure(failure.message)),
-      (success) => emit(ProfileSignedOut()),
+      (failure) => emit(
+        ProfileFailure(
+          error: failure.message,
+          screenType: ProfileScreenType.profile,
+        ),
+      ),
+      (success) => emit(
+        ProfileSignedOut(
+          message: 'Signed out Successfully!',
+          screenType: ProfileScreenType.profile,
+        ),
+      ),
     );
   }
 
@@ -41,12 +51,21 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
     UpdatePasswordRequested event,
     Emitter<ProfileState> emit,
   ) async {
-    emit(ProfileLoading(action: 'updating_password'));
+    emit(ProfileLoading(screenType: ProfileScreenType.changePassword));
     final result = await updatePasswordUseCase(event.entity);
     result.fold(
-      (failure) => emit(ProfileFailure(failure.message)),
-      (success) =>
-          emit(PasswordUpdated(message: 'Password updated successfully')),
+      (failure) => emit(
+        ProfileFailure(
+          error: failure.message,
+          screenType: ProfileScreenType.changePassword,
+        ),
+      ),
+      (success) => emit(
+        PasswordUpdated(
+          message: 'Password updated Successfully!',
+          screenType: ProfileScreenType.changePassword,
+        ),
+      ),
     );
   }
 
@@ -54,19 +73,30 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
     UpdateProfileRequested event,
     Emitter<ProfileState> emit,
   ) async {
-    emit(ProfileLoading(action: 'updating_profile'));
+    emit(ProfileLoading(screenType: ProfileScreenType.editProfile));
     final result = await updateProfileUseCase(event.entity);
 
     await result.fold(
-      (failure) async => emit(ProfileFailure(failure.message)),
+      (failure) async => emit(
+        ProfileFailure(
+          error: failure.message,
+          screenType: ProfileScreenType.editProfile,
+        ),
+      ),
       (_) async {
         final refreshed = await fetchProfileDataUseCase(NoParams());
         refreshed.fold(
-          (failure) => emit(ProfileFailure(failure.message)),
+          (failure) => emit(
+            ProfileFailure(
+              error: failure.message,
+              screenType: ProfileScreenType.editProfile,
+            ),
+          ),
           (success) => emit(
             ProfileUpdated(
-              entity: success,
               message: 'Profile updated successfully',
+              entity: success,
+              screenType: ProfileScreenType.editProfile,
             ),
           ),
         );
@@ -78,11 +108,18 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
     FetchProfileDataRequested event,
     Emitter<ProfileState> emit,
   ) async {
-    emit(ProfileLoading(action: 'fetching'));
+    emit(ProfileLoading(screenType: ProfileScreenType.profile));
     final result = await fetchProfileDataUseCase(NoParams());
     result.fold(
-      (failure) => emit(ProfileFailure(failure.message)),
-      (success) => emit(ProfileLoaded(entity: success)),
+      (failure) => emit(
+        ProfileFailure(
+          error: failure.message,
+          screenType: ProfileScreenType.profile,
+        ),
+      ),
+      (success) => emit(
+        ProfileLoaded(entity: success, screenType: ProfileScreenType.profile),
+      ),
     );
   }
 }

@@ -20,10 +20,6 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     on<ResetPasswordRequested>(_onResetPasswordRequested);
   }
 
-  void resetState() {
-    emit(AuthInitial());
-  }
-
   Future<void> _onSignUpRequested(
     SignUpRequested event,
     Emitter<AuthState> emit,
@@ -38,7 +34,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       ),
       (user) => emit(
         Authenticated(
-          user: 'Signed up: $user',
+          user: 'Account created Successfully:\n$user',
           screenType: AuthScreenType.signUp,
         ),
       ),

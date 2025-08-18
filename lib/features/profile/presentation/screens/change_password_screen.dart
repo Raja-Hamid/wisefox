@@ -23,16 +23,23 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
   final _formKey = GlobalKey<FormState>();
   final TextEditingController _passwordController = TextEditingController();
   final TextEditingController _confirmPasswordController =
-      TextEditingController();
-
-  @override
-  void initState() {
-    super.initState();
-  }
+  TextEditingController();
 
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<ProfileBloc, ProfileState>(
+      listenWhen: (previous, current) {
+        if (current is ProfileLoading) {
+          return current.screenType == ProfileScreenType.changePassword;
+        }
+        if (current is ProfileFailure) {
+          return current.screenType == ProfileScreenType.changePassword;
+        }
+        if (current is PasswordUpdated) {
+          return current.screenType == ProfileScreenType.changePassword;
+        }
+        return false;
+      },
       listener: (context, state) {
         if (state is ProfileLoading) {
           DialogHelpers.showLoading(context, 'Updating Password');
@@ -56,17 +63,14 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        GestureDetector(
-                          child: CupertinoButton(
-                            padding: EdgeInsets.zero,
-                            onPressed: () => Navigator.of(context).pop(),
-                            child: Icon(
-                              CupertinoIcons.back,
-                              size: 28.sp,
-                              color: AppColors.white,
-                            ),
+                        CupertinoButton(
+                          padding: EdgeInsets.zero,
+                          onPressed: () => Navigator.of(context).pop(),
+                          child: Icon(
+                            CupertinoIcons.back,
+                            size: 28.sp,
+                            color: AppColors.white,
                           ),
-                          onTap: () {},
                         ),
                         Text(
                           'Change Password',
@@ -131,7 +135,7 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                                     obscureText: true,
                                     validator:
                                         (value) =>
-                                            Validators.validatePassword(value),
+                                        Validators.validatePassword(value),
                                   ),
                                   SizedBox(height: 15.h),
                                   CustomTextField(
@@ -141,10 +145,10 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                                     obscureText: true,
                                     validator:
                                         (value) =>
-                                            Validators.validateConfirmPassword(
-                                              value,
-                                              _passwordController.text.trim(),
-                                            ),
+                                        Validators.validateConfirmPassword(
+                                          value,
+                                          _passwordController.text.trim(),
+                                        ),
                                   ),
                                   SizedBox(height: 30.h),
                                   RoundedGradientButton(
@@ -155,8 +159,8 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                                           UpdatePasswordRequested(
                                             entity: ProfileEntity(
                                               password:
-                                                  _passwordController.text
-                                                      .trim(),
+                                              _passwordController.text
+                                                  .trim(),
                                             ),
                                           ),
                                         );
