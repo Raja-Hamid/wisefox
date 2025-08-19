@@ -15,12 +15,22 @@ class DashboardBloc extends Bloc<DashboardEvent, DashboardState> {
     FetchDashboardDataRequested event,
     Emitter<DashboardState> emit,
   ) async {
-    emit(DashboardLoading());
+    emit(DashboardLoading(screenType: DashboardScreenType.home));
     final result = await fetchDashboardDataUseCase(NoParams());
 
     result.fold(
-      (failure) => emit(DashboardFailure(failure.message)),
-      (dashboardData) => emit(DashboardSuccess(dashboardData)),
+      (failure) => emit(
+        DashboardFailure(
+          error: failure.message,
+          screenType: DashboardScreenType.home,
+        ),
+      ),
+      (dashboardData) => emit(
+        DashboardSuccess(
+          entity: dashboardData,
+          screenType: DashboardScreenType.home,
+        ),
+      ),
     );
   }
 }

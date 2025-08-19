@@ -29,7 +29,7 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
     SignOutRequested event,
     Emitter<ProfileState> emit,
   ) async {
-    emit(ProfileLoading(screenType: ProfileScreenType.profile));
+    emit(ProfileSigningOut(screenType: ProfileScreenType.profile));
     final result = await signOutUseCase(NoParams());
     result.fold(
       (failure) => emit(

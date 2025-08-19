@@ -23,7 +23,7 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
   final _formKey = GlobalKey<FormState>();
   final TextEditingController _passwordController = TextEditingController();
   final TextEditingController _confirmPasswordController =
-  TextEditingController();
+      TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -135,7 +135,7 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                                     obscureText: true,
                                     validator:
                                         (value) =>
-                                        Validators.validatePassword(value),
+                                            Validators.validatePassword(value),
                                   ),
                                   SizedBox(height: 15.h),
                                   CustomTextField(
@@ -145,10 +145,10 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                                     obscureText: true,
                                     validator:
                                         (value) =>
-                                        Validators.validateConfirmPassword(
-                                          value,
-                                          _passwordController.text.trim(),
-                                        ),
+                                            Validators.validateConfirmPassword(
+                                              value,
+                                              _passwordController.text.trim(),
+                                            ),
                                   ),
                                   SizedBox(height: 30.h),
                                   RoundedGradientButton(
@@ -159,8 +159,8 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                                           UpdatePasswordRequested(
                                             entity: ProfileEntity(
                                               password:
-                                              _passwordController.text
-                                                  .trim(),
+                                                  _passwordController.text
+                                                      .trim(),
                                             ),
                                           ),
                                         );

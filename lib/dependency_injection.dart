@@ -11,6 +11,7 @@ import 'package:wisefox/features/authorization/presentation/bloc/auth_bloc.dart'
 import 'package:wisefox/features/dashboard/data/datasources/dashboard_remote_data_source.dart';
 import 'package:wisefox/features/dashboard/data/repositories/dashboard_repository_impl.dart';
 import 'package:wisefox/features/dashboard/domain/repositories/dashboard_repository.dart';
+import 'package:wisefox/features/dashboard/domain/usecases/fetch_dashboard_data.dart';
 import 'package:wisefox/features/dashboard/presentation/bloc/dashboard_bloc.dart';
 import 'package:wisefox/features/profile/data/datasources/profile_remote_data_source.dart';
 import 'package:wisefox/features/profile/data/repositories/profile_repository_impl.dart';
@@ -55,7 +56,7 @@ Future<void> init() async {
   di.registerLazySingleton<DashboardRepository>(
     () => DashboardRepositoryImpl(remoteDataSource: di()),
   );
-  di.registerLazySingleton(() => FetchProfileDataUseCase(repository: di()));
+  di.registerLazySingleton(() => FetchDashboardDataUseCase(repository: di()));
   di.registerFactory(() => DashboardBloc(fetchDashboardDataUseCase: di()));
 
   // PROFILE INJECTIONS

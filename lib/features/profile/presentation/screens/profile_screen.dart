@@ -4,6 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:wisefox/core/common/widgets/background_gradient.dart';
 import 'package:wisefox/core/utilities/app_colors.dart';
 import 'package:wisefox/core/utilities/dialog_helpers.dart';
+import 'package:wisefox/features/authorization/presentation/screens/sign_in_screen.dart';
 import 'package:wisefox/features/profile/presentation/bloc/profile_bloc.dart';
 import 'package:wisefox/features/profile/presentation/bloc/profile_event.dart';
 import 'package:wisefox/features/profile/presentation/bloc/profile_state.dart';
@@ -20,6 +21,12 @@ class ProfileScreen extends StatefulWidget {
 
 class _ProfileScreenState extends State<ProfileScreen> {
   @override
+  void initState() {
+    super.initState();
+    context.read<ProfileBloc>().add(FetchProfileDataRequested());
+  }
+
+  @override
   Widget build(BuildContext context) {
     return BlocConsumer<ProfileBloc, ProfileState>(
       listenWhen: (previous, current) {
@@ -32,6 +39,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
         if (current is ProfileLoaded) {
           return current.screenType == ProfileScreenType.profile;
         }
+        if (current is ProfileSigningOut) {
+          return current.screenType == ProfileScreenType.profile;
+        }
         if (current is ProfileSignedOut) {
           return current.screenType == ProfileScreenType.profile;
         }
@@ -39,9 +49,21 @@ class _ProfileScreenState extends State<ProfileScreen> {
       },
       listener: (context, state) {
         if (state is ProfileLoading) {
+          DialogHelpers.showLoading(context, 'Loading');
+        } else if (state is ProfileLoaded) {
+          DialogHelpers.closeDialog(context);
+        } else if (state is ProfileSigningOut) {
           DialogHelpers.showLoading(context, 'Signing Out');
         } else if (state is ProfileSignedOut) {
-          DialogHelpers.showSuccess(context, state.message);
+          Navigator.of(context).pushAndRemoveUntil(
+            CupertinoPageRoute(builder: (context) => SignInScreen()),
+            (Route<dynamic> route) => false,
+          );
+          DialogHelpers.showSuccess(
+            context,
+            state.message,
+            onPressed: () => Navigator.pop(context),
+          );
         } else if (state is ProfileFailure) {
           DialogHelpers.showError(context, state.error);
         }

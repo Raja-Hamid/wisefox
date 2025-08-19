@@ -56,6 +56,15 @@ class PasswordUpdated extends ProfileState {
   List<Object?> get props => [message, screenType];
 }
 
+class ProfileSigningOut extends ProfileState {
+  final ProfileScreenType screenType;
+
+  const ProfileSigningOut({required this.screenType});
+
+  @override
+  List<Object?> get props => [screenType];
+}
+
 class ProfileSignedOut extends ProfileState {
   final String message;
   final ProfileScreenType screenType;
