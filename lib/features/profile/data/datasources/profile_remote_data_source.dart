@@ -20,7 +20,7 @@ class ProfileRemoteDataSourceImpl extends ProfileRemoteDataSource {
       await supabaseClient
           .from('users')
           .update({'first_name': model.firstName, 'last_name': model.lastName})
-          .eq('id', model.id!);
+          .eq('id', '${model.id}');
     } catch (e) {
       throw ServerException(message: 'Failed to update profile: $e');
     }

@@ -5,6 +5,7 @@ import 'package:wisefox/core/common/widgets/background_gradient.dart';
 import 'package:wisefox/core/utilities/app_colors.dart';
 import 'package:wisefox/core/utilities/dialog_helpers.dart';
 import 'package:wisefox/features/authorization/presentation/screens/sign_in_screen.dart';
+import 'package:wisefox/features/profile/domain/entities/profile_entity.dart';
 import 'package:wisefox/features/profile/presentation/bloc/profile_bloc.dart';
 import 'package:wisefox/features/profile/presentation/bloc/profile_event.dart';
 import 'package:wisefox/features/profile/presentation/bloc/profile_state.dart';
@@ -34,6 +35,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
           return current.screenType == ProfileScreenType.profile;
         }
         if (current is ProfileFailure) {
+          return current.screenType == ProfileScreenType.profile;
+        }
+        if (current is ProfileLoaded) {
           return current.screenType == ProfileScreenType.profile;
         }
         if (current is ProfileLoaded) {
@@ -73,7 +77,17 @@ class _ProfileScreenState extends State<ProfileScreen> {
           return CupertinoPageScaffold(
             child: BackgroundGradient(child: CupertinoActivityIndicator()),
           );
-        } else if (state is ProfileLoaded) {
+        } else if (state is ProfileLoaded ||
+            state is ProfileUpdated ||
+            state is PasswordUpdated) {
+          ProfileEntity entity;
+          if (state is ProfileLoaded) {
+            entity = state.entity;
+          } else if (state is ProfileUpdated) {
+            entity = state.entity;
+          } else {
+            return CupertinoPageScaffold(child: BackgroundGradient());
+          }
           return CupertinoPageScaffold(
             child: BackgroundGradient(
               child: Stack(
@@ -133,7 +147,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             shape: BoxShape.circle,
                           ),
                           child: Text(
-                            state.entity.firstName![0],
+                            entity.firstName![0],
                             style: TextStyle(
                               color: AppColors.white,
                               fontSize: 50.sp,
@@ -143,7 +157,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         ),
                         SizedBox(height: 10.h),
                         Text(
-                          state.entity.userName!,
+                          entity.userName!,
                           style: TextStyle(
                             color: AppColors.lightGreyish,
                             fontSize: 20.sp,
