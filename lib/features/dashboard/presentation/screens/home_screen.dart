@@ -8,6 +8,7 @@ import 'package:wisefox/core/utilities/dialog_helpers.dart';
 import 'package:wisefox/features/dashboard/presentation/bloc/dashboard_bloc.dart';
 import 'package:wisefox/features/dashboard/presentation/bloc/dashboard_event.dart';
 import 'package:wisefox/features/dashboard/presentation/bloc/dashboard_state.dart';
+import 'package:wisefox/features/dashboard/presentation/widgets/expense_chart.dart';
 import 'package:wisefox/features/dashboard/presentation/widgets/gradient_card.dart';
 import 'package:wisefox/features/dashboard/presentation/widgets/income_card.dart';
 import 'package:wisefox/features/profile/presentation/bloc/profile_bloc.dart';
@@ -26,6 +27,7 @@ class _HomeScreenState extends State<HomeScreen> {
   void initState() {
     super.initState();
     context.read<DashboardBloc>().add(FetchDashboardDataRequested());
+    context.read<ProfileBloc>().add(FetchProfileDataRequested());
   }
 
   @override
@@ -315,6 +317,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       ],
                     ),
                     SizedBox(height: 20.h),
+                    ExpenseChart(),
                   ],
                 ),
               ),

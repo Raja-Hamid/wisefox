@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:wisefox/core/utilities/app_colors.dart';
+import 'package:wisefox/features/dashboard/presentation/widgets/expense_chart.dart';
 
 class StatisticsScreen extends StatefulWidget {
   const StatisticsScreen({super.key});
@@ -40,6 +41,9 @@ class _StatisticsScreenState extends State<StatisticsScreen> {
                   fontWeight: FontWeight.w700,
                 ),
               ),
+              SizedBox(height: 20.h),
+              ExpenseChart(),
+              SizedBox(height: 20.h),
               Text(
                 'Incomes',
                 style: TextStyle(
@@ -48,6 +52,7 @@ class _StatisticsScreenState extends State<StatisticsScreen> {
                   fontWeight: FontWeight.w700,
                 ),
               ),
+              SizedBox(height: 20.h),
               Text(
                 'Monthly Rate',
                 style: TextStyle(
@@ -56,6 +61,7 @@ class _StatisticsScreenState extends State<StatisticsScreen> {
                   fontWeight: FontWeight.w700,
                 ),
               ),
+              SizedBox(height: 20.h),
             ],
           ),
         ),

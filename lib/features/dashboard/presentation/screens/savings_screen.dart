@@ -4,6 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:wisefox/core/utilities/app_colors.dart';
 import 'package:wisefox/features/dashboard/presentation/widgets/gradient_card.dart';
+import 'package:wisefox/features/dashboard/presentation/widgets/savings_card.dart';
 
 class SavingsScreen extends StatefulWidget {
   const SavingsScreen({super.key});
@@ -98,6 +99,22 @@ class _SavingsScreenState extends State<SavingsScreen> {
                     onPressed: () {},
                   ),
                 ],
+              ),
+              SizedBox(height: 20.h),
+              SavingsCard(
+                title: 'Buy a new luxury house',
+                icon: 'assets/icons/house.svg',
+                savedAmount: 'Rs. 300,000',
+                pendingAmount: 'Rs. 1,000,000',
+                duration: '2 months left',
+              ),
+              SizedBox(height: 20.h),
+              SavingsCard(
+                title: 'Buy a new car ',
+                icon: 'assets/icons/car.svg',
+                savedAmount: 'Rs. 20,000',
+                pendingAmount: 'Rs. 60,000',
+                duration: '2 months left',
               ),
             ],
           ),

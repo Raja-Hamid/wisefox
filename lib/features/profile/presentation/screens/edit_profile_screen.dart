@@ -20,6 +20,7 @@ class EditProfileScreen extends StatefulWidget {
 }
 
 class _EditProfileScreenState extends State<EditProfileScreen> {
+  String? tempAvatar;
   final _formKey = GlobalKey<FormState>();
   final TextEditingController _firstNameController = TextEditingController();
   final TextEditingController _lastNameController = TextEditingController();
@@ -36,6 +37,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
   void _setProfileData(ProfileEntity entity) {
     _firstNameController.text = entity.firstName ?? '';
     _lastNameController.text = entity.lastName ?? '';
+    tempAvatar = entity.firstName?[0] ?? 'R';
   }
 
   @override
@@ -117,7 +119,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                               shape: BoxShape.circle,
                             ),
                             child: Text(
-                              'R',
+                              '$tempAvatar',
                               style: TextStyle(
                                 color: AppColors.white,
                                 fontSize: 50.sp,
