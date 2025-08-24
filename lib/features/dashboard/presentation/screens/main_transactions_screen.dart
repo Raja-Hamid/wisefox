@@ -3,6 +3,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:wisefox/core/utilities/app_colors.dart';
 import 'package:wisefox/features/dashboard/presentation/widgets/filter_button.dart';
 import 'package:wisefox/features/dashboard/presentation/widgets/gradient_segmented_control.dart';
+import 'package:wisefox/features/dashboard/presentation/widgets/income_card.dart';
+import 'package:wisefox/features/dashboard/presentation/widgets/spendings_card.dart';
 
 class MainTransactionsScreen extends StatefulWidget {
   const MainTransactionsScreen({super.key});
@@ -71,6 +73,51 @@ class _MainTransactionsScreenState extends State<MainTransactionsScreen> {
                 ],
               ),
               SizedBox(height: 20.h),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  SpendingsCard(
+                    title: 'Food',
+                    subtitle: 'Coffee',
+                    icon: 'assets/icons/car.svg',
+                    amount: '4000',
+                    time: '2 days ago',
+                    height: 165.h,
+                    width: 165.w,
+                  ),
+                  SpendingsCard(
+                    title: 'Food',
+                    subtitle: 'Coffee',
+                    icon: 'assets/icons/car.svg',
+                    amount: '4000',
+                    time: '2 days ago',
+                    height: 165.h,
+                    width: 165.w,
+                  ),
+                ],
+              ),
+              SizedBox(height: 20.h),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  IncomeCard(
+                    title: 'Food',
+                    icon: 'assets/icons/car.svg',
+                    amount: '4000',
+                    time: '2 days ago',
+                    height: 165.h,
+                    width: 165.w,
+                  ),
+                  IncomeCard(
+                    title: 'Food',
+                    icon: 'assets/icons/car.svg',
+                    amount: '4000',
+                    time: '2 days ago',
+                    height: 165.h,
+                    width: 165.w,
+                  ),
+                ],
+              ),
             ],
           ),
         ),

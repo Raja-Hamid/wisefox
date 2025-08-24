@@ -4,14 +4,14 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:wisefox/core/utilities/app_colors.dart';
 
-class IncomeCard extends StatelessWidget {
+class IncomeCardPreview extends StatelessWidget {
   final String title;
   final String icon;
   final String amount;
   final String time;
   final double height;
   final double width;
-  const IncomeCard({
+  const IncomeCardPreview({
     super.key,
     required this.title,
     required this.icon,
@@ -58,8 +58,8 @@ class IncomeCard extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
                     Container(
-                      height: 30.h,
-                      width: 30.w,
+                      height: 25.h,
+                      width: 25.w,
                       decoration: BoxDecoration(
                         color: Color(0xffA5EA75).withValues(alpha: 0.50),
                         border: Border.all(
@@ -83,7 +83,7 @@ class IncomeCard extends StatelessWidget {
                       title,
                       style: TextStyle(
                         color: AppColors.black,
-                        fontSize: 16.sp,
+                        fontSize: 14.sp,
                         fontWeight: FontWeight.w700,
                       ),
                     ),
@@ -94,7 +94,7 @@ class IncomeCard extends StatelessWidget {
                   'Rs. $amount',
                   style: TextStyle(
                     color: AppColors.lightBlack,
-                    fontSize: 22.sp,
+                    fontSize: 18.sp,
                     fontWeight: FontWeight.w700,
                   ),
                 ),
@@ -103,7 +103,7 @@ class IncomeCard extends StatelessWidget {
                   time,
                   style: TextStyle(
                     color: Color(0xff767676),
-                    fontSize: 15.sp,
+                    fontSize: 12.sp,
                     fontWeight: FontWeight.w700,
                   ),
                 ),

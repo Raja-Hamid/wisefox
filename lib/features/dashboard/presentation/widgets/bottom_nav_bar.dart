@@ -24,10 +24,7 @@ class _BottomNavBarState extends State<BottomNavBar> {
       padding: EdgeInsets.all(10.r),
       decoration:
           isActive
-              ? BoxDecoration(
-                color: AppColors.darkBlue,
-                shape: BoxShape.circle,
-              )
+              ? BoxDecoration(color: AppColors.darkBlue, shape: BoxShape.circle)
               : null,
       child: SvgPicture.asset(
         assetPath,

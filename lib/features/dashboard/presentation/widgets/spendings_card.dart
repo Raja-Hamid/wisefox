@@ -4,16 +4,18 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:wisefox/core/utilities/app_colors.dart';
 
-class IncomeCard extends StatelessWidget {
+class SpendingsCard extends StatelessWidget {
   final String title;
+  final String subtitle;
   final String icon;
   final String amount;
   final String time;
   final double height;
   final double width;
-  const IncomeCard({
+  const SpendingsCard({
     super.key,
     required this.title,
+    required this.subtitle,
     required this.icon,
     required this.amount,
     required this.time,
@@ -44,7 +46,7 @@ class IncomeCard extends StatelessWidget {
             padding: EdgeInsets.all(20.r),
             decoration: BoxDecoration(
               gradient: LinearGradient(
-                colors: [Color(0xffA5EA75), Color(0xffEFEFEF)],
+                colors: [Color(0xffB87CD2), Color(0xffFFFBFC)],
                 begin: Alignment.topLeft,
                 end: Alignment.bottomRight,
                 stops: [0, 0.7],
@@ -61,9 +63,9 @@ class IncomeCard extends StatelessWidget {
                       height: 30.h,
                       width: 30.w,
                       decoration: BoxDecoration(
-                        color: Color(0xffA5EA75).withValues(alpha: 0.50),
+                        color: Color(0xffB87CD2).withValues(alpha: 0.13),
                         border: Border.all(
-                          color: Color(0xff4EA016).withValues(alpha: 0.20),
+                          color: Color(0xffB87CD2).withValues(alpha: 0.20),
                         ),
                         shape: BoxShape.circle,
                       ),
@@ -72,7 +74,7 @@ class IncomeCard extends StatelessWidget {
                         child: SvgPicture.asset(
                           icon,
                           colorFilter: ColorFilter.mode(
-                            Color(0xff4EA016),
+                            Color(0xffB87CD2),
                             BlendMode.srcIn,
                           ),
                         ),
@@ -94,7 +96,7 @@ class IncomeCard extends StatelessWidget {
                   'Rs. $amount',
                   style: TextStyle(
                     color: AppColors.lightBlack,
-                    fontSize: 22.sp,
+                    fontSize: 18.sp,
                     fontWeight: FontWeight.w700,
                   ),
                 ),
@@ -102,9 +104,18 @@ class IncomeCard extends StatelessWidget {
                 Text(
                   time,
                   style: TextStyle(
-                    color: Color(0xff767676),
+                    color: Color(0xff06070B),
                     fontSize: 15.sp,
-                    fontWeight: FontWeight.w700,
+                    fontWeight: FontWeight.w500,
+                  ),
+                ),
+                SizedBox(height: 5.h),
+                Text(
+                  subtitle,
+                  style: TextStyle(
+                    color: AppColors.darkGrey,
+                    fontSize: 12.sp,
+                    fontWeight: FontWeight.w300,
                   ),
                 ),
               ],

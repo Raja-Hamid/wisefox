@@ -11,9 +11,9 @@ class BackgroundGradient extends StatelessWidget {
       width: double.infinity,
       decoration: const BoxDecoration(
         gradient: LinearGradient(
-          begin: Alignment.centerLeft,
-          end: Alignment.centerRight,
-          colors: [CupertinoColors.transparent, Color(0xFF0666D5)],
+          begin: Alignment.bottomRight,
+          end: Alignment.topLeft,
+          colors: [CupertinoColors.transparent, Color(0xFFB87CD2)],
         ),
       ),
       child: Container(
@@ -21,9 +21,9 @@ class BackgroundGradient extends StatelessWidget {
         width: double.infinity,
         decoration: const BoxDecoration(
           gradient: LinearGradient(
-            begin: Alignment.bottomRight,
-            end: Alignment.topLeft,
-            colors: [CupertinoColors.transparent, Color(0xFFB87CD2)],
+            begin: Alignment.centerLeft,
+            end: Alignment.centerRight,
+            colors: [CupertinoColors.transparent, Color(0xFF0666D5)],
           ),
         ),
         child: Container(

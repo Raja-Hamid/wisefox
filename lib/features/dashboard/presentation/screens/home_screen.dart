@@ -8,9 +8,11 @@ import 'package:wisefox/core/utilities/dialog_helpers.dart';
 import 'package:wisefox/features/dashboard/presentation/bloc/dashboard_bloc.dart';
 import 'package:wisefox/features/dashboard/presentation/bloc/dashboard_event.dart';
 import 'package:wisefox/features/dashboard/presentation/bloc/dashboard_state.dart';
+import 'package:wisefox/features/dashboard/presentation/screens/main_transactions_screen.dart';
+import 'package:wisefox/features/dashboard/presentation/screens/statistics_screen.dart';
 import 'package:wisefox/features/dashboard/presentation/widgets/expense_chart.dart';
 import 'package:wisefox/features/dashboard/presentation/widgets/gradient_card.dart';
-import 'package:wisefox/features/dashboard/presentation/widgets/income_card.dart';
+import 'package:wisefox/features/dashboard/presentation/widgets/income_card_preview.dart';
 import 'package:wisefox/features/profile/presentation/bloc/profile_bloc.dart';
 import 'package:wisefox/features/profile/presentation/bloc/profile_event.dart';
 import 'package:wisefox/features/profile/presentation/screens/profile_screen.dart';
@@ -247,13 +249,20 @@ class _HomeScreenState extends State<HomeScreen> {
                               fontSize: 12.sp,
                             ),
                           ),
-                          onPressed: () {},
+                          onPressed:
+                              () => Navigator.push(
+                                context,
+                                CupertinoPageRoute(
+                                  builder:
+                                      (context) => MainTransactionsScreen(),
+                                ),
+                              ),
                         ),
                       ],
                     ),
-                    SizedBox(height: 20.h),
+                    SizedBox(height: 10.h),
                     SizedBox(
-                      height: 130.h,
+                      height: 140.h,
                       child: ListView.separated(
                         scrollDirection: Axis.horizontal,
                         itemCount: 3,
@@ -280,7 +289,7 @@ class _HomeScreenState extends State<HomeScreen> {
                               'time': '4 days ago',
                             },
                           ];
-                          return IncomeCard(
+                          return IncomeCardPreview(
                             title: data[index]['title']!,
                             icon: data[index]['icon']!,
                             amount: data[index]['amount']!,
@@ -312,11 +321,17 @@ class _HomeScreenState extends State<HomeScreen> {
                               fontSize: 12.sp,
                             ),
                           ),
-                          onPressed: () {},
+                          onPressed:
+                              () => Navigator.push(
+                                context,
+                                CupertinoPageRoute(
+                                  builder: (context) => StatisticsScreen(),
+                                ),
+                              ),
                         ),
                       ],
                     ),
-                    SizedBox(height: 20.h),
+                    SizedBox(height: 10.h),
                     ExpenseChart(),
                   ],
                 ),
