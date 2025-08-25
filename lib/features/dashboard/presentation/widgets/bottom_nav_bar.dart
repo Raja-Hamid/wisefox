@@ -31,7 +31,7 @@ class _BottomNavBarState extends State<BottomNavBar> {
         width: 25.w,
         height: 25.h,
         colorFilter: ColorFilter.mode(
-          isActive ? AppColors.white : AppColors.darkBlue,
+          isActive ? AppColors.white :  AppColors.darkBlue,
           BlendMode.srcIn,
         ),
       ),

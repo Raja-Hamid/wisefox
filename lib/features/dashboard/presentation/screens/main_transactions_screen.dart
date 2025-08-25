@@ -84,61 +84,100 @@ class _MainTransactionsScreenState extends State<MainTransactionsScreen> {
         ),
       ),
       child: SafeArea(
-        child: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 30.h),
-          child: Column(
-            children: [
-              GradientSegmentedControl(
-                selectedSegment: _selectedSegment,
-                onValueChanged: (String? value) {
-                  if (value != null) {
-                    setState(() {
-                      _selectedSegment = value;
-                    });
-                  }
-                },
+        child: Stack(
+          children: [
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 30.h),
+              child: Column(
+                children: [
+                  GradientSegmentedControl(
+                    selectedSegment: _selectedSegment,
+                    onValueChanged: (String? value) {
+                      if (value != null) {
+                        setState(() {
+                          _selectedSegment = value;
+                        });
+                      }
+                    },
+                  ),
+                  SizedBox(height: 20.h),
+                  GridView.builder(
+                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: 2,
+                      crossAxisSpacing: 20.w,
+                      mainAxisSpacing: 20.h,
+                      childAspectRatio: 1,
+                    ),
+                    shrinkWrap: true,
+                    physics: const NeverScrollableScrollPhysics(),
+                    itemCount:
+                        _selectedSegment == 'Spendings'
+                            ? spendings.length
+                            : incomes.length,
+                    itemBuilder: (context, index) {
+                      if (_selectedSegment == 'Spendings') {
+                        final spending = spendings[index];
+                        return SpendingsCard(
+                          title: spending['title']!,
+                          subtitle: spending['subtitle']!,
+                          icon: spending['icon']!,
+                          amount: spending['amount']!,
+                          time: spending['time']!,
+                          height: 165.h,
+                          width: 165.w,
+                        );
+                      } else {
+                        final income = incomes[index];
+                        return IncomeCard(
+                          title: income['title']!,
+                          icon: income['icon']!,
+                          amount: income['amount']!,
+                          time: income['time']!,
+                          height: 165.h,
+                          width: 165.w,
+                        );
+                      }
+                    },
+                  ),
+                ],
               ),
-              SizedBox(height: 20.h),
-              GridView.builder(
-                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 2,
-                  crossAxisSpacing: 20.w,
-                  mainAxisSpacing: 20.h,
-                  childAspectRatio: 1,
+            ),
+            Positioned(
+              right: 20.w,
+              bottom: 30.h,
+              child: Container(
+                height: 60.h,
+                width: 60.w,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(30.r),
+                  border: Border.all(
+                    color:
+                        _selectedSegment == 'Spendings'
+                            ? Color(0xffB87CD2).withValues(alpha: 0.45)
+                            : Color(0xff367C2D).withValues(alpha: 0.15),
+                  ),
                 ),
-                shrinkWrap: true,
-                physics: const NeverScrollableScrollPhysics(),
-                itemCount:
-                    _selectedSegment == 'Spendings'
-                        ? spendings.length
-                        : incomes.length,
-                itemBuilder: (context, index) {
-                  if (_selectedSegment == 'Spendings') {
-                    final spending = spendings[index];
-                    return SpendingsCard(
-                      title: spending['title']!,
-                      subtitle: spending['subtitle']!,
-                      icon: spending['icon']!,
-                      amount: spending['amount']!,
-                      time: spending['time']!,
-                      height: 165.h,
-                      width: 165.w,
-                    );
-                  } else {
-                    final income = incomes[index];
-                    return IncomeCard(
-                      title: income['title']!,
-                      icon: income['icon']!,
-                      amount: income['amount']!,
-                      time: income['time']!,
-                      height: 165.h,
-                      width: 165.w,
-                    );
-                  }
-                },
+                child: CupertinoButton(
+                  padding: EdgeInsets.zero,
+                  sizeStyle: CupertinoButtonSize.large,
+                  color:
+                      _selectedSegment == 'Spendings'
+                          ? Color(0xffB87CD2).withValues(alpha: 0.40)
+                          : Color(0xffA5EA75),
+                  borderRadius: BorderRadius.circular(30.r),
+                  onPressed: () {},
+                  child: Icon(
+                    CupertinoIcons.add,
+                    color:
+                        _selectedSegment == 'Spendings'
+                            ? Color(0xffB87CD2)
+                            : Color(0xff4EA016),
+                    size: 30.sp,
+                  ),
+                ),
               ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );
