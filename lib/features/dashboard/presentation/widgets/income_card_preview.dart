@@ -27,17 +27,18 @@ class IncomeCardPreview extends StatelessWidget {
       height: height,
       width: width,
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(30.r),
+        borderRadius: BorderRadius.circular(20.r),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withValues(alpha: 0.07),
-            offset: const Offset(0, 7),
+            color: Colors.black.withValues(alpha: 0.15),
+            offset: const Offset(7, 7),
             blurRadius: 10.r,
+            spreadRadius: 0,
           ),
         ],
       ),
       child: ClipRRect(
-        borderRadius: BorderRadius.circular(30.r),
+        borderRadius: BorderRadius.circular(20.r),
         child: BackdropFilter(
           filter: ImageFilter.blur(sigmaX: 30.0, sigmaY: 30.0),
           child: Container(

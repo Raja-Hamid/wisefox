@@ -22,6 +22,7 @@ class IncomesChart extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
+          SizedBox(width: 20.w),
           Column(
             children: [
               TransparentCard(),

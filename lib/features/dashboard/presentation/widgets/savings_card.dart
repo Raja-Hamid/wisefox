@@ -7,8 +7,8 @@ import 'package:wisefox/core/utilities/app_colors.dart';
 class SavingsCard extends StatelessWidget {
   final String title;
   final String icon;
-  final String savedAmount;
-  final String pendingAmount;
+  final double savedAmount;
+  final double pendingAmount;
   final String duration;
   const SavingsCard({
     super.key,
@@ -52,6 +52,7 @@ class SavingsCard extends StatelessWidget {
                       fontWeight: FontWeight.w600,
                     ),
                   ),
+                  SizedBox(height: 5.h),
                   Text(
                     duration,
                     style: TextStyle(
@@ -90,7 +91,7 @@ class SavingsCard extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
-                savedAmount,
+                'Rs. $savedAmount',
                 style: TextStyle(
                   color: CupertinoColors.white,
                   fontSize: 14.sp,
@@ -98,7 +99,7 @@ class SavingsCard extends StatelessWidget {
                 ),
               ),
               Text(
-                pendingAmount,
+                'Rs. $pendingAmount',
                 style: TextStyle(
                   color: AppColors.lightGreen,
                   fontSize: 14.sp,
@@ -113,7 +114,7 @@ class SavingsCard extends StatelessWidget {
               minHeight: 10.h,
               stopIndicatorRadius: 20.r,
               borderRadius: BorderRadius.circular(20.r),
-              value: 12,
+              value: (savedAmount / (savedAmount + pendingAmount)),
               valueColor: const AlwaysStoppedAnimation<Color>(
                 Color(0xFFA855F7),
               ),

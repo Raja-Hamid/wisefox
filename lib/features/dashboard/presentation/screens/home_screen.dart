@@ -25,6 +25,27 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  final incomes = [
+    {
+      'title': 'Salary',
+      'icon': 'assets/icons/Salary.svg',
+      'amount': '10,000',
+      'time': '2 days ago',
+    },
+    {
+      'title': 'Business',
+      'icon': 'assets/icons/Business.svg',
+      'amount': '8,000',
+      'time': '2 days ago',
+    },
+    {
+      'title': 'Freelance',
+      'icon': 'assets/icons/Freelance.svg',
+      'amount': '2,000',
+      'time': '4 days ago',
+    },
+  ];
+
   @override
   void initState() {
     super.initState();
@@ -57,6 +78,7 @@ class _HomeScreenState extends State<HomeScreen> {
       builder: (context, state) {
         if (state is DashboardSuccess) {
           return CupertinoPageScaffold(
+            backgroundColor: AppColors.eggWhite,
             child: SingleChildScrollView(
               child: Padding(
                 padding: EdgeInsets.symmetric(
@@ -137,7 +159,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         ),
                       ],
                     ),
-                    SizedBox(height: 20.h),
+                    SizedBox(height: 10.h),
                     GradientCard(
                       height: 240.h,
                       padding: EdgeInsets.all(20.r),
@@ -228,7 +250,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         ],
                       ),
                     ),
-                    SizedBox(height: 20.h),
+                    SizedBox(height: 10.h),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
@@ -260,47 +282,28 @@ class _HomeScreenState extends State<HomeScreen> {
                         ),
                       ],
                     ),
-                    SizedBox(height: 10.h),
                     SizedBox(
-                      height: 140.h,
-                      child: ListView.separated(
+                      height: 160.h,
+                      child: ListView.builder(
                         scrollDirection: Axis.horizontal,
-                        itemCount: 3,
-                        separatorBuilder:
-                            (context, index) => SizedBox(width: 15.w),
+                        itemCount: incomes.length,
+                        padding: EdgeInsets.symmetric(vertical: 10.h),
                         itemBuilder: (context, index) {
-                          final data = [
-                            {
-                              'title': 'Salary',
-                              'icon': 'assets/icons/Salary.svg',
-                              'amount': '10,000',
-                              'time': '2 days ago',
-                            },
-                            {
-                              'title': 'Business',
-                              'icon': 'assets/icons/Business.svg',
-                              'amount': '8,000',
-                              'time': '2 days ago',
-                            },
-                            {
-                              'title': 'Freelance',
-                              'icon': 'assets/icons/Freelance.svg',
-                              'amount': '2,000',
-                              'time': '4 days ago',
-                            },
-                          ];
-                          return IncomeCardPreview(
-                            title: data[index]['title']!,
-                            icon: data[index]['icon']!,
-                            amount: data[index]['amount']!,
-                            time: data[index]['time']!,
-                            height: 140.h,
-                            width: 140.w,
+                          return Padding(
+                            padding: EdgeInsets.only(right: 20.w),
+                            child: IncomeCardPreview(
+                              title: incomes[index]['title']!,
+                              icon: incomes[index]['icon']!,
+                              amount: incomes[index]['amount']!,
+                              time: incomes[index]['time']!,
+                              height: 140.h,
+                              width: 140.w,
+                            ),
                           );
                         },
                       ),
                     ),
-                    SizedBox(height: 20.h),
+                    SizedBox(height: 10.h),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [

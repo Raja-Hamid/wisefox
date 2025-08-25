@@ -27,17 +27,17 @@ class IncomeCard extends StatelessWidget {
       height: height,
       width: width,
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(30.r),
+        borderRadius: BorderRadius.circular(25.r),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withValues(alpha: 0.07),
+            color: Colors.black.withValues(alpha: 0.15),
             offset: const Offset(0, 7),
             blurRadius: 10.r,
           ),
         ],
       ),
       child: ClipRRect(
-        borderRadius: BorderRadius.circular(30.r),
+        borderRadius: BorderRadius.circular(25.r),
         child: BackdropFilter(
           filter: ImageFilter.blur(sigmaX: 30.0, sigmaY: 30.0),
           child: Container(
@@ -78,7 +78,7 @@ class IncomeCard extends StatelessWidget {
                         ),
                       ),
                     ),
-                    SizedBox(width: 5.w),
+                    SizedBox(width: 10.w),
                     Text(
                       title,
                       style: TextStyle(

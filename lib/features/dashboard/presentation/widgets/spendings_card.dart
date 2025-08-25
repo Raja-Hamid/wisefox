@@ -29,17 +29,17 @@ class SpendingsCard extends StatelessWidget {
       height: height,
       width: width,
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(30.r),
+        borderRadius: BorderRadius.circular(25.r),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withValues(alpha: 0.07),
+            color: Colors.black.withValues(alpha: 0.15),
             offset: const Offset(0, 7),
             blurRadius: 10.r,
           ),
         ],
       ),
       child: ClipRRect(
-        borderRadius: BorderRadius.circular(30.r),
+        borderRadius: BorderRadius.circular(25.r),
         child: BackdropFilter(
           filter: ImageFilter.blur(sigmaX: 30.0, sigmaY: 30.0),
           child: Container(
@@ -80,13 +80,17 @@ class SpendingsCard extends StatelessWidget {
                         ),
                       ),
                     ),
-                    SizedBox(width: 5.w),
-                    Text(
-                      title,
-                      style: TextStyle(
-                        color: AppColors.black,
-                        fontSize: 16.sp,
-                        fontWeight: FontWeight.w700,
+                    SizedBox(width: 10.w),
+                    Expanded(
+                      child: Text(
+                        title,
+                        style: TextStyle(
+                          color: AppColors.black,
+                          fontSize: 16.sp,
+                          fontWeight: FontWeight.w700,
+                        ),
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
                       ),
                     ),
                   ],
