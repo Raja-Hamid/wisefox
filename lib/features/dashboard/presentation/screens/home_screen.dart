@@ -25,22 +25,22 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  final incomes = [
+  final List<Map<String, String>> incomes = [
     {
       'title': 'Salary',
-      'icon': 'assets/icons/Salary.svg',
+      'icon': 'assets/icons/Salary-Icon.svg',
       'amount': '10,000',
       'time': '2 days ago',
     },
     {
       'title': 'Business',
-      'icon': 'assets/icons/Business.svg',
+      'icon': 'assets/icons/Business-Icon.svg',
       'amount': '8,000',
       'time': '2 days ago',
     },
     {
       'title': 'Freelance',
-      'icon': 'assets/icons/Freelance.svg',
+      'icon': 'assets/icons/Freelance-Icon.svg',
       'amount': '2,000',
       'time': '4 days ago',
     },

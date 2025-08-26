@@ -6,7 +6,7 @@ class CustomTextField extends StatelessWidget {
   final String title;
   final String hintText;
   final String? icon;
-  final TextEditingController controller;
+  final TextEditingController? controller;
   final bool? obscureText;
   final String? Function(String?)? validator;
 
@@ -15,7 +15,7 @@ class CustomTextField extends StatelessWidget {
     required this.title,
     required this.hintText,
     this.icon,
-    required this.controller,
+    this.controller,
     this.obscureText = false,
     this.validator,
   });

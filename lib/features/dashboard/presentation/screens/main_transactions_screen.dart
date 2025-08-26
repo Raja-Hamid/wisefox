@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:wisefox/core/utilities/app_colors.dart';
+import 'package:wisefox/features/dashboard/presentation/widgets/bottom_sheet_popup.dart';
 import 'package:wisefox/features/dashboard/presentation/widgets/gradient_segmented_control.dart';
 import 'package:wisefox/features/dashboard/presentation/widgets/income_card.dart';
 import 'package:wisefox/features/dashboard/presentation/widgets/spendings_card.dart';
@@ -13,33 +14,38 @@ class MainTransactionsScreen extends StatefulWidget {
 }
 
 class _MainTransactionsScreenState extends State<MainTransactionsScreen> {
+  final TextEditingController category = TextEditingController();
+  final TextEditingController subtitle = TextEditingController();
+  final TextEditingController amount = TextEditingController();
+  final TextEditingController time = TextEditingController();
+
   String _selectedSegment = 'Income';
   final List<Map<String, String>> spendings = [
     {
       'title': 'Food',
       'subtitle': 'Coffee',
-      'icon': 'assets/icons/food.svg',
+      'icon': 'assets/icons/Food-Icon.svg',
       'amount': '-10,00',
       'time': '2 days ago',
     },
     {
       'title': 'Transportation',
       'subtitle': 'Uber',
-      'icon': 'assets/icons/car.svg',
+      'icon': 'assets/icons/Transport-Icon.svg',
       'amount': '-8,00',
       'time': '3 days ago',
     },
     {
       'title': 'Shopping',
       'subtitle': 'Channel',
-      'icon': 'assets/icons/shopping.svg',
+      'icon': 'assets/icons/Shopping-Icon.svg',
       'amount': '-40,00',
       'time': '4 days ago',
     },
     {
       'title': 'Entertainment',
       'subtitle': 'Netflix',
-      'icon': 'assets/icons/tv.svg',
+      'icon': 'assets/icons/Entertainment-Icon.svg',
       'amount': '-25,00',
       'time': '3 days ago',
     },
@@ -47,22 +53,20 @@ class _MainTransactionsScreenState extends State<MainTransactionsScreen> {
   final List<Map<String, String>> incomes = [
     {
       'title': 'Salary',
-      'icon': 'assets/icons/food.svg',
-      'amount': '-10,00',
+      'icon': 'assets/icons/Salary-Icon.svg',
+      'amount': '10,000',
       'time': '2 days ago',
     },
     {
       'title': 'Business',
-      'subtitle': 'Uber',
-      'icon': 'assets/icons/car.svg',
-      'amount': '-8,00',
-      'time': '3 days ago',
+      'icon': 'assets/icons/Business-Icon.svg',
+      'amount': '8,000',
+      'time': '2 days ago',
     },
     {
       'title': 'Freelance',
-      'subtitle': 'Channel',
-      'icon': 'assets/icons/shopping.svg',
-      'amount': '-40,00',
+      'icon': 'assets/icons/Freelance-Icon.svg',
+      'amount': '2,000',
       'time': '4 days ago',
     },
   ];
@@ -106,10 +110,11 @@ class _MainTransactionsScreenState extends State<MainTransactionsScreen> {
                       crossAxisCount: 2,
                       crossAxisSpacing: 20.w,
                       mainAxisSpacing: 20.h,
-                      childAspectRatio: 1,
+                      childAspectRatio: 1.sp,
                     ),
                     shrinkWrap: true,
-                    physics: const NeverScrollableScrollPhysics(),
+                    physics: BouncingScrollPhysics(),
+                    scrollDirection: Axis.vertical,
                     itemCount:
                         _selectedSegment == 'Spendings'
                             ? spendings.length
@@ -165,7 +170,23 @@ class _MainTransactionsScreenState extends State<MainTransactionsScreen> {
                           ? Color(0xffB87CD2).withValues(alpha: 0.40)
                           : Color(0xffA5EA75),
                   borderRadius: BorderRadius.circular(30.r),
-                  onPressed: () {},
+                  onPressed:
+                      () => showCupertinoModalPopup(
+                        context: context,
+                        builder:
+                            (context) => CupertinoPopupSurface(
+                              isSurfacePainted: true,
+                              child: SizedBox(
+                                height:
+                                    (MediaQuery.of(context).size.height * 0.75)
+                                        .h,
+                                child: BottomSheetPopup(
+                                  selectedSegment: _selectedSegment,
+                                  onPressed: () {},
+                                ),
+                              ),
+                            ),
+                      ),
                   child: Icon(
                     CupertinoIcons.add,
                     color:

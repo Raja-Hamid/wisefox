@@ -55,7 +55,7 @@ class _SavingsScreenState extends State<SavingsScreen> {
                       child: Padding(
                         padding: EdgeInsets.all(8.r),
                         child: SvgPicture.asset(
-                          'assets/icons/Savings.svg',
+                          'assets/icons/Savings-Icon.svg',
                           colorFilter: ColorFilter.mode(
                             AppColors.lightGreen,
                             BlendMode.srcIn,
@@ -103,7 +103,7 @@ class _SavingsScreenState extends State<SavingsScreen> {
               SizedBox(height: 10.h),
               SavingsCard(
                 title: 'Buy a new luxury house',
-                icon: 'assets/icons/house.svg',
+                icon: 'assets/icons/Property-Icon.svg',
                 savedAmount: 700000,
                 pendingAmount: 100000,
                 duration: '2 months left',
@@ -111,7 +111,7 @@ class _SavingsScreenState extends State<SavingsScreen> {
               SizedBox(height: 20.h),
               SavingsCard(
                 title: 'Buy a new car ',
-                icon: 'assets/icons/car.svg',
+                icon: 'assets/icons/Car-Icon.svg',
                 savedAmount: 20000,
                 pendingAmount: 60000,
                 duration: '2 months left',
