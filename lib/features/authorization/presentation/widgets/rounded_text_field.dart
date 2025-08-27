@@ -3,7 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:wisefox/core/utilities/app_colors.dart';
 
-class RoundedTextField extends StatelessWidget {
+class RoundedTextField extends StatefulWidget {
   final String hintText;
   final String? icon;
   final TextEditingController controller;
@@ -19,16 +19,29 @@ class RoundedTextField extends StatelessWidget {
   });
 
   @override
+  State<RoundedTextField> createState() => _RoundedTextFieldState();
+}
+
+class _RoundedTextFieldState extends State<RoundedTextField> {
+  late bool _isObscure;
+
+  @override
+  void initState() {
+    super.initState();
+    _isObscure = widget.obscureText;
+  }
+
+  @override
   Widget build(BuildContext context) {
     return FormField<String>(
-      validator: validator,
+      validator: widget.validator,
       builder: (FormFieldState<String> state) {
         return Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             CupertinoTextField(
-              controller: controller,
-              obscureText: obscureText,
+              controller: widget.controller,
+              obscureText: _isObscure,
               onChanged: (value) => state.didChange(value),
               padding: EdgeInsets.symmetric(vertical: 20.h),
               decoration: BoxDecoration(
@@ -36,23 +49,42 @@ class RoundedTextField extends StatelessWidget {
                 borderRadius: BorderRadius.circular(25.r),
                 border: Border.all(color: AppColors.lightGreen, width: 1.w),
               ),
-              placeholder: hintText,
+              placeholder: widget.hintText,
               placeholderStyle: TextStyle(
                 color: CupertinoColors.white,
                 fontSize: 14.sp,
               ),
               prefix:
-                  icon != null
+                  widget.icon != null
                       ? Padding(
                         padding: EdgeInsets.symmetric(horizontal: 16.w),
                         child: SvgPicture.asset(
-                          icon!,
+                          widget.icon!,
                           colorFilter: ColorFilter.mode(
                             AppColors.offWhite,
                             BlendMode.srcIn,
                           ),
                           height: 20.h,
                           width: 20.w,
+                        ),
+                      )
+                      : null,
+              suffix:
+                  widget.obscureText == true
+                      ? Padding(
+                        padding: EdgeInsets.only(right: 12.w),
+                        child: GestureDetector(
+                          onTap:
+                              () => setState(() {
+                                _isObscure = !_isObscure;
+                              }),
+                          child: Icon(
+                            _isObscure
+                                ? CupertinoIcons.eye
+                                : CupertinoIcons.eye_slash,
+                            size: 20.sp,
+                            color: CupertinoColors.systemGrey,
+                          ),
                         ),
                       )
                       : null,

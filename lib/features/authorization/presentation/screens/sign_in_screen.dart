@@ -11,7 +11,7 @@ import 'package:wisefox/features/authorization/presentation/bloc/auth_event.dart
 import 'package:wisefox/features/authorization/presentation/bloc/auth_state.dart';
 import 'package:wisefox/features/authorization/presentation/screens/reset_password_screen.dart';
 import 'package:wisefox/features/authorization/presentation/screens/sign_up_screen.dart';
-import 'package:wisefox/features/authorization/presentation/widgets/rounded_gradient_button.dart';
+import 'package:wisefox/core/common/widgets/rounded_gradient_button.dart';
 import 'package:wisefox/features/authorization/presentation/widgets/social_row.dart';
 import 'package:wisefox/features/authorization/presentation/widgets/rounded_text_field.dart';
 import 'package:wisefox/core/common/widgets/background_gradient.dart';

@@ -5,12 +5,12 @@ import 'package:wisefox/core/common/widgets/background_gradient.dart';
 import 'package:wisefox/core/utilities/app_colors.dart';
 import 'package:wisefox/core/utilities/dialog_helpers.dart';
 import 'package:wisefox/core/utilities/validators.dart';
-import 'package:wisefox/features/authorization/presentation/widgets/rounded_gradient_button.dart';
+import 'package:wisefox/core/common/widgets/rounded_gradient_button.dart';
 import 'package:wisefox/features/profile/domain/entities/profile_entity.dart';
 import 'package:wisefox/features/profile/presentation/bloc/profile_bloc.dart';
 import 'package:wisefox/features/profile/presentation/bloc/profile_event.dart';
 import 'package:wisefox/features/profile/presentation/bloc/profile_state.dart';
-import 'package:wisefox/features/profile/presentation/widgets/custom_text_field.dart';
+import 'package:wisefox/core/common/widgets/custom_text_field.dart';
 
 class ChangePasswordScreen extends StatefulWidget {
   const ChangePasswordScreen({super.key});
@@ -130,7 +130,7 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                                 children: [
                                   CustomTextField(
                                     title: 'New Password',
-                                    hintText: 'Enter your password',
+                                    hintedText: 'Enter your password',
                                     controller: _passwordController,
                                     obscureText: true,
                                     validator:
@@ -140,7 +140,7 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                                   SizedBox(height: 15.h),
                                   CustomTextField(
                                     title: 'Confirm New Password',
-                                    hintText: 'Enter your password',
+                                    hintedText: 'Enter your password',
                                     controller: _confirmPasswordController,
                                     obscureText: true,
                                     validator:

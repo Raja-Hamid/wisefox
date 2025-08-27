@@ -5,12 +5,12 @@ import 'package:wisefox/core/common/widgets/background_gradient.dart';
 import 'package:wisefox/core/utilities/app_colors.dart';
 import 'package:wisefox/core/utilities/dialog_helpers.dart';
 import 'package:wisefox/core/utilities/validators.dart';
-import 'package:wisefox/features/authorization/presentation/widgets/rounded_gradient_button.dart';
+import 'package:wisefox/core/common/widgets/rounded_gradient_button.dart';
 import 'package:wisefox/features/profile/domain/entities/profile_entity.dart';
 import 'package:wisefox/features/profile/presentation/bloc/profile_bloc.dart';
 import 'package:wisefox/features/profile/presentation/bloc/profile_event.dart';
 import 'package:wisefox/features/profile/presentation/bloc/profile_state.dart';
-import 'package:wisefox/features/profile/presentation/widgets/custom_text_field.dart';
+import 'package:wisefox/core/common/widgets/custom_text_field.dart';
 
 class EditProfileScreen extends StatefulWidget {
   const EditProfileScreen({super.key});
@@ -184,7 +184,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                                 children: [
                                   CustomTextField(
                                     title: 'First Name',
-                                    hintText: 'Enter your first name',
+                                    hintedText: 'Enter your first name',
                                     controller: _firstNameController,
                                     validator:
                                         (value) =>
@@ -193,7 +193,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                                   SizedBox(height: 15.h),
                                   CustomTextField(
                                     title: 'Last Name',
-                                    hintText: 'Enter your last name',
+                                    hintedText: 'Enter your last name',
                                     controller: _lastNameController,
                                     validator:
                                         (value) =>
