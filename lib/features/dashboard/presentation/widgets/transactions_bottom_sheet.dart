@@ -4,34 +4,40 @@ import 'package:wisefox/core/utilities/app_colors.dart';
 import 'package:wisefox/core/utilities/validators.dart';
 import 'package:wisefox/core/common/widgets/custom_text_field.dart';
 
-class BottomSheetPopup extends StatefulWidget {
+class TransactionsBottomSheet extends StatefulWidget {
   final String selectedSegment;
   final void Function()? onPressed;
-  const BottomSheetPopup({
+  const TransactionsBottomSheet({
     super.key,
     required this.selectedSegment,
     this.onPressed,
   });
 
   @override
-  State<BottomSheetPopup> createState() => _BottomSheetPopupState();
+  State<TransactionsBottomSheet> createState() => _TransactionsBottomSheetState();
 }
 
-class _BottomSheetPopupState extends State<BottomSheetPopup> {
+class _TransactionsBottomSheetState extends State<TransactionsBottomSheet> {
   final _formKey = GlobalKey<FormState>();
+  final TextEditingController _amountController = TextEditingController();
+  final TextEditingController _descriptionController = TextEditingController();
+
+  String? _selectedCategory;
+
+  final incomeCategories = ["Salary", "Business", "Freelance", "Other"];
+  final spendingCategories = [
+    "Food",
+    "Transportation",
+    "Shopping",
+    "Entertainment",
+  ];
 
   @override
   Widget build(BuildContext context) {
-    final incomeCategories = ["Salary", "Business", "Freelance", "Other"];
-    final spendingCategories = [
-      "Food",
-      "Transportation",
-      "Shopping",
-      "Entertainment",
-    ];
     return Container(
-      padding: EdgeInsets.all(20.r),
+      height: (MediaQuery.of(context).size.height * 0.75).h,
       width: double.infinity,
+      padding: EdgeInsets.all(20.r),
       decoration: BoxDecoration(color: AppColors.eggWhite),
       child: Form(
         key: _formKey,

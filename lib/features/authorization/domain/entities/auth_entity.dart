@@ -1,6 +1,6 @@
-import 'package:wisefox/core/common/entities/user.dart';
+import 'package:wisefox/core/common/entities/user_entity.dart';
 
-class AuthEntity extends User {
+class AuthEntity extends UserEntity {
   final String? password;
 
   const AuthEntity({

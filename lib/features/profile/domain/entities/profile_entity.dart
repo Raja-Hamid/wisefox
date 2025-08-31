@@ -1,6 +1,6 @@
-import 'package:wisefox/core/common/entities/user.dart';
+import 'package:wisefox/core/common/entities/user_entity.dart';
 
-class ProfileEntity extends User {
+class ProfileEntity extends UserEntity {
   final String? userName;
   final String? password;
 

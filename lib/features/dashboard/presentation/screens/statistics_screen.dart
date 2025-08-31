@@ -13,6 +13,21 @@ class StatisticsScreen extends StatefulWidget {
 }
 
 class _StatisticsScreenState extends State<StatisticsScreen> {
+  final List<Map<String, String>> expenses = [
+    {
+      'title': 'Highest Expense',
+      'icon': 'assets/icons/Arrow-Up-Icon.svg',
+      'amount': '40000',
+      'last amount': '58700',
+    },
+    {
+      'title': 'Lowest Expense',
+      'icon': 'assets/icons/Arrow-Down-Icon.svg',
+      'amount': '2500',
+      'last amount': '1200',
+    },
+  ];
+
   @override
   Widget build(BuildContext context) {
     return CupertinoPageScaffold(
@@ -67,7 +82,29 @@ class _StatisticsScreenState extends State<StatisticsScreen> {
                   ),
                 ),
                 SizedBox(height: 10.h),
-                MonthlyRateCard(),
+                SizedBox(
+                  height: 160.h,
+                  child: ListView.builder(
+                    scrollDirection: Axis.horizontal,
+                    itemCount: 2,
+                    padding: EdgeInsets.symmetric(vertical: 10.h),
+                    itemBuilder: (context, index) {
+                      return Padding(
+                        padding: EdgeInsets.only(right: 20.w),
+                        child: MonthlyRateCard(
+                          title: expenses[index]['title']!,
+                          amount: double.parse(expenses[index]['amount']!),
+                          lastAmount: double.parse(
+                            expenses[index]['last amount']!,
+                          ),
+                          icon: expenses[index]['icon']!,
+                          height: 140.h,
+                          width: 275.w,
+                        ),
+                      );
+                    },
+                  ),
+                ),
               ],
             ),
           ),

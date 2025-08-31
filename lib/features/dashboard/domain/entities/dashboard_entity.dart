@@ -1,27 +1,27 @@
+import 'package:wisefox/core/common/entities/user_entity.dart';
+import 'package:wisefox/features/dashboard/domain/entities/income_entity.dart';
+import 'package:wisefox/features/dashboard/domain/entities/saving_entity.dart';
+import 'package:wisefox/features/dashboard/domain/entities/spending_entity.dart';
+
 class DashboardEntity {
-  final String userName;
-  final double totalBalance;
-  final List<TransactionEntity> transactions;
+  final UserEntity user;
+  final List<IncomeEntity> incomes;
+  final List<SpendingEntity> spendings;
+  final List<SavingEntity> savings;
 
   DashboardEntity({
-    required this.userName,
-    required this.totalBalance,
-    required this.transactions,
+    required this.user,
+    required this.incomes,
+    required this.spendings,
+    required this.savings,
   });
-}
 
-enum TransactionType { income, spending }
+  String get userName => '${user.firstName} ${user.lastName}';
 
-class TransactionEntity {
-  final String name;
-  final TransactionType type;
-  final double amount;
-  final DateTime time;
+  double get totalIncome =>
+      incomes.fold<double>(0, (sum, income) => sum + income.amount);
+  double get totalSpending =>
+      spendings.fold<double>(0, (sum, spending) => sum + spending.amount);
 
-  TransactionEntity({
-    required this.name,
-    required this.type,
-    required this.amount,
-    required this.time,
-  });
+  double get totalBalance => totalIncome - totalSpending;
 }

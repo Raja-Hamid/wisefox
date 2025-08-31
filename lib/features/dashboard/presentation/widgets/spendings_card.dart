@@ -62,6 +62,7 @@ class SpendingsCard extends StatelessWidget {
                     Container(
                       height: 30.h,
                       width: 30.w,
+                      padding: EdgeInsets.all(5.r),
                       decoration: BoxDecoration(
                         color: Color(0xffB87CD2).withValues(alpha: 0.13),
                         border: Border.all(
@@ -69,14 +70,11 @@ class SpendingsCard extends StatelessWidget {
                         ),
                         shape: BoxShape.circle,
                       ),
-                      child: Padding(
-                        padding: EdgeInsets.all(5.r),
-                        child: SvgPicture.asset(
-                          icon,
-                          colorFilter: ColorFilter.mode(
-                            Color(0xffB87CD2),
-                            BlendMode.srcIn,
-                          ),
+                      child: SvgPicture.asset(
+                        icon,
+                        colorFilter: ColorFilter.mode(
+                          Color(0xffB87CD2),
+                          BlendMode.srcIn,
                         ),
                       ),
                     ),
@@ -89,7 +87,7 @@ class SpendingsCard extends StatelessWidget {
                           fontSize: 16.sp,
                           fontWeight: FontWeight.w700,
                         ),
-                        maxLines: 1,
+                        maxLines: 2,
                         overflow: TextOverflow.ellipsis,
                       ),
                     ),

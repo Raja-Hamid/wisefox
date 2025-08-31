@@ -39,7 +39,7 @@ class ProfileRepositoryImpl implements ProfileRepository {
       await remoteDataSource.updatePassword(
         model: ProfileModel.fromEntity(entity),
       );
-      return Right('Updated Password Successfully');
+      return Right('Password Updated Successfully');
     } on ServerException catch (e) {
       return Left(Failure(e.message));
     }
@@ -53,7 +53,7 @@ class ProfileRepositoryImpl implements ProfileRepository {
       await remoteDataSource.updateProfile(
         model: ProfileModel.fromEntity(entity),
       );
-      return Right('Updated Profile Successfully');
+      return Right('Profile Updated Successfully');
     } on ServerException catch (e) {
       return Left(Failure(e.message));
     }

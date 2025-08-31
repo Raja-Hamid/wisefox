@@ -61,6 +61,7 @@ class IncomeCardPreview extends StatelessWidget {
                     Container(
                       height: 25.h,
                       width: 25.w,
+                      padding: EdgeInsets.all(5.r),
                       decoration: BoxDecoration(
                         color: Color(0xffA5EA75).withValues(alpha: 0.50),
                         border: Border.all(
@@ -68,14 +69,11 @@ class IncomeCardPreview extends StatelessWidget {
                         ),
                         shape: BoxShape.circle,
                       ),
-                      child: Padding(
-                        padding: EdgeInsets.all(5.r),
-                        child: SvgPicture.asset(
-                          icon,
-                          colorFilter: ColorFilter.mode(
-                            Color(0xff4EA016),
-                            BlendMode.srcIn,
-                          ),
+                      child: SvgPicture.asset(
+                        icon,
+                        colorFilter: ColorFilter.mode(
+                          Color(0xff4EA016),
+                          BlendMode.srcIn,
                         ),
                       ),
                     ),

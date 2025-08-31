@@ -141,7 +141,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         Container(
-                          padding: EdgeInsets.all(45.r),
+                          padding: EdgeInsets.all(75.r),
                           decoration: BoxDecoration(
                             color: AppColors.purple,
                             shape: BoxShape.circle,
@@ -150,7 +150,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             entity.firstName![0],
                             style: TextStyle(
                               color: AppColors.white,
-                              fontSize: 50.sp,
+                              fontSize: 55.sp,
                               fontWeight: FontWeight.w700,
                             ),
                           ),

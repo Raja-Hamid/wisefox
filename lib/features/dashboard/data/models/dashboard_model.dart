@@ -1,34 +1,40 @@
-import 'package:wisefox/features/dashboard/data/models/transaction_model.dart';
+import 'package:wisefox/features/dashboard/data/models/income_model.dart';
+import 'package:wisefox/features/dashboard/data/models/saving_model.dart';
+import 'package:wisefox/features/dashboard/data/models/spending_model.dart';
+import 'package:wisefox/features/dashboard/data/models/user_model.dart';
 import 'package:wisefox/features/dashboard/domain/entities/dashboard_entity.dart';
 
 class DashboardModel extends DashboardEntity {
   DashboardModel({
-    required super.userName,
-    required super.totalBalance,
-    required super.transactions,
+    required super.user,
+    required super.incomes,
+    required super.spendings,
+    required super.savings,
   });
 
   factory DashboardModel.fromSupabase({
     required Map<String, dynamic> userData,
-    required List<dynamic> transactionsData,
+    required List<Map<String, dynamic>> incomeData,
+    required List<Map<String, dynamic>> spendingData,
+    required List<Map<String, dynamic>> savingData,
   }) {
-    final transactions =
-        transactionsData
-            .map((json) => TransactionModel.fromJson(json))
-            .toList();
-
-    final totalIncome = transactions
-        .where((t) => t.type == TransactionType.income)
-        .fold(0.0, (sum, t) => sum + t.amount);
-
-    final totalSpending = transactions
-        .where((t) => t.type == TransactionType.spending)
-        .fold(0.0, (sum, t) => sum + t.amount);
-
     return DashboardModel(
-      userName: '${userData['first_name']} ${userData['last_name']}',
-      totalBalance: totalIncome - totalSpending,
-      transactions: transactions,
+      user: UserModel.fromSupabase(userData: userData),
+      incomes:
+          incomeData
+              .map((incomes) => IncomeModel.fromSupabase(incomeData: incomes))
+              .toList(),
+      spendings:
+          spendingData
+              .map(
+                (spendings) =>
+                    SpendingModel.fromSupabase(spendingData: spendings),
+              )
+              .toList(),
+      savings:
+          savingData
+              .map((savings) => SavingModel.fromSupabase(savingData: savings))
+              .toList(),
     );
   }
 }

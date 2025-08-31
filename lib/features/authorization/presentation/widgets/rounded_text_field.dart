@@ -72,7 +72,7 @@ class _RoundedTextFieldState extends State<RoundedTextField> {
               suffix:
                   widget.obscureText == true
                       ? Padding(
-                        padding: EdgeInsets.only(right: 12.w),
+                        padding: EdgeInsets.only(right: 15.w),
                         child: GestureDetector(
                           onTap:
                               () => setState(() {
@@ -80,8 +80,8 @@ class _RoundedTextFieldState extends State<RoundedTextField> {
                               }),
                           child: Icon(
                             _isObscure
-                                ? CupertinoIcons.eye
-                                : CupertinoIcons.eye_slash,
+                                ? CupertinoIcons.eye_slash
+                                : CupertinoIcons.eye,
                             size: 20.sp,
                             color: CupertinoColors.systemGrey,
                           ),

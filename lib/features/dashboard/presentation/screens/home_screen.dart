@@ -103,7 +103,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                     shape: BoxShape.circle,
                                   ),
                                   child: Text(
-                                    state.entity.userName[0],
+                                    state.entity.user.firstName![0],
                                     style: TextStyle(
                                       color: AppColors.white,
                                       fontSize: 20.sp,
@@ -209,7 +209,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                       ),
                                     ),
                                     Text(
-                                      '+${state.entity.transactions}',
+                                      '+${state.entity.totalIncome}',
                                       style: TextStyle(
                                         color: AppColors.lightGreen,
                                         fontSize: 20.sp,
@@ -236,7 +236,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                       ),
                                     ),
                                     Text(
-                                      '-${state.entity.transactions}',
+                                      '-${state.entity.totalSpending}',
                                       style: TextStyle(
                                         color: AppColors.white,
                                         fontSize: 20.sp,

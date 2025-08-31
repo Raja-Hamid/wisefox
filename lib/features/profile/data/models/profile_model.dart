@@ -20,6 +20,7 @@ class ProfileModel extends ProfileEntity {
     );
   }
 
+
   factory ProfileModel.fromEntity(ProfileEntity entity) {
     return ProfileModel(
       id: entity.id,
