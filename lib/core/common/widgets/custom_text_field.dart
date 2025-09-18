@@ -2,13 +2,16 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:wisefox/core/utilities/app_colors.dart';
 
-class CustomTextField extends StatefulWidget {
+class CustomTextField extends StatelessWidget {
   final String title;
   final String hintedText;
   final TextInputType? keyboardType;
-  final String? icon;
+  final IconData? icon;
+  final void Function()? onTap;
+  final void Function()? onIconTap;
   final TextEditingController? controller;
   final bool obscureText;
+  final bool readOnly;
   final String? Function(String?)? validator;
 
   const CustomTextField({
@@ -17,34 +20,24 @@ class CustomTextField extends StatefulWidget {
     required this.hintedText,
     this.keyboardType,
     this.icon,
+    this.onTap,
+    this.onIconTap,
     this.controller,
     this.obscureText = false,
+    this.readOnly = false,
     this.validator,
   });
 
   @override
-  State<CustomTextField> createState() => _CustomTextFieldState();
-}
-
-class _CustomTextFieldState extends State<CustomTextField> {
-  late bool _isObscure;
-
-  @override
-  void initState() {
-    super.initState();
-    _isObscure = widget.obscureText;
-  }
-
-  @override
   Widget build(BuildContext context) {
     return FormField<String>(
-      validator: widget.validator,
+      validator: validator,
       builder: (FormFieldState<String> state) {
         return Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              widget.title,
+              title,
               style: TextStyle(
                 color: AppColors.lightBlack,
                 fontSize: 16.sp,
@@ -53,10 +46,12 @@ class _CustomTextFieldState extends State<CustomTextField> {
             ),
             SizedBox(height: 10.h),
             CupertinoTextField(
-              controller: widget.controller,
-              placeholder: widget.hintedText,
-              keyboardType: widget.keyboardType,
-              obscureText: _isObscure,
+              controller: controller,
+              placeholder: hintedText,
+              keyboardType: keyboardType,
+              obscureText: obscureText,
+              readOnly: readOnly,
+              onTap: onTap,
               onChanged: (value) => state.didChange(value),
               padding: EdgeInsets.all(12.r),
               decoration: BoxDecoration(
@@ -67,18 +62,13 @@ class _CustomTextFieldState extends State<CustomTextField> {
                 borderRadius: BorderRadius.circular(15.r),
               ),
               suffix:
-                  widget.obscureText == true
+                  icon != null
                       ? Padding(
                         padding: EdgeInsets.only(right: 12.w),
                         child: GestureDetector(
-                          onTap:
-                              () => setState(() {
-                                _isObscure = !_isObscure;
-                              }),
+                          onTap: onIconTap,
                           child: Icon(
-                            _isObscure
-                                ? CupertinoIcons.eye_slash
-                                : CupertinoIcons.eye,
+                            icon,
                             size: 20,
                             color: CupertinoColors.systemGrey,
                           ),

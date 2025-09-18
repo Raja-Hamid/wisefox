@@ -3,23 +3,39 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:wisefox/core/utilities/app_colors.dart';
+import 'package:wisefox/features/dashboard/domain/entities/saving_entity.dart';
 
 class SavingsCard extends StatelessWidget {
-  final String title;
-  final String icon;
+  final SavingsCategory category;
+  final String description;
   final double totalAmount;
   final double savedAmount;
-  final String duration;
+  final DateTime duration;
   final double height;
   const SavingsCard({
     super.key,
-    required this.title,
-    required this.icon,
+    required this.description,
+    required this.category,
     required this.totalAmount,
     required this.savedAmount,
     required this.duration,
     required this.height,
   });
+
+  String _getCategoryIcon(SavingsCategory category) {
+    switch (category) {
+      case SavingsCategory.vehicle:
+        return "assets/icons/vehicle.svg";
+      case SavingsCategory.property:
+        return "assets/icons/property.svg";
+      case SavingsCategory.education:
+        return "assets/icons/education.svg";
+      case SavingsCategory.electronicGadget:
+        return "assets/icons/gadget.svg";
+      case SavingsCategory.other:
+        return "assets/icons/other.svg";
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -47,7 +63,7 @@ class SavingsCard extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    title,
+                    description,
                     style: TextStyle(
                       color: CupertinoColors.white,
                       fontSize: 18.sp,
@@ -56,7 +72,7 @@ class SavingsCard extends StatelessWidget {
                   ),
                   SizedBox(height: 5.h),
                   Text(
-                    duration,
+                    '$duration',
                     style: TextStyle(
                       color: CupertinoColors.white,
                       fontSize: 15.sp,
@@ -78,7 +94,7 @@ class SavingsCard extends StatelessWidget {
                 child: Padding(
                   padding: EdgeInsets.all(8.r),
                   child: SvgPicture.asset(
-                    icon,
+                    _getCategoryIcon(category),
                     colorFilter: ColorFilter.mode(
                       AppColors.lightGreen,
                       BlendMode.srcIn,
@@ -116,7 +132,7 @@ class SavingsCard extends StatelessWidget {
               minHeight: 10.h,
               stopIndicatorRadius: 20.r,
               borderRadius: BorderRadius.circular(20.r),
-              value: (totalAmount / (savedAmount + totalAmount)),
+              value: savedAmount / totalAmount,
               valueColor: const AlwaysStoppedAnimation<Color>(
                 Color(0xFFA855F7),
               ),

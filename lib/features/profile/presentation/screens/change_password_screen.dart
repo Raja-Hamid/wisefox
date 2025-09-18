@@ -25,6 +25,8 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
   final TextEditingController _confirmPasswordController =
       TextEditingController();
 
+  bool showPassword = false;
+
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<ProfileBloc, ProfileState>(
@@ -132,7 +134,13 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                                     title: 'New Password',
                                     hintedText: 'Enter your password',
                                     controller: _passwordController,
-                                    obscureText: true,
+                                    obscureText: showPassword,
+                                    icon:
+                                        showPassword
+                                            ? CupertinoIcons.eye_slash
+                                            : CupertinoIcons.eye,
+                                    onIconTap:
+                                        () => showPassword = !showPassword,
                                     validator:
                                         (value) =>
                                             Validators.validatePassword(value),
@@ -142,7 +150,13 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                                     title: 'Confirm New Password',
                                     hintedText: 'Enter your password',
                                     controller: _confirmPasswordController,
-                                    obscureText: true,
+                                    obscureText: showPassword,
+                                    icon:
+                                        showPassword
+                                            ? CupertinoIcons.eye_slash
+                                            : CupertinoIcons.eye,
+                                    onIconTap:
+                                        () => showPassword = !showPassword,
                                     validator:
                                         (value) =>
                                             Validators.validateConfirmPassword(

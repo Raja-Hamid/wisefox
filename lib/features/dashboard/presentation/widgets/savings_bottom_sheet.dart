@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:wisefox/core/utilities/app_colors.dart';
 import 'package:wisefox/core/utilities/validators.dart';
 import 'package:wisefox/core/common/widgets/custom_text_field.dart';
+import 'package:wisefox/features/dashboard/domain/entities/saving_entity.dart';
 
 class SavingsBottomSheet extends StatefulWidget {
   final void Function()? onSave;
@@ -18,9 +19,7 @@ class _SavingsBottomSheetState extends State<SavingsBottomSheet> {
   final TextEditingController _totalAmountController = TextEditingController();
   final TextEditingController _savedAmountController = TextEditingController();
   final TextEditingController _deadlineController = TextEditingController();
-
-  String? _selectedCategory;
-  final savingCategories = ["Property", "Vehicle", "Business", "Other"];
+  SavingsCategory? _selectedCategory;
 
   @override
   void dispose() {
@@ -71,12 +70,12 @@ class _SavingsBottomSheetState extends State<SavingsBottomSheet> {
             SizedBox(
               height: 50.h,
               child: ListView.builder(
-                itemCount: savingCategories.length,
+                itemCount: SavingsCategory.values.length,
                 scrollDirection: Axis.horizontal,
                 physics: BouncingScrollPhysics(),
                 itemBuilder: (context, index) {
                   final isSelected =
-                      _selectedCategory == savingCategories[index];
+                      _selectedCategory == SavingsCategory.values[index];
                   return Container(
                     margin: EdgeInsets.only(right: 15.w),
                     decoration: BoxDecoration(
@@ -85,8 +84,7 @@ class _SavingsBottomSheetState extends State<SavingsBottomSheet> {
                               ? Color(0xffB87CD2).withValues(alpha: 0.2)
                               : CupertinoColors.transparent,
                       border: Border.all(
-                        color:
-                            isSelected ? Color(0xffB87CD2) : Color(0xff4EA016),
+                        color: isSelected ? Color(0xffB87CD2) : AppColors.black,
                         width: isSelected ? 2 : 1,
                       ),
                       borderRadius: BorderRadius.circular(25.r),
@@ -94,10 +92,10 @@ class _SavingsBottomSheetState extends State<SavingsBottomSheet> {
                     child: CupertinoButton(
                       onPressed:
                           () => setState(() {
-                            _selectedCategory = savingCategories[index];
+                            _selectedCategory = SavingsCategory.values[index];
                           }),
                       child: Text(
-                        savingCategories[index],
+                        SavingsCategory.values[index].name,
                         style: TextStyle(
                           color: AppColors.black,
                           fontSize: 14.sp,
@@ -149,11 +147,43 @@ class _SavingsBottomSheetState extends State<SavingsBottomSheet> {
               hintedText: 'Enter Date',
               keyboardType: TextInputType.numberWithOptions(decimal: true),
               controller: _deadlineController,
-              validator: (value) {
-                if (value == null || value.isEmpty) {
-                  return 'Amount is required';
-                }
-                return null;
+              readOnly: true,
+              onTap: () async {
+                await showCupertinoModalPopup(
+                  context: context,
+                  builder: (context) {
+                    return Container(
+                      height: 250.h,
+                      color: CupertinoColors.systemBackground.resolveFrom(
+                        context,
+                      ),
+                      child: Column(
+                        children: [
+                          Align(
+                            alignment: Alignment.centerRight,
+                            child: CupertinoButton(
+                              child: const Text("Done"),
+                              onPressed: () {
+                                Navigator.of(context).pop();
+                              },
+                            ),
+                          ),
+                          Expanded(
+                            child: CupertinoDatePicker(
+                              mode: CupertinoDatePickerMode.date,
+                              initialDateTime: DateTime.now(),
+                              minimumDate: DateTime(2000),
+                              maximumDate: DateTime(2100),
+                              onDateTimeChanged: (DateTime value) {
+                                _deadlineController.text = value.toIso8601String();
+                              },
+                            ),
+                          ),
+                        ],
+                      ),
+                    );
+                  },
+                );
               },
             ),
             Spacer(),
@@ -182,9 +212,10 @@ class _SavingsBottomSheetState extends State<SavingsBottomSheet> {
                     return;
                   }
                   final savingData = {
-                    'title': _descriptionController.text,
-                    'total amount': _totalAmountController.text,
-                    'saved amount': _savedAmountController.text,
+                    'category': _selectedCategory!.name,
+                    'description': _descriptionController.text,
+                    'total_amount': _totalAmountController.text,
+                    'saved_amount': _savedAmountController.text,
                     'deadline': _deadlineController.text,
                   };
                   Navigator.of(context).pop(savingData);

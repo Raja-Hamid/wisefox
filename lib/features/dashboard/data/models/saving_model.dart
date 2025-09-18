@@ -13,7 +13,10 @@ class SavingModel extends SavingEntity {
   factory SavingModel.fromSupabase({required Map<String, dynamic> savingData}) {
     return SavingModel(
       id: savingData['id'],
-      category: savingData['category'],
+      category: SavingsCategory.values.firstWhere(
+            (e) => e.name == savingData['category'],
+        orElse: () => SavingsCategory.other,
+      ),
       description: savingData['description'],
       totalAmount: double.tryParse(savingData['total_amount']) ?? 0.0,
       savedAmount: double.tryParse(savingData['saved_amount']) ?? 0.0,

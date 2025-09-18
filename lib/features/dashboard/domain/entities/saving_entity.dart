@@ -1,7 +1,7 @@
-enum SavingsCategory { vehicle, property, education, electronicGadget, other }
+enum SavingsCategory { Vehicle, Property, education, electronicGadget, other }
 
 class SavingEntity {
-  final String id;
+  final String? id;
   final SavingsCategory category;
   final String description;
   final double totalAmount;
@@ -9,7 +9,7 @@ class SavingEntity {
   final DateTime duration;
 
   SavingEntity({
-    required this.id,
+    this.id,
     required this.category,
     required this.description,
     required this.totalAmount,
