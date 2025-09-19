@@ -3,6 +3,7 @@ import 'package:wisefox/features/dashboard/data/models/dashboard_model.dart';
 import 'package:wisefox/features/dashboard/data/models/income_model.dart';
 import 'package:wisefox/features/dashboard/data/models/saving_model.dart';
 import 'package:wisefox/features/dashboard/data/models/spending_model.dart';
+import 'package:wisefox/features/dashboard/domain/entities/saving_entity.dart';
 
 abstract interface class DashboardRemoteDataSource {
   Future<DashboardModel> getDashboardData();
@@ -63,7 +64,7 @@ class DashboardRemoteDataSourceImpl extends DashboardRemoteDataSource {
 
   @override
   Future<void> addIncome({required IncomeModel income}) async {
-    final userID = supabaseClient.auth.currentUser!;
+    final userID = supabaseClient.auth.currentUser!.id;
     await supabaseClient.from('incomes').insert({
       'user_id': userID,
       'type': income.type,
@@ -75,20 +76,19 @@ class DashboardRemoteDataSourceImpl extends DashboardRemoteDataSource {
   @override
   Future<void> addSaving({required SavingModel saving}) async {
     final userID = supabaseClient.auth.currentUser!.id;
-
     await supabaseClient.from('savings').insert({
       'user_id': userID,
-      'category': saving.category,
+      'category': saving.category.toSupabase(),
       'description': saving.description,
       'total_amount': saving.totalAmount,
       'saved_amount': saving.savedAmount,
-      'duration': saving.duration,
+      'duration': saving.duration.toIso8601String(),
     });
   }
 
   @override
   Future<void> addSpending({required SpendingModel spending}) async {
-    final userID = supabaseClient.auth.currentUser!;
+    final userID = supabaseClient.auth.currentUser!.id;
     await supabaseClient.from('spendings').insert({
       'user_id': userID,
       'category': spending.category,
@@ -100,7 +100,7 @@ class DashboardRemoteDataSourceImpl extends DashboardRemoteDataSource {
 
   @override
   Future<void> deleteIncome({required IncomeModel income}) async {
-    final userID = supabaseClient.auth.currentUser!;
+    final userID = supabaseClient.auth.currentUser!.id;
     await supabaseClient
         .from('incomes')
         .delete()
@@ -110,17 +110,17 @@ class DashboardRemoteDataSourceImpl extends DashboardRemoteDataSource {
 
   @override
   Future<void> deleteSaving({required SavingModel saving}) async {
-    final userID = supabaseClient.auth.currentUser!;
+    final userID = supabaseClient.auth.currentUser!.id;
     await supabaseClient
         .from('savings')
         .delete()
-        .eq('id', saving.id)
+        .eq('id', saving.id!)
         .eq('user_id', userID);
   }
 
   @override
   Future<void> deleteSpending({required SpendingModel spending}) async {
-    final userID = supabaseClient.auth.currentUser!;
+    final userID = supabaseClient.auth.currentUser!.id;
     await supabaseClient
         .from('spendings')
         .delete()
@@ -160,9 +160,9 @@ class DashboardRemoteDataSourceImpl extends DashboardRemoteDataSource {
 
   @override
   Future<List<SpendingModel>> getSpendings() async {
-    final userID = supabaseClient.auth.currentUser!;
+    final userID = supabaseClient.auth.currentUser!.id;
     final spendingData = await supabaseClient
-        .from('savings')
+        .from('spendings')
         .select()
         .eq('user_id', userID);
 
@@ -175,7 +175,7 @@ class DashboardRemoteDataSourceImpl extends DashboardRemoteDataSource {
 
   @override
   Future<void> updateIncome({required IncomeModel income}) async {
-    final userID = supabaseClient.auth.currentUser!;
+    final userID = supabaseClient.auth.currentUser!.id;
     await supabaseClient
         .from('incomes')
         .update({
@@ -189,7 +189,7 @@ class DashboardRemoteDataSourceImpl extends DashboardRemoteDataSource {
 
   @override
   Future<void> updateSaving({required SavingModel saving}) async {
-    final userID = supabaseClient.auth.currentUser!;
+    final userID = supabaseClient.auth.currentUser!.id;
     await supabaseClient
         .from('savings')
         .update({
@@ -199,13 +199,13 @@ class DashboardRemoteDataSourceImpl extends DashboardRemoteDataSource {
           'saved_amount': saving.savedAmount,
           'duration': saving.duration,
         })
-        .eq('id', saving.id)
+        .eq('id', saving.id!)
         .eq('user_id', userID);
   }
 
   @override
   Future<void> updateSpending({required SpendingModel spending}) async {
-    final userID = supabaseClient.auth.currentUser!;
+    final userID = supabaseClient.auth.currentUser!.id;
     await supabaseClient
         .from('spendings')
         .update({

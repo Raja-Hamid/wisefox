@@ -1,5 +1,4 @@
 import 'package:equatable/equatable.dart';
-import 'package:wisefox/features/dashboard/domain/entities/dashboard_entity.dart';
 
 enum DashboardScreenType { home, mainTransactions, savings, statistics }
 
@@ -21,8 +20,8 @@ class DashboardLoading extends DashboardState {
   List<Object?> get props => [screenType];
 }
 
-class DashboardSuccess extends DashboardState {
-  final DashboardEntity entity;
+class DashboardSuccess<Entity> extends DashboardState {
+  final Entity entity;
   final DashboardScreenType screenType;
 
   const DashboardSuccess({required this.entity, required this.screenType});

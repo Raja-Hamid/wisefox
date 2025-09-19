@@ -24,17 +24,9 @@ class _OnboardingScreensState extends State<OnboardingScreens> {
     } else {
       Navigator.push(
         context,
-        MaterialPageRoute(builder: (context) => SignInScreen()),
+        CupertinoPageRoute(builder: (context) => SignInScreen()),
       );
     }
-  }
-
-  void skipToLast() {
-    _pageController.animateToPage(
-      titles.length - 1,
-      duration: const Duration(milliseconds: 200),
-      curve: Curves.easeInOut,
-    );
   }
 
   List<String> titles = [
@@ -102,7 +94,7 @@ class _OnboardingScreensState extends State<OnboardingScreens> {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: List.generate(
                 titles.length,
-                    (index) => AnimatedContainer(
+                (index) => AnimatedContainer(
                   padding: EdgeInsets.zero,
                   duration: const Duration(milliseconds: 200),
                   margin: EdgeInsets.symmetric(horizontal: 4),
@@ -110,9 +102,9 @@ class _OnboardingScreensState extends State<OnboardingScreens> {
                   height: currentPage == index ? 12 : 8,
                   decoration: BoxDecoration(
                     color:
-                    currentPage == index
-                        ? AppColors.purple
-                        : AppColors.lightPurple,
+                        currentPage == index
+                            ? AppColors.purple
+                            : AppColors.lightPurple,
                     shape: BoxShape.circle,
                   ),
                 ),
@@ -126,9 +118,13 @@ class _OnboardingScreensState extends State<OnboardingScreens> {
                 CupertinoButton(
                   padding: EdgeInsets.zero,
                   alignment: Alignment.centerLeft,
-                  onPressed: () {
-                    skipToLast();
-                  },
+                  onPressed:
+                      () => Navigator.push(
+                        context,
+                        CupertinoPageRoute(
+                          builder: (context) => SignInScreen(),
+                        ),
+                      ),
                   child: Text(
                     'Skip',
                     style: TextStyle(color: AppColors.purple, fontSize: 16),

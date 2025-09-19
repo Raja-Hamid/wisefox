@@ -131,7 +131,7 @@ class _SavingsScreenState extends State<SavingsScreen> {
                       onPressed: () async {
                         final bloc = context.read<DashboardBloc>();
                         final result =
-                            await showCupertinoModalPopup<Map<String, String>>(
+                            await showCupertinoModalPopup<SavingEntity>(
                               context: context,
                               builder:
                                   (context) => CupertinoPopupSurface(
@@ -140,18 +140,7 @@ class _SavingsScreenState extends State<SavingsScreen> {
                                   ),
                             );
                         if (result != null) {
-                          final saving = SavingEntity(
-                            category: SavingsCategory.values.firstWhere(
-                              (e) =>
-                                  e.toString().split('.').last ==
-                                  result['category']!,
-                            ),
-                            description: result['description']!,
-                            totalAmount: double.parse(result['total_amount']!),
-                            savedAmount: double.parse(result['saved_amount']!),
-                            duration: DateTime.parse(result['deadline']!),
-                          );
-                          bloc.add(AddSavingRequested(entity: saving));
+                          bloc.add(AddSavingRequested(entity: result));
                         }
                       },
                     ),

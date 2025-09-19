@@ -342,7 +342,10 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
           );
         } else {
-          return CupertinoPageScaffold(child: CupertinoActivityIndicator());
+          return CupertinoPageScaffold(
+            backgroundColor: AppColors.eggWhite,
+            child: CupertinoActivityIndicator(),
+          );
         }
       },
     );

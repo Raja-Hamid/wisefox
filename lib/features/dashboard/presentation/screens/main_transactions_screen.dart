@@ -178,7 +178,7 @@ class _MainTransactionsScreenState extends State<MainTransactionsScreen> {
                               isSurfacePainted: true,
                               child: TransactionsBottomSheet(
                                 selectedSegment: _selectedSegment,
-                                onPressed: () {},
+                                onPressed: () async {},
                               ),
                             ),
                       ),

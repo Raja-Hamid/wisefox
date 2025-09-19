@@ -23,6 +23,10 @@ class _SavingsBottomSheetState extends State<SavingsBottomSheet> {
 
   @override
   void dispose() {
+    _descriptionController.dispose();
+    _totalAmountController.dispose();
+    _savedAmountController.dispose();
+    _deadlineController.dispose();
     super.dispose();
   }
 
@@ -95,7 +99,7 @@ class _SavingsBottomSheetState extends State<SavingsBottomSheet> {
                             _selectedCategory = SavingsCategory.values[index];
                           }),
                       child: Text(
-                        SavingsCategory.values[index].name,
+                        SavingsCategory.values[index].label,
                         style: TextStyle(
                           color: AppColors.black,
                           fontSize: 14.sp,
@@ -162,7 +166,7 @@ class _SavingsBottomSheetState extends State<SavingsBottomSheet> {
                           Align(
                             alignment: Alignment.centerRight,
                             child: CupertinoButton(
-                              child: const Text("Done"),
+                              child: const Text('Done'),
                               onPressed: () {
                                 Navigator.of(context).pop();
                               },
@@ -175,7 +179,8 @@ class _SavingsBottomSheetState extends State<SavingsBottomSheet> {
                               minimumDate: DateTime(2000),
                               maximumDate: DateTime(2100),
                               onDateTimeChanged: (DateTime value) {
-                                _deadlineController.text = value.toIso8601String();
+                                _deadlineController.text =
+                                    value.toIso8601String();
                               },
                             ),
                           ),
@@ -211,14 +216,15 @@ class _SavingsBottomSheetState extends State<SavingsBottomSheet> {
                     );
                     return;
                   }
-                  final savingData = {
-                    'category': _selectedCategory!.name,
-                    'description': _descriptionController.text,
-                    'total_amount': _totalAmountController.text,
-                    'saved_amount': _savedAmountController.text,
-                    'deadline': _deadlineController.text,
-                  };
-                  Navigator.of(context).pop(savingData);
+                  Navigator.of(context).pop(
+                    SavingEntity(
+                      category: _selectedCategory!,
+                      description: _descriptionController.text,
+                      totalAmount: double.parse(_totalAmountController.text),
+                      savedAmount: double.parse(_savedAmountController.text),
+                      duration: DateTime.parse(_deadlineController.text),
+                    ),
+                  );
                 }
               },
               child: Text(

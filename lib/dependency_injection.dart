@@ -11,7 +11,13 @@ import 'package:wisefox/features/authorization/presentation/bloc/auth_bloc.dart'
 import 'package:wisefox/features/dashboard/data/datasources/dashboard_remote_data_source.dart';
 import 'package:wisefox/features/dashboard/data/repositories/dashboard_repository_impl.dart';
 import 'package:wisefox/features/dashboard/domain/repositories/dashboard_repository.dart';
+import 'package:wisefox/features/dashboard/domain/usecases/add_income_use_case.dart';
+import 'package:wisefox/features/dashboard/domain/usecases/add_saving_use_case.dart';
+import 'package:wisefox/features/dashboard/domain/usecases/add_spending_use_case.dart';
 import 'package:wisefox/features/dashboard/domain/usecases/fetch_dashboard_data.dart';
+import 'package:wisefox/features/dashboard/domain/usecases/fetch_incomes_use_case.dart';
+import 'package:wisefox/features/dashboard/domain/usecases/fetch_savings_use_case.dart';
+import 'package:wisefox/features/dashboard/domain/usecases/fetch_spendings_use_case.dart';
 import 'package:wisefox/features/dashboard/presentation/bloc/dashboard_bloc.dart';
 import 'package:wisefox/features/profile/data/datasources/profile_remote_data_source.dart';
 import 'package:wisefox/features/profile/data/repositories/profile_repository_impl.dart';
@@ -57,7 +63,23 @@ Future<void> init() async {
     () => DashboardRepositoryImpl(remoteDataSource: di()),
   );
   di.registerLazySingleton(() => FetchDashboardDataUseCase(repository: di()));
-  di.registerFactory(() => DashboardBloc(fetchDashboardDataUseCase: di()));
+  di.registerLazySingleton(() => FetchIncomeUseCase(repository: di()));
+  di.registerLazySingleton(() => FetchSavingsUseCase(repository: di()));
+  di.registerLazySingleton(() => FetchSpendingsUseCase(repository: di()));
+  di.registerLazySingleton(() => AddIncomeUseCase(repository: di()));
+  di.registerLazySingleton(() => AddSavingUseCase(repository: di()));
+  di.registerLazySingleton(() => AddSpendingUseCase(repository: di()));
+  di.registerFactory(
+    () => DashboardBloc(
+      fetchDashboardDataUseCase: di(),
+      fetchIncomesUseCase: di(),
+      fetchSavingsUseCase: di(),
+      fetchSpendingsUseCase: di(),
+      addIncomeUseCase: di(),
+      addSavingUseCase: di(),
+      addSpendingUseCase: di(),
+    ),
+  );
 
   // PROFILE INJECTIONS
   di.registerLazySingleton<ProfileRemoteDataSource>(
